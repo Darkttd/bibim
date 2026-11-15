@@ -228,7 +228,7 @@ namespace Bibim
 
         const bool alive = module->GetAlive();
 
-        if (alive && parent)
+        if (alive && parent && parent->module)
             parent->module->SetAlive(true);
         for (NodeCollection::iterator it = children.begin(); it != children.end(); ++it)
             (*it)->module->SetAlive(alive);
