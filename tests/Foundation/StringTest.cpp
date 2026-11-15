@@ -1,7 +1,6 @@
 ﻿#include <Bibim/Config.h>
 #include <Bibim/String.h>
 #include <doctest.h>
-#include <string>
 
 using namespace Bibim;
 
@@ -69,12 +68,16 @@ TEST_CASE("Equal strings compare equal however they were built, including past 6
 {
     // String compares hash codes first, so every way of building a string must
     // compute the same hash for the same characters.
-    for (int length : { 10, 64, 65, 100 })
+    const int lengths[] = { 10, 64, 65, 100 };
+    for (int length : lengths)
     {
         CAPTURE(length);
-        const std::string characters(length, 'a');
-        const String whole(characters.c_str());
-        String appended(characters.substr(0, length - 1).c_str());
+        char characters[101] = { };
+        for (int i = 0; i < length; i++)
+            characters[i] = 'a';
+
+        const String whole(characters);
+        String appended(characters, 0, length - 1);
         appended.Append("a");
 
         CHECK(appended.GetLength() == length);
