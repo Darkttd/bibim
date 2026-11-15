@@ -19,7 +19,9 @@ namespace Bibim
 
     String::String(const char* s, int startIndex, int length)
     {
-        BBAssert(startIndex <= static_cast<int>(strlen(s)));
+        // s need not be NUL-terminated here (callers pass raw buffers of length
+        // characters), so the range cannot be checked with strlen.
+        BBAssert(startIndex >= 0 && length >= 0);
         buffer.Reset(new StringBuffer(&s[startIndex], length));
     }
 
