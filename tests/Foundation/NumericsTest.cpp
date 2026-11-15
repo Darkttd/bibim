@@ -91,3 +91,10 @@ TEST_CASE("Float::ToString writes six decimal places")
     CHECK(Float::Parse("2.5") == doctest::Approx(2.5f));
     CHECK(Double::Parse("-1.125") == doctest::Approx(-1.125));
 }
+
+TEST_CASE("Double::ToString writes six decimal places like Float::ToString")
+{
+    CHECK(Double::ToString(3.5) == "3.500000");
+    CHECK(Double::ToString(-0.125) == "-0.125000");
+    CHECK(Double::ToString(123456789.125) == "123456789.125000");
+}
