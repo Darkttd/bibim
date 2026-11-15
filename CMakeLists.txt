@@ -55,10 +55,25 @@ foreach(pending ${BIBIM_PENDING_PLATFORM_SOURCES})
     list(REMOVE_ITEM BIBIM_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/${pending})
 endforeach()
 
+# Bundled Lua 5.2.3, built like build/vs20xx/lua.vcxproj: every source except the
+# standalone interpreter and compiler. lua_tinker needs the 5.2 API, so the
+# system Lua cannot be used. LUA_USE_POSIX picks the POSIX implementations
+# (e.g. mkstemp instead of tmpnam), the Linux counterpart of Lua's defaults.
+file(GLOB BIBIM_LUA_SOURCES ${BIBIM_EXTLIBS}/lua-5.2.3/src/*.c)
+list(REMOVE_ITEM BIBIM_LUA_SOURCES
+    ${BIBIM_EXTLIBS}/lua-5.2.3/src/lua.c
+    ${BIBIM_EXTLIBS}/lua-5.2.3/src/luac.c
+)
+add_library(lua STATIC ${BIBIM_LUA_SOURCES})
+target_include_directories(lua PUBLIC ${BIBIM_EXTLIBS}/lua-5.2.3/src)
+target_compile_definitions(lua PRIVATE LUA_USE_POSIX)
+target_link_libraries(lua PUBLIC m)
+
 add_library(Bibim STATIC
     ${BIBIM_SOURCES}
     ${BIBIM_EXTLIBS}/lua_tinker/lua_tinker.cpp
 )
+target_link_libraries(Bibim PUBLIC lua)
 
 # Same third-party header locations as build/vs20xx/Bibim.vcxproj, so every
 # platform compiles against the same library versions. PNG.cpp reads libpng
