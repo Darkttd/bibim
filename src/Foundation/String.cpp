@@ -807,8 +807,12 @@ namespace Bibim
 
         const int hashingCharacters = length < HASHING_CHARACTER_COUNT ? length : HASHING_CHARACTER_COUNT;
 
-        hashCode = 0;
+        // Unsigned arithmetic wraps instead of overflowing, and the shift stays
+        // below the width of the type. The hash is only compared in Equals and
+        // never stored, so its exact value does not matter.
+        unsigned int hash = 0;
         for (int i = 0; i < hashingCharacters; i++)
-            hashCode += static_cast<int>(s[i]) << i;
+            hash += static_cast<unsigned int>(static_cast<unsigned char>(s[i])) << (i % 32);
+        hashCode = static_cast<int>(hash);
     }
 }
