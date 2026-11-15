@@ -1,0 +1,172 @@
+﻿// Tests for GameModule / GameModuleNode / GameModuleTree.
+//
+// Test cases state the intended behavior. A case marked doctest::should_fail
+// documents a known bug: it is expected to fail until the bug is fixed, and then
+// the marker must be removed (doctest reports a should_fail case that passes).
+//
+// Known bugs that cannot run in-process yet (they abort, hang or crash), to be
+// covered when they are fixed:
+// - GameModule::SetID: the debug assertion is inverted, so it aborts in Debug
+//   builds when given a valid new ID.
+// - GameModuleFactory::Create: the binary search never narrows its range for some
+//   IDs (including the first entry and unknown IDs) and loops forever.
+// - GameModuleNode::OnModuleAliveChanged: reviving a module whose parent is the
+//   tree root dereferences the root's null module.
+#include <Bibim/Config.h>
+#include <Bibim/GameModule.h>
+#include <Bibim/GameModuleNode.h>
+#include <Bibim/GameModuleTree.h>
+#include <doctest.h>
+
+using namespace Bibim;
+
+namespace
+{
+    class TestModule : public GameModule
+    {
+        BBModuleClass(TestModule, GameModule, 'T', 'S', 'T', 'A');
+        public:
+            static int Destroyed;
+
+            TestModule() { }
+            explicit TestModule(int id) : GameModule(id) { }
+            virtual ~TestModule() { Destroyed++; }
+    };
+
+    int TestModule::Destroyed = 0;
+
+    class OtherModule : public GameModule
+    {
+        BBModuleClass(OtherModule, GameModule, 'T', 'S', 'T', 'B');
+        public:
+            OtherModule() { }
+            explicit OtherModule(int id) : GameModule(id) { }
+    };
+}
+
+TEST_CASE("GameModuleTree finds attached modules by ID")
+{
+    GameModuleTree tree;
+    TestModule* a = new TestModule(1);
+    TestModule* b = new TestModule(2);
+    GameModuleNode* aNode = tree.GetRoot()->AttachChild(a);
+    aNode->AttachChild(b);
+
+    CHECK(tree.Find(1) == a);
+    CHECK(tree.Find(2) == b);
+    CHECK(tree.Find(3) == nullptr);
+    CHECK(tree.GetRoot()->FindChild(2) == b);
+}
+
+TEST_CASE("GameModuleTree finds modules by class, including nested ones")
+{
+    GameModuleTree tree;
+    TestModule* a = new TestModule();
+    OtherModule* nested = new OtherModule();
+    tree.GetRoot()->AttachChild(a)->AttachChild(nested);
+
+    CHECK(tree.FindModule<TestModule>() == a);
+    CHECK(tree.FindModule<OtherModule>() == nested);
+}
+
+TEST_CASE("Modules attached to a detached subtree are indexed when the subtree joins the tree")
+{
+    GameModuleTree tree;
+    TestModule* parent = new TestModule(10);
+    TestModule* child = new TestModule(11);
+
+    GameModuleNode* parentNode = new GameModuleNode(parent);
+    parentNode->AttachChild(child);
+    CHECK(tree.Find(11) == nullptr);
+
+    tree.GetRoot()->AttachChild(parentNode);
+    CHECK(tree.Find(10) == parent);
+    CHECK(tree.Find(11) == child);
+    CHECK(parentNode->GetTree() == &tree);
+}
+
+TEST_CASE("DetachChild destroys the node, its module and its descendants, and unindexes them")
+{
+    GameModuleTree tree;
+    TestModule* parent = new TestModule(20);
+    GameModuleNode* parentNode = tree.GetRoot()->AttachChild(parent);
+    parentNode->AttachChild(new TestModule(21));
+
+    TestModule::Destroyed = 0;
+    CHECK(tree.GetRoot()->DetachChild(parentNode));
+    CHECK(TestModule::Destroyed == 2);
+    CHECK(tree.Find(20) == nullptr);
+    CHECK(tree.Find(21) == nullptr);
+}
+
+TEST_CASE("Destroying the tree destroys every module in it")
+{
+    TestModule::Destroyed = 0;
+    {
+        GameModuleTree tree;
+        tree.GetRoot()->AttachChild(new TestModule())->AttachChild(new TestModule());
+        tree.GetRoot()->AttachChild(new TestModule());
+    }
+    CHECK(TestModule::Destroyed == 3);
+}
+
+TEST_CASE("GameModule status combines alive and active")
+{
+    GameModuleTree tree;
+    TestModule* m = new TestModule();
+    tree.GetRoot()->AttachChild(m);
+
+    CHECK(m->GetStatus() == GameModule::ActiveStatus);
+    m->SetActive(false);
+    CHECK(m->GetStatus() == GameModule::AliveStatus);
+    m->SetAlive(false);
+    CHECK(m->GetStatus() == GameModule::DeadStatus);
+    m->SetActive(true);
+    CHECK(m->GetStatus() == GameModule::DeadStatus);
+}
+
+TEST_CASE("Killing a module kills its descendants; reviving one revives its ancestors")
+{
+    // top is kept alive throughout: reviving a direct child of the root crashes (see above).
+    GameModuleTree tree;
+    TestModule* top = new TestModule();
+    TestModule* middle = new TestModule();
+    TestModule* leaf = new TestModule();
+    TestModule* sibling = new TestModule();
+    GameModuleNode* middleNode = tree.GetRoot()->AttachChild(top)->AttachChild(middle);
+    middleNode->AttachChild(leaf);
+    middleNode->AttachChild(sibling);
+
+    middle->SetAlive(false);
+    CHECK(top->GetAlive());
+    CHECK_FALSE(leaf->GetAlive());
+    CHECK_FALSE(sibling->GetAlive());
+
+    leaf->SetAlive(true);
+    CHECK(middle->GetAlive());
+    // Current behavior: the revived parent revives all of its children, so the
+    // sibling comes back too.
+    CHECK(sibling->GetAlive());
+}
+
+TEST_CASE("Deactivating a module does not deactivate its children")
+{
+    GameModuleTree tree;
+    TestModule* parent = new TestModule();
+    TestModule* child = new TestModule();
+    tree.GetRoot()->AttachChild(parent)->AttachChild(child);
+
+    parent->SetActive(false);
+    CHECK(child->GetActive());
+}
+
+TEST_CASE("GameModuleNode::IsRoot is true only for the tree root"
+          * doctest::should_fail(true)
+          * doctest::description("Known bug: IsRoot() tests 'parent != nullptr' and is inverted."))
+{
+    GameModuleTree tree;
+    GameModuleNode* child = tree.GetRoot()->AttachChild(new TestModule());
+
+    CHECK(tree.GetRoot()->IsRoot());
+    CHECK_FALSE(child->IsRoot());
+}
