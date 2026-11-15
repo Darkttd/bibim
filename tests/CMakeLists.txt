@@ -3,6 +3,7 @@ add_executable(BibimTests
     main.cpp
     Foundation/MathTest.cpp
     Foundation/StringTest.cpp
+    IO/BinaryReaderWriterTest.cpp
     Module/GameModuleTreeTest.cpp
 )
 
