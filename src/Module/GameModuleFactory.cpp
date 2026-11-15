@@ -51,9 +51,9 @@ namespace Bibim
             const int index = lower + static_cast<int>((upper - lower) / 2);
 
             if (id < Entries[index].ID)
-                upper = index + 1;
+                upper = index;
             else if (id > Entries[index].ID)
-                lower = index;
+                lower = index + 1;
             else
                 return (*Entries[index].Function)();
         }
