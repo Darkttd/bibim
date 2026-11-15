@@ -27,6 +27,12 @@ jobs:
           - name: ASan
             build_type: Debug
             sanitize_flags: -fsanitize=address -fno-omit-frame-pointer
+          # UndefinedBehaviorSanitizer: signed overflow, oversized shifts, bad
+          # casts and the like. -fno-sanitize-recover makes the first finding fail
+          # the test run instead of only printing a message.
+          - name: UBSan
+            build_type: Debug
+            sanitize_flags: -fsanitize=undefined -fno-sanitize-recover=all -fno-omit-frame-pointer
     steps:
       - uses: actions/checkout@v7
 
