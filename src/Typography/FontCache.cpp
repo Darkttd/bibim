@@ -526,7 +526,7 @@ namespace Bibim
 
                     const Vector2 advance = Vector2(F16D16ToFloat(strokedGlyph->advance.x), F16D16ToFloat(strokedGlyph->advance.y));
                     const Vector2 bitmapOffset = Vector2(static_cast<float>(strokedGlyphBitmap->left), unscaledAscender - static_cast<float>(strokedGlyphBitmap->top));
-                    const Vector2 bitmapSize   = Vector2(glyphBitmap.Bitmap->width, glyphBitmap.Bitmap->rows);
+                    const Vector2 bitmapSize   = Vector2(static_cast<int>(glyphBitmap.Bitmap->width), static_cast<int>(glyphBitmap.Bitmap->rows));
                     Add(strokedGlyphTable,
                         code,
                         advance / parameters.Scale, bitmapOffset / parameters.Scale, bitmapSize / parameters.Scale,
@@ -549,7 +549,7 @@ namespace Bibim
             FT_GlyphSlot renderedGlyph = faceGlyphIndex.first->glyph;
             const Vector2 advance = Vector2(F26D6ToFloat(renderedGlyph->advance.x), F26D6ToFloat(renderedGlyph->advance.y));
             const Vector2 bitmapOffset = Vector2(static_cast<float>(renderedGlyph->bitmap_left), unscaledAscender - static_cast<float>(renderedGlyph->bitmap_top));
-            const Vector2 bitmapSize   = Vector2(glyphBitmap.Bitmap->width, glyphBitmap.Bitmap->rows);
+            const Vector2 bitmapSize   = Vector2(static_cast<int>(glyphBitmap.Bitmap->width), static_cast<int>(glyphBitmap.Bitmap->rows));
 
             return Add(regularGlyphTable,
                        code,
