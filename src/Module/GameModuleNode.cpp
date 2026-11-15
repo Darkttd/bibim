@@ -228,7 +228,6 @@ namespace Bibim
 
         const bool alive = module->GetAlive();
 
-        // The tree root has no module to revive.
         if (alive && parent && parent->module)
             parent->module->SetAlive(true);
         for (NodeCollection::iterator it = children.begin(); it != children.end(); ++it)
