@@ -1,7 +1,7 @@
 ﻿#include <Bibim/Config.h>
 #include <Bibim/UIEffectStack.h>
 #include <Bibim/Assert.h>
-#include <Bibim/IMage.h>
+#include <Bibim/Image.h>
 #include <Bibim/Math.h>
 #include <Bibim/UIEffectMap.h>
 #include <Bibim/UIPixelEffect.h>
