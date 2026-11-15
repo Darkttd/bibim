@@ -121,8 +121,11 @@ namespace Bibim
         static const int BUFFER_LENGTH = 32;
 
         const bool isNegative = (value < 0);
+        // Take the magnitude in unsigned arithmetic: -LongInt::Min does not fit
+        // in longint, but 0 - x wraps to the right value in unsigned long long.
+        unsigned long long magnitude = static_cast<unsigned long long>(value);
         if (isNegative)
-            value = -value;
+            magnitude = 0 - magnitude;
 
         char s[BUFFER_LENGTH];
         s[BUFFER_LENGTH - 1] = '\0';
@@ -130,9 +133,9 @@ namespace Bibim
         int index = BUFFER_LENGTH - 2;
         do
         {
-            s[index--] = "0123456789"[value % 10];
-            value /= 10;
-        } while (value > 0);
+            s[index--] = "0123456789"[magnitude % 10];
+            magnitude /= 10;
+        } while (magnitude > 0);
 
         if (isNegative)
             s[index] = '-';
