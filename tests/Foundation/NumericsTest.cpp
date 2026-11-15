@@ -1,9 +1,4 @@
 ﻿// Tests for the number parsing and formatting helpers in Numerics.h.
-//
-// Known bugs that cannot run in-process yet (they read out of bounds, which the
-// sanitizer builds in CI abort on), to be covered when they are fixed:
-// - LongInt::ToString(LongInt::Min): negating the value overflows, so the digits
-//   are looked up at negative indices and the result is "-".
 #include <Bibim/Config.h>
 #include <Bibim/Numerics.h>
 #include <doctest.h>
@@ -24,6 +19,7 @@ TEST_CASE("LongInt::ToString writes 64-bit values")
     CHECK(LongInt::ToString(-1) == "-1");
     CHECK(LongInt::ToString(static_cast<longint>(1) << 40) == "1099511627776");
     CHECK(LongInt::ToString(LongInt::Max) == "9223372036854775807");
+    CHECK(LongInt::ToString(LongInt::Min) == "-9223372036854775808");
 }
 
 TEST_CASE("Int and LongInt parse what ToString writes")
@@ -35,7 +31,7 @@ TEST_CASE("Int and LongInt parse what ToString writes")
         CHECK(Int::Parse(Int::ToString(value)) == value);
     }
 
-    const longint longs[] = { 0, -1, static_cast<longint>(1) << 40, LongInt::Max };
+    const longint longs[] = { 0, -1, static_cast<longint>(1) << 40, LongInt::Max, LongInt::Min };
     for (longint value : longs)
     {
         CAPTURE(value);
