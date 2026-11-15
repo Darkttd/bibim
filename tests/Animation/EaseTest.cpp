@@ -1,8 +1,4 @@
 ﻿// Tests for the Ease functions behind the standard easing curves.
-//
-// Test cases state the intended behavior. A case marked doctest::should_fail
-// documents a known bug: it is expected to fail until the bug is fixed, and then
-// the marker must be removed (doctest reports a should_fail case that passes).
 #include <Bibim/Config.h>
 #include <Bibim/Ease.h>
 #include <doctest.h>
@@ -30,12 +26,11 @@ namespace
     float OutElastic(float t)   { return Ease::OutElastic(t, 1.0f, 0.3f); }
     float InOutElastic(float t) { return Ease::InOutElastic(t, 1.0f, 0.45f); }
 
-    // OutQuartic is left out of these lists; see the last test case.
     const Curve Curves[] =
     {
         { "InQuadratic",   Ease::InQuadratic },   { "OutQuadratic",   Ease::OutQuadratic },   { "InOutQuadratic",   Ease::InOutQuadratic },
         { "InCubic",       Ease::InCubic },       { "OutCubic",       Ease::OutCubic },       { "InOutCubic",       Ease::InOutCubic },
-        { "InQuartic",     Ease::InQuartic },                                                 { "InOutQuartic",     Ease::InOutQuartic },
+        { "InQuartic",     Ease::InQuartic },     { "OutQuartic",     Ease::OutQuartic },     { "InOutQuartic",     Ease::InOutQuartic },
         { "InQuintic",     Ease::InQuintic },     { "OutQuintic",     Ease::OutQuintic },     { "InOutQuintic",     Ease::InOutQuintic },
         { "InSinusoidal",  Ease::InSinusoidal },  { "OutSinusoidal",  Ease::OutSinusoidal },  { "InOutSinusoidal",  Ease::InOutSinusoidal },
         { "InExponential", Ease::InExponential }, { "OutExponential", Ease::OutExponential }, { "InOutExponential", Ease::InOutExponential },
@@ -48,6 +43,7 @@ namespace
     {
         { "Quadratic",   Ease::InQuadratic,   Ease::OutQuadratic },
         { "Cubic",       Ease::InCubic,       Ease::OutCubic },
+        { "Quartic",     Ease::InQuartic,     Ease::OutQuartic },
         { "Quintic",     Ease::InQuintic,     Ease::OutQuintic },
         { "Sinusoidal",  Ease::InSinusoidal,  Ease::OutSinusoidal },
         { "Exponential", Ease::InExponential, Ease::OutExponential },
@@ -136,18 +132,4 @@ TEST_CASE("Back curves overshoot the 0..1 range")
     CHECK(Ease::OutBack(0.8f) > 1.0f);
     // With no overshoot, InBack is t^3.
     CHECK(Ease::InBack(0.5f, 0.0f) == Near(Ease::InCubic(0.5f)));
-}
-
-TEST_CASE("Ease::OutQuartic starts at 0, ends at 1 and mirrors InQuartic"
-          * doctest::should_fail(true)
-          * doctest::description("Known bug: OutQuartic returns -(t - 1)^4 - 1 instead of -(t - 1)^4 + 1."))
-{
-    CHECK(Ease::OutQuartic(0.0f) == Near(0.0f));
-    CHECK(Ease::OutQuartic(1.0f) == Near(1.0f));
-    for (int i = 0; i <= Steps; i++)
-    {
-        const float t = StepAt(i);
-        CAPTURE(t);
-        CHECK(Ease::OutQuartic(t) == Near(1.0f - Ease::InQuartic(1.0f - t)));
-    }
 }
