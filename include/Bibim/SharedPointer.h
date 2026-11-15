@@ -4,6 +4,7 @@
 
 #include <Bibim/Foundation.h>
 #include <Bibim/SharedObject.h>
+#include <cstddef>
 
 namespace Bibim
 {
