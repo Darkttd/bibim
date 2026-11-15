@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
@@ -37,14 +36,6 @@ namespace Bibim.Bab
         private SortedSet<string> realtimeConsoleCommands;
         private int isProgramEnded;
         private int isWindowClosing;
-        #endregion
-
-        #region Properties
-        public static ConcurrentQueue<string> CommandQueue
-        {
-            get;
-            private set;
-        }
         #endregion
 
         #region Constructor
@@ -106,11 +97,6 @@ namespace Bibim.Bab
             });
             programThread.Start();
         }
-
-        static ConsoleWindow()
-        {
-            CommandQueue = new ConcurrentQueue<string>();
-        }
         #endregion
 
         #region Methods
@@ -135,9 +121,9 @@ namespace Bibim.Bab
 
             if (isProgramEnded == 0)
             {
-                CommandQueue.Enqueue("close");
-                CommandQueue.Enqueue("exit");
-                CommandQueue.Enqueue("quit");
+                ConsoleCommandQueue.Commands.Enqueue("close");
+                ConsoleCommandQueue.Commands.Enqueue("exit");
+                ConsoleCommandQueue.Commands.Enqueue("quit");
 
                 // Program Thread가 정상적으로 끝나는 것을 10초 정도 기다립니다.
                 // 그래도 안 끝나면 ""경험상"" 비정상적인 상황이므로 Thread를 강제로 종료합니다.
@@ -195,7 +181,7 @@ namespace Bibim.Bab
                     break;
             }
 
-            CommandQueue.Enqueue(command);
+            ConsoleCommandQueue.Commands.Enqueue(command);
             textBoxCommand.Focus();
             textBoxCommand.Text = string.Empty;
         }

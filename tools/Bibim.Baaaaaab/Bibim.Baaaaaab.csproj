@@ -166,6 +166,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Consoles\AssetServer.cs" />
+    <Compile Include="Consoles\ConsoleCommandQueue.cs" />
     <Compile Include="Consoles\ConsoleEntryPointAttribute.cs" />
     <Compile Include="Consoles\CppFullHeaderGenerator.cs" />
     <Compile Include="Consoles\CppStartupCodeGenerator.cs" />

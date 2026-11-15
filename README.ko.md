@@ -73,6 +73,23 @@ Windows의 Debug 빌드는 각 에셋을 먼저 localhost의 에셋 서버에 �
 bin\Bibim.Baaaaaab.exe console /class:AssetServer
 ```
 
+### 리눅스(Mono)에서 콘솔 프로그램 실행
+
+`Bibim.Baaaaaab.Cli`는 `Bibim.Baaaaaab.exe console`과 같은 콘솔 프로그램을 WPF 없이 실행하므로, 리눅스에서도
+Mono로 쓸 수 있습니다. 표준 입력의 각 줄은 실행 중인 프로그램에 명령으로 전달됩니다(예: `exit`). 표준 입력을
+닫거나, 터미널에서 실행 중일 때 Ctrl+C를 누르면 창을 닫을 때와 같은 방식으로 종료합니다. Ctrl+C를 한 번 더 누르면
+즉시 종료합니다. 표준 입력이 닫히면 종료하므로, 터미널 없이 서버를 띄우면(예: `< /dev/null`, `nohup`, systemd)
+바로 종료됩니다. 이때는 `tail -f /dev/null | mono ...`처럼 표준 입력을 열어 두세요.
+
+```
+xbuild /p:Configuration=Release tools/Bibim.Baaaaaab.Cli/Bibim.Baaaaaab.Cli.csproj
+cd bin
+mono ../tools/Bibim.Baaaaaab.Cli/bin/x86/Release/Bibim.Baaaaaab.Cli.exe console /class:AssetServer
+```
+
+Windows 도구처럼 `bin/Plugin/*.dll`을 불러오도록 `bin/`에서 실행하세요. 일부 레시피(텍스처 쿠킹, Lua·HLSL
+컴파일 등)는 아직 리눅스에서 동작하지 않습니다. [#27](https://github.com/Darkttd/bibim/issues/27)을 참고하세요.
+
 ## Bibim을 사용하는 프로젝트
 
 - [Maple](https://github.com/Darkttd/Maple) — 피크로스 퍼즐 게임 *모에모에 네모로직(Moemoe Nemologic)*

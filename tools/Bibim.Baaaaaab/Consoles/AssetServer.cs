@@ -43,7 +43,7 @@ namespace Bibim.Bab.Consoles
             while (closed == false)
             {
                 string command;
-                if (ConsoleWindow.CommandQueue.TryDequeue(out command))
+                if (ConsoleCommandQueue.Commands.TryDequeue(out command))
                 {
                     switch (command.ToLower())
                     {
