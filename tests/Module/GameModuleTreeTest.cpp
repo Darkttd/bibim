@@ -166,13 +166,15 @@ TEST_CASE("Deactivating a module does not deactivate its children")
     CHECK(child->GetActive());
 }
 
-TEST_CASE("GameModuleNode::IsRoot is true only for the tree root"
-          * doctest::should_fail(true)
-          * doctest::description("Known bug: IsRoot() tests 'parent != nullptr' and is inverted."))
+TEST_CASE("GameModuleNode::IsRoot is true only for the tree root")
 {
     GameModuleTree tree;
     GameModuleNode* child = tree.GetRoot()->AttachChild(new TestModule());
 
     CHECK(tree.GetRoot()->IsRoot());
     CHECK_FALSE(child->IsRoot());
+
+    // A node outside any tree has no parent either, but is not a root.
+    GameModuleNode detached(new TestModule());
+    CHECK_FALSE(detached.IsRoot());
 }

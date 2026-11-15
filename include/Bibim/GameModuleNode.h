@@ -94,7 +94,7 @@ namespace Bibim
 
     bool GameModuleNode::IsRoot() const
     {
-        return parent != nullptr && tree != nullptr;
+        return parent == nullptr && tree != nullptr;
     }
 }
 
