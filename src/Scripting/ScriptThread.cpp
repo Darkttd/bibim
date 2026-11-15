@@ -5,7 +5,7 @@
 #include <Bibim/Memory.h>
 #include <Bibim/MemoryStream.h>
 #include <Bibim/Script.h>
-#include <Bibim/SCriptingContext.h>
+#include <Bibim/ScriptingContext.h>
 #include <Bibim/ScriptNativeFunctionTable.h>
 
 namespace Bibim

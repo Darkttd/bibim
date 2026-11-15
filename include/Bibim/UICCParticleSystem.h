@@ -5,7 +5,7 @@
 #include <Bibim/FWD.h>
 #include <Bibim/UIVisual.h>
 #include <Bibim/IUpdateable.h>
-#include <BIbim/CCParticleEmitter.h>
+#include <Bibim/CCParticleEmitter.h>
 
 namespace Bibim
 {
