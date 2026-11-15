@@ -12,6 +12,17 @@ if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux")
     message(FATAL_ERROR "This CMake build targets Linux only. Use build/vs20xx on Windows.")
 endif()
 
+# The GLES2 renderer includes the OpenGL ES 2.0 and EGL headers. Fail at
+# configure time with a clear message instead of midway through the build.
+find_path(BIBIM_GLES2_INCLUDE_DIR GLES2/gl2.h)
+find_path(BIBIM_EGL_INCLUDE_DIR EGL/egl.h)
+if(NOT BIBIM_GLES2_INCLUDE_DIR OR NOT BIBIM_EGL_INCLUDE_DIR)
+    message(FATAL_ERROR
+        "OpenGL ES 2.0 / EGL headers not found (GLES2/gl2.h, EGL/egl.h). "
+        "Install them, e.g. 'libgles-dev libegl-dev' on Debian/Ubuntu or 'libglvnd' on Arch.")
+endif()
+include_directories(${BIBIM_GLES2_INCLUDE_DIR} ${BIBIM_EGL_INCLUDE_DIR})
+
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
