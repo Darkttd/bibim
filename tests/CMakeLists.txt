@@ -4,6 +4,7 @@ add_executable(BibimTests
     Foundation/MathTest.cpp
     Foundation/StringTest.cpp
     IO/BinaryReaderWriterTest.cpp
+    Module/GameModuleTreeTest.cpp
 )
 
 target_link_libraries(BibimTests PRIVATE Bibim)
