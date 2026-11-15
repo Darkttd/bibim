@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{0AF5FFA3-775C-42E7-BED8-C701034010A1}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Bibim.Bab</RootNamespace>
+    <AssemblyName>Bibim.Baaaaaab.Cli</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\References\DotNetZipLib\zip-v1.9\Release\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="..\Bibim.Baaaaaab\Consoles\AssetServer.cs">
+      <Link>Consoles\AssetServer.cs</Link>
+    </Compile>
+    <Compile Include="..\Bibim.Baaaaaab\Consoles\ConsoleCommandQueue.cs">
+      <Link>Consoles\ConsoleCommandQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\Bibim.Baaaaaab\Consoles\ConsoleEntryPointAttribute.cs">
+      <Link>Consoles\ConsoleEntryPointAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Bibim.Baaaaaab\Consoles\CppFullHeaderGenerator.cs">
+      <Link>Consoles\CppFullHeaderGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\Bibim.Baaaaaab\Consoles\CppStartupCodeGenerator.cs">
+      <Link>Consoles\CppStartupCodeGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\Bibim.Baaaaaab\Consoles\RunScript.cs">
+      <Link>Consoles\RunScript.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bibim.Toolkit\Bibim.Toolkit.csproj">
+      <Project>{2E731BA3-4E48-4245-BD3F-718E1B649545}</Project>
+      <Name>Bibim.Toolkit</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

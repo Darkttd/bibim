@@ -73,6 +73,25 @@ files. Start the server when you want the game to receive assets from their sour
 bin\Bibim.Baaaaaab.exe console /class:AssetServer
 ```
 
+### Running the console programs on Linux (Mono)
+
+`Bibim.Baaaaaab.Cli` runs the same console programs as `Bibim.Baaaaaab.exe console` without WPF, so it
+also works on Linux with Mono. Each line on standard input is sent to the running program as a command
+(for example `exit`). Closing standard input, or pressing Ctrl+C when it runs in a terminal, stops it the same
+way as closing the window; a second Ctrl+C stops it immediately. Because closing standard input stops it, a
+server started without a terminal (for example with `< /dev/null`, `nohup` or systemd) exits right away;
+keep standard input open instead, for example `tail -f /dev/null | mono ...`.
+
+```
+xbuild /p:Configuration=Release tools/Bibim.Baaaaaab.Cli/Bibim.Baaaaaab.Cli.csproj
+cd bin
+mono ../tools/Bibim.Baaaaaab.Cli/bin/x86/Release/Bibim.Baaaaaab.Cli.exe console /class:AssetServer
+```
+
+Run it from `bin/` so that it loads `bin/Plugin/*.dll`, like the Windows tool. Some recipes do not work on
+Linux yet (for example texture cooking and Lua/HLSL compilation); see
+[#27](https://github.com/Darkttd/bibim/issues/27).
+
 ## Projects using Bibim
 
 - [Maple](https://github.com/Darkttd/Maple) — *Moemoe Nemologic*, a picross puzzle game
