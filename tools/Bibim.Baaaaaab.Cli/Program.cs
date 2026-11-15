@@ -11,10 +11,10 @@ using Bibim.Toolkit;
 namespace Bibim.Bab
 {
     /// <summary>
-    /// Bibim.Baaaaaab의 콘솔 프로그램([ConsoleEntryPoint])을 WPF 없이 터미널에서 실행합니다.
-    /// 명령행 형식은 Bibim.Baaaaaab.exe의 console 모드와 같습니다:
+    /// Runs the Bibim.Baaaaaab console programs ([ConsoleEntryPoint]) in a terminal, without WPF.
+    /// The command line is the same as the console mode of Bibim.Baaaaaab.exe:
     ///   Bibim.Baaaaaab.Cli.exe console /class:AssetServer [/Key:Value ...]
-    /// 표준 입력의 각 줄은 실행 중인 프로그램에 명령으로 전달됩니다(예: exit).
+    /// Each line on standard input is sent to the running program as a command (for example exit).
     /// </summary>
     public static class Program
     {
@@ -43,8 +43,8 @@ namespace Bibim.Bab
 
             object[] programArgs = ConvertArguments(programEntry, options);
 
-            // 표준 입력이 닫히거나 Ctrl+C를 누르면 WPF 창을 닫을 때와 같은 종료 명령을 보냅니다.
-            // (Mono는 표준 입력이 터미널일 때만 Ctrl+C 처리기를 설치합니다. 그 밖의 SIGINT는 즉시 종료됩니다.)
+            // When standard input closes or Ctrl+C is pressed, send the same stop commands as closing the WPF window.
+            // (Mono installs the Ctrl+C handler only when standard input is a terminal; any other SIGINT terminates at once.)
             var inputThread = new Thread(() =>
             {
                 string line;
@@ -58,7 +58,7 @@ namespace Bibim.Bab
             int cancelCount = 0;
             Console.CancelKeyPress += (sender, e) =>
             {
-                // 첫 Ctrl+C는 정상 종료를 요청하고, 두 번째는 즉시 종료합니다.
+                // The first Ctrl+C requests a graceful stop; the second terminates at once.
                 if (Interlocked.Increment(ref cancelCount) == 1)
                 {
                     e.Cancel = true;
@@ -91,7 +91,7 @@ namespace Bibim.Bab
         }
 
         /// <summary>
-        /// Bibim.Baaaaaab(App.OnStartup)처럼 현재 디렉터리의 Plugin 폴더에 있는 어셈블리를 불러옵니다.
+        /// Loads the assemblies in the Plugin folder of the current directory, like Bibim.Baaaaaab (App.OnStartup).
         /// </summary>
         private static void LoadPlugins()
         {
@@ -112,7 +112,7 @@ namespace Bibim.Bab
         }
 
         /// <summary>
-        /// "/Key:Value" 혹은 "/Flag" 형태의 명령행 인자를 분석합니다. (App.OnStartup과 같은 규칙)
+        /// Parses "/Key:Value" and "/Flag" command-line arguments (same rules as App.OnStartup).
         /// </summary>
         private static SortedList<string, string> ParseOptions(string[] args)
         {
@@ -135,7 +135,7 @@ namespace Bibim.Bab
         }
 
         /// <summary>
-        /// 명령행 인자를 콘솔 프로그램의 매개변수에 맞게 변환합니다. (ConsoleWindow와 같은 규칙)
+        /// Converts the command-line arguments to the console program's parameters (same rules as ConsoleWindow).
         /// </summary>
         private static object[] ConvertArguments(MethodInfo programEntry, SortedList<string, string> options)
         {
