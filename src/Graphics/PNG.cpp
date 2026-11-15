@@ -1,4 +1,4 @@
-#include <Bibim/Config.h>
+ï»¿#include <Bibim/Config.h>
 #include <Bibim/PNG.h>
 #include <Bibim/AssetStreamReader.h>
 #include <Bibim/GameAsset.h>
@@ -60,7 +60,7 @@ namespace Bibim
         }
         else if (colorType == PNG_COLOR_TYPE_RGB)
         {
-            // RGBA°¡ ¾Æ´Ï¶ó RGB 3byte·Î ÀúÀåµÇ¾îÀÖ±â ¶§¹®¿¡ Ç¥¸é pitchÀÇ 3/4ÀÇ Å©±â¿©¾ßÇÕ´Ï´Ù.
+            // RGBAê°€ ì•„ë‹ˆë¼ RGB 3byteë¡œ ì €ì¥ë˜ì–´ìˆê¸° ë•Œë¬¸ì— í‘œë©´ pitchì˜ 3/4ì˜ í¬ê¸°ì—¬ì•¼í•©ë‹ˆë‹¤.
             BBAssert(static_cast<int>(pitch) == destinationPitch * 3 / 4);
         }
 

@@ -1,4 +1,4 @@
-#include <Bibim/Config.h>
+ï»¿#include <Bibim/Config.h>
 #include <Bibim/UIForceGridEffect.h>
 #include <Bibim/ComponentStreamReader.h>
 #include <Bibim/Math.h>
@@ -498,7 +498,7 @@ namespace Bibim
 
     void UIForceGridEffect::PointMass::Update()
     {
-        // °íÁ¤ ÇÁ·¹ÀÓÀÌ¹Ç·Î dt µµ »ç¿ëÇÏÁö ¾Ê½À´Ï´Ù.
+        // ê³ ì • í”„ë ˆìž„ì´ë¯€ë¡œ dt ë„ ì‚¬ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
 
         velocity += acceleration;
         position += velocity;
@@ -538,7 +538,7 @@ namespace Bibim
 
     void UIForceGridEffect::Spring::Update()
     {
-        // °íÁ¤ ÇÁ·¹ÀÓÀÌ¹Ç·Î, dt µµ »ç¿ëÇÏÁö ¾Ê½À´Ï´Ù.
+        // ê³ ì • í”„ë ˆìž„ì´ë¯€ë¡œ, dt ë„ ì‚¬ìš©í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
 
         Vector3 d = end1->position - end2->position;
 
