@@ -708,6 +708,9 @@ namespace Bibim
         if (startIndex == 0 && length >= buffer->length)
             return String(*this);
 
+        if (length > buffer->length - startIndex)
+            length = buffer->length - startIndex;
+
         return String(buffer->s, startIndex, length);
     }
 
