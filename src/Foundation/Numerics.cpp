@@ -175,6 +175,6 @@ namespace Bibim
 
     String Double::ToString(double value)
     {
-        return String::CFormat("%.lf", value);
+        return String::CFormat("%lf", value);
     }
 }
