@@ -6,13 +6,21 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
+checked=0
 missing=0
 while IFS= read -r -d '' file; do
+  checked=$((checked + 1))
   if [ -n "$(tail -c 1 -- "$file")" ]; then
     echo "$file"
     missing=$((missing + 1))
   fi
 done < <(git grep -I -z -l '' -- . ':!extlibs/' ':!tools/References/' ':!bin/')
+
+# A failing git grep inside the process substitution would otherwise look like a pass.
+if [ "$checked" -eq 0 ]; then
+  echo "No files were checked; git grep found nothing or failed." >&2
+  exit 1
+fi
 
 if [ "$missing" -ne 0 ]; then
   echo "$missing file(s) above do not end with a newline. Add one, keeping the file's line endings (CRLF or LF)." >&2
