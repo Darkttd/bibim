@@ -43,3 +43,10 @@ TEST_CASE("String::StartsWith and String::Contains find substrings")
     CHECK(s.Contains('g'));
     CHECK_FALSE(s.Contains("bibim"));
 }
+
+TEST_CASE("String::CFormat formats its arguments")
+{
+    CHECK(String::CFormat("%d-%s", 42, "bibim") == "42-bibim");
+    CHECK(String::CFormat("%s has %d stages, %.1f%% clear", "Maple", 300, 87.5) == "Maple has 300 stages, 87.5% clear");
+    CHECK(String::CFormat("%s", "") == "");
+}

@@ -60,7 +60,12 @@ namespace Bibim
 #       if (defined(BIBIM_COMPILER_MSVC))
         const int length = _vscprintf(format, args);
 #       elif (defined(BIBIM_COMPILER_GCC))
-        const int length = vsnprintf(nullptr, 0, format, args);
+        // vsnprintf consumes the va_list on some ABIs (e.g. x86-64), and args is
+        // used again below, so measure the length with a copy.
+        va_list argsForLength;
+        va_copy(argsForLength, args);
+        const int length = vsnprintf(nullptr, 0, format, argsForLength);
+        va_end(argsForLength);
 #       endif
         if (length > 0)
         {
