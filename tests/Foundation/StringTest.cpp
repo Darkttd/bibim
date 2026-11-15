@@ -50,3 +50,16 @@ TEST_CASE("String::CFormat formats its arguments")
     CHECK(String::CFormat("%s has %d stages, %.1f%% clear", "Maple", 300, 87.5) == "Maple has 300 stages, 87.5% clear");
     CHECK(String::CFormat("%s", "") == "");
 }
+
+TEST_CASE("String::Substring stops at the end of the string")
+{
+    const String s = "bibim";
+    CHECK(s.Substring(1, 2) == "ib");
+    CHECK(s.Substring(2, 3) == "bim");
+    // Compare lengths too: == against a C string stops at the first NUL.
+    CHECK(s.Substring(2, 100) == "bim");
+    CHECK(s.Substring(2, 100).GetLength() == 3);
+    CHECK(s.Substring(0, 100) == "bibim");
+    CHECK(s.Substring(-2, 4) == "bi");
+    CHECK(s.Substring(5, 1) == String::Empty);
+}
