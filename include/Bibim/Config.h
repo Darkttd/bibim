@@ -16,6 +16,10 @@
 #    define BIBIM_PLATFORM_IOS
 #    define BIBIM_PLATFORM_MOBILE
 #    define BIBIM_USE_OPENGLES2
+#elif (defined(__linux__))
+#    define BIBIM_PLATFORM_UNIX
+#    define BIBIM_PLATFORM_LINUX
+#    define BIBIM_USE_OPENGLES2
 #else
 #    error "UNKNOWN PLATFORM"
 #    define BIBIM_PLATFORM_UNKNOWN
