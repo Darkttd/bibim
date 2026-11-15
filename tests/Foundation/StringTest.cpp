@@ -1,6 +1,7 @@
 ﻿#include <Bibim/Config.h>
 #include <Bibim/String.h>
 #include <doctest.h>
+#include <string>
 
 using namespace Bibim;
 
@@ -62,4 +63,21 @@ TEST_CASE("String::Substring stops at the end of the string")
     CHECK(s.Substring(0, 100) == "bibim");
     CHECK(s.Substring(-2, 4) == "bi");
     CHECK(s.Substring(5, 1) == String::Empty);
+}
+
+TEST_CASE("Equal strings compare equal however they were built, including past 64 characters")
+{
+    // String compares hash codes first, so every way of building a string must
+    // compute the same hash for the same characters.
+    for (int length : { 10, 64, 65, 100 })
+    {
+        CAPTURE(length);
+        const std::string characters(length, 'a');
+        const String whole(characters.c_str());
+        String appended(characters.substr(0, length - 1).c_str());
+        appended.Append("a");
+
+        CHECK(appended.GetLength() == length);
+        CHECK(whole == appended);
+    }
 }
