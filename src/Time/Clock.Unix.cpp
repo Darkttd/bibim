@@ -3,7 +3,6 @@
 
 #include <Bibim/Clock.h>
 #include <sys/time.h>
-#include <cstddef>
 
 static Bibim::int64 GetTimeOfDay()
 {

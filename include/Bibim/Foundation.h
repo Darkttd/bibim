@@ -58,7 +58,7 @@ namespace Bibim
                                                     classname& operator = (const classname&);
 }
 
-#if (defined(__APPLE__))
+#if (defined(__APPLE__) || defined(BIBIM_PLATFORM_LINUX))
 #    include <cstddef>
 #    include <cstdlib>
 #    include <cstdio>
