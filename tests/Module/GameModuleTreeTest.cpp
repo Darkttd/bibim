@@ -164,6 +164,28 @@ TEST_CASE("Deactivating a module does not deactivate its children")
     CHECK(child->GetActive());
 }
 
+TEST_CASE("GameModule::SetID re-indexes the module in its tree")
+{
+    GameModuleTree tree;
+    TestModule* m = new TestModule(30);
+    tree.GetRoot()->AttachChild(m);
+
+    m->SetID(31);
+    CHECK(m->GetID() == 31);
+    CHECK(tree.Find(31) == m);
+    CHECK(tree.Find(30) == nullptr);
+
+    m->SetID(GameModule::UnspecifiedID);
+    CHECK(tree.Find(31) == nullptr);
+}
+
+TEST_CASE("GameModule::SetID works on a module outside any tree")
+{
+    TestModule m(40);
+    m.SetID(41);
+    CHECK(m.GetID() == 41);
+}
+
 TEST_CASE("GameModuleNode::IsRoot is true only for the tree root")
 {
     GameModuleTree tree;
