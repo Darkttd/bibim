@@ -84,6 +84,8 @@ bin\Bibim.Baaaaaab.exe console /class:AssetServer
   `BIBIM_PLATFORM_*` / `BIBIM_USE_*` macro from `include/Bibim/Config.h`.
 - **Line endings and BOM**: keep each file's existing line endings (most files use CRLF) and byte order
   mark. Do not reformat whole files.
+- **Final newline**: every text file ends with a newline (CRLF or LF, matching the file). CI checks this
+  with `.github/scripts/check-final-newline.sh`, skipping `extlibs/`, `tools/References/` and `bin/`.
 - **Encoding**: source files that contain non-ASCII text (such as Korean comments) must be UTF-8
   *with* BOM. The Visual Studio projects do not pass `/utf-8`, so MSVC relies on the BOM to read
   them as UTF-8.
