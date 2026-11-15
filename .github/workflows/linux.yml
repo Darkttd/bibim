@@ -21,8 +21,11 @@ jobs:
       # v7.0.1, pinned by commit
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
-      - name: Install build tools
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ninja-build
+      # libgles-dev / libegl-dev: OpenGL ES 2.0 and EGL headers used by the GLES2 renderer.
+      - name: Install build tools and libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ninja-build libgles-dev libegl-dev
 
       - name: Configure
         run: cmake -S . -B build-linux -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
