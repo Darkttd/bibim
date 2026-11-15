@@ -9,11 +9,6 @@
 // Test cases state the intended behavior. A case marked doctest::should_fail
 // documents a known bug: it is expected to fail until the bug is fixed, and then
 // the marker must be removed (doctest reports a should_fail case that passes).
-//
-// Known bugs that cannot run in-process yet (they crash), to be
-// covered when they are fixed:
-// - GameModuleNode::OnModuleAliveChanged: reviving a module whose parent is the
-//   tree root dereferences the root's null module.
 #include <Bibim/Config.h>
 #include <Bibim/GameModule.h>
 #include <Bibim/GameModuleNode.h>
@@ -129,7 +124,6 @@ TEST_CASE("GameModule status combines alive and active")
 
 TEST_CASE("Killing a module kills its descendants; reviving one revives its ancestors")
 {
-    // top is kept alive throughout: reviving a direct child of the root crashes (see above).
     GameModuleTree tree;
     TestModule* top = new TestModule();
     TestModule* middle = new TestModule();
