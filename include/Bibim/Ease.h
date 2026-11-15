@@ -104,7 +104,7 @@ namespace Bibim
     float Ease::OutQuartic(float t)
     {
         t -= 1.0f;
-        return -1.0f * t * t * t * t - 1.0f;
+        return -1.0f * t * t * t * t + 1.0f;
     }
 
     float Ease::InOutQuartic(float t)
