@@ -81,3 +81,9 @@ target_include_directories(Bibim
 
 # Config.h derives BIBIM_DEBUG from _DEBUG, as on Windows.
 target_compile_definitions(Bibim PUBLIC $<$<CONFIG:Debug>:_DEBUG>)
+
+option(BIBIM_BUILD_TESTS "Build the engine unit tests (tests/)" ON)
+if(BIBIM_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif()

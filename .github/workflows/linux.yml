@@ -1,0 +1,36 @@
+# Build the engine core on Linux and run the unit tests (see CMakeLists.txt, tests/).
+name: Linux
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.build_type }}
+    runs-on: ubuntu-26.04
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [Debug, Release]
+    steps:
+      - uses: actions/checkout@v7
+
+      # libgles-dev / libegl-dev: OpenGL ES 2.0 and EGL headers used by the GLES2 renderer.
+      - name: Install build tools and libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ninja-build libgles-dev libegl-dev
+
+      - name: Configure
+        run: cmake -S . -B build-linux -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+
+      - name: Build
+        run: cmake --build build-linux
+
+      - name: Test
+        run: ctest --test-dir build-linux --output-on-failure
