@@ -19,6 +19,8 @@ namespace Bibim
         public:
             inline String();
             inline String(const char* s);
+            // s must be a NUL-terminated string, even when length is given:
+            // startIndex is checked against strlen(s).
             String(const char* s, int startIndex);
             String(const char* s, int startIndex, int length);
             inline String(const String& original);
