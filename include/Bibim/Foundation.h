@@ -67,6 +67,10 @@ namespace Bibim
 #    include <iostream>
 #endif
 
+#if (defined(BIBIM_PLATFORM_LINUX))
+#    include <cstddef>
+#endif
+
 #if (defined(BIBIM_PLATFORM_WINDOWS))
 #    include <malloc.h>
 #endif
