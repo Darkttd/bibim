@@ -35,8 +35,8 @@ namespace Bibim
         if (id != value)
         {
             // GameStructure내에 같은 ID의 GameComponent가 두 개 이상 존재할 수 없습니다.
-            BBAssertDebug(value != UnspecifiedID &&
-                          node && node->GetTree() && node->GetTree()->Find(value) != nullptr);
+            BBAssertDebug(value == UnspecifiedID ||
+                          node == nullptr || node->GetTree() == nullptr || node->GetTree()->Find(value) == nullptr);
 
             const int oldID = id;
 
