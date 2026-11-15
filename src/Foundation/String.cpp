@@ -750,31 +750,30 @@ namespace Bibim
 
         this->length = length1 + length2;
         this->s = new char [this->length + 1];
-        this->hashCode = 0;
 
         int   i = 0;
         char* destination = this->s;
         for (; i < index; i++, destination++, s1++)
         {
             (*destination) = (*s1);
-            this->hashCode += static_cast<int>(*destination) << i;
         }
 
         const int midterm = index + length2;
         for (; i < midterm; i++, destination++, s2++)
         {
             (*destination) = (*s2);
-            this->hashCode += static_cast<int>(*destination) << i;
         }
 
         for (; i < this->length; i++, destination++, s1++)
         {
             (*destination) = (*s1);
-            this->hashCode += static_cast<int>(*destination) << i;
         }
 
         BBAssertDebug(destination - this->s == this->length);
         (*destination) = '\0';
+
+        // Hash the same way as every other constructor: Equals compares hashes.
+        UpdateHashCode();
     }
 
     String::StringBuffer::StringBuffer(int length)
