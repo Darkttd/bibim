@@ -1,0 +1,41 @@
+﻿#include <Bibim/Config.h>
+#include <Bibim/Math.h>
+#include <doctest.h>
+
+using namespace Bibim;
+
+TEST_CASE("Math::Abs returns the absolute value")
+{
+    CHECK(Math::Abs(-3) == 3);
+    CHECK(Math::Abs(3) == 3);
+    CHECK(Math::Abs(-2.5f) == doctest::Approx(2.5f));
+}
+
+TEST_CASE("Math::Min and Math::Max pick the smaller and larger value")
+{
+    CHECK(Math::Min(2, 5) == 2);
+    CHECK(Math::Max(2, 5) == 5);
+    CHECK(Math::Min(4, 1, 3) == 1);
+    CHECK(Math::Max(4, 1, 3) == 4);
+}
+
+TEST_CASE("Math::Clamp keeps a value within the range")
+{
+    CHECK(Math::Clamp(5, 0, 10) == 5);
+    CHECK(Math::Clamp(-1, 0, 10) == 0);
+    CHECK(Math::Clamp(11, 0, 10) == 10);
+    CHECK(Math::Clamp(1.5f) == doctest::Approx(1.0f));
+    CHECK(Math::Clamp(-0.5f) == doctest::Approx(0.0f));
+}
+
+TEST_CASE("Math::ToRadian and Math::ToDegree are inverse")
+{
+    CHECK(Math::ToRadian(180.0f) == doctest::Approx(Math::Pi));
+    CHECK(Math::ToDegree(Math::PiOver2) == doctest::Approx(90.0f));
+}
+
+TEST_CASE("Math::Floor rounds toward negative infinity")
+{
+    CHECK(Math::Floor(2.7f) == doctest::Approx(2.0f));
+    CHECK(Math::Floor(-2.3f) == doctest::Approx(-3.0f));
+}
