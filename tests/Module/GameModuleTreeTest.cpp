@@ -1,5 +1,11 @@
 ﻿// Tests for GameModule / GameModuleNode / GameModuleTree.
 //
+// Ownership: modules and nodes created with new are not deleted here. Once
+// attached, the tree owns them: ~GameModuleTree deletes the root node, each
+// ~GameModuleNode deletes its children and its module, and DetachChild deletes
+// the detached node. A node built with new GameModuleNode(...) has no owner
+// until it is attached.
+//
 // Test cases state the intended behavior. A case marked doctest::should_fail
 // documents a known bug: it is expected to fail until the bug is fixed, and then
 // the marker must be removed (doctest reports a should_fail case that passes).
