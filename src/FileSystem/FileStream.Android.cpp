@@ -1,4 +1,4 @@
-#include <Bibim/Config.h>
+ï»¿#include <Bibim/Config.h>
 #if (defined(BIBIM_PLATFORM_ANDROID))
 
 #include <Bibim/FileStream.Android.h>
@@ -20,7 +20,7 @@ namespace Bibim
     {
         static bool ReadyDirectory(const String& base, const String& path)
         {
-            // TODO: ÇöÀç´Â Àç±Í ±¸Á¶ÀÌ³ª ÃßÈÄ¿¡ ¼±Çü ±¸Á¶·Î ¹Ù²Ù±æ ¹Ù¶ø´Ï´Ù.
+            // TODO: í˜„ì¬ëŠ” ì¬ê·€ êµ¬ì¡°ì´ë‚˜ ì¶”í›„ì— ì„ í˜• êµ¬ì¡°ë¡œ ë°”ê¾¸ê¸¸ ë°”ëë‹ˆë‹¤.
 
             if (path.IsEmpty())
                 return true;
@@ -85,7 +85,7 @@ namespace Bibim
             if (Assets == nullptr)
                 return;
 
-            // ÀĞ±â Àü¿ëÀ¸·Î ¿­ °æ¿ì¿¡´Â Assetµµ ÇÑ ¹ø »ìÆìº¾´Ï´Ù.
+            // ì½ê¸° ì „ìš©ìœ¼ë¡œ ì—´ ê²½ìš°ì—ëŠ” Assetë„ í•œ ë²ˆ ì‚´í´ë´…ë‹ˆë‹¤.
             asset = AAssetManager_open(Assets, p.CStr(), AASSET_MODE_UNKNOWN);
             if (asset == nullptr)
                 return;

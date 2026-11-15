@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef __BIBIM_POINTERCASTS_H__
 #define __BIBIM_POINTERCASTS_H__
 
@@ -8,32 +8,32 @@
 
 namespace Bibim
 {
-    /// @brief Raw-pointer°¡ °¡¸®Å°´Â Çü½ÄÀ» ÀÔ·ÂÇÑ Çü½ÄÀ¸·Î º¯È¯ÇÕ´Ï´Ù.
-    /// @tparam To   º¯È¯ÇÒ Çü½Ä
-    /// @tparam From º¯È¯ÇÒ Raw-pointerÀÇ Çü½Ä (º¸Åë ÀÎÀÚ¿¡ ÀÇÇÏ¿© ÀÚµ¿ Ãß·ĞµË´Ï´Ù)
-    /// @param  from º¯È¯ÇÒ Raw-pointer
+    /// @brief Raw-pointerê°€ ê°€ë¦¬í‚¤ëŠ” í˜•ì‹ì„ ì…ë ¥í•œ í˜•ì‹ìœ¼ë¡œ ë³€í™˜í•©ë‹ˆë‹¤.
+    /// @tparam To   ë³€í™˜í•  í˜•ì‹
+    /// @tparam From ë³€í™˜í•  Raw-pointerì˜ í˜•ì‹ (ë³´í†µ ì¸ìì— ì˜í•˜ì—¬ ìë™ ì¶”ë¡ ë©ë‹ˆë‹¤)
+    /// @param  from ë³€í™˜í•  Raw-pointer
     /// @sa C++ static_cast
     template <typename To, typename From> inline To* StaticCast(From* from)
     {
         return static_cast<To*>(from);
     }
 
-    /// Shared-pointer°¡ °¡¸®Å°´Â Çü½ÄÀ» ÁöÁ¤ÇÑ Çü½Ä(To)À¸·Î º¯È¯ÇÕ´Ï´Ù.
-    /// ±âÁ¸ C++ Ç¥ÁØ static_cast·Î´Â ºÒÆíÇÑ Smart-pointer º¯È¯À» Æí¸®ÇÏ°Ô ¼öÇàÇÒ ¼ö ÀÖµµ·Ï ÇÕ´Ï´Ù.
+    /// Shared-pointerê°€ ê°€ë¦¬í‚¤ëŠ” í˜•ì‹ì„ ì§€ì •í•œ í˜•ì‹(To)ìœ¼ë¡œ ë³€í™˜í•©ë‹ˆë‹¤.
+    /// ê¸°ì¡´ C++ í‘œì¤€ static_castë¡œëŠ” ë¶ˆí¸í•œ Smart-pointer ë³€í™˜ì„ í¸ë¦¬í•˜ê²Œ ìˆ˜í–‰í•  ìˆ˜ ìˆë„ë¡ í•©ë‹ˆë‹¤.
     template <typename To, typename From> inline SharedPointer<To> StaticCast(const SharedPointer<From>& from)
     {
         return SharedPointer<To>(static_cast<To*>(from.pointee));
     }
 
-    /// Raw-pointer°¡ °¡¸®Å°´Â Çü½ÄÀ» ÁöÁ¤ÇÑ Çü½Ä(To)À¸·Î º¯È¯ÇÕ´Ï´Ù.
-    /// C++ Ç¥ÁØ dynamic_cast¿Í °°½À´Ï´Ù.
+    /// Raw-pointerê°€ ê°€ë¦¬í‚¤ëŠ” í˜•ì‹ì„ ì§€ì •í•œ í˜•ì‹(To)ìœ¼ë¡œ ë³€í™˜í•©ë‹ˆë‹¤.
+    /// C++ í‘œì¤€ dynamic_castì™€ ê°™ìŠµë‹ˆë‹¤.
     template <typename To, typename From> inline To* DynamicCast(From* from)
     {
         return dynamic_cast<To*>(from);
     }
 
-    /// Shared-pointer°¡ °¡¸®Å°´Â Çü½ÄÀ» ÁöÁ¤ÇÑ Çü½Ä(To)À¸·Î º¯È¯ÇÕ´Ï´Ù.
-    /// ±âÁ¸ C++ Ç¥ÁØ dynamic_cast·Î´Â ºÒÆíÇÑ Smart-pointer º¯È¯À» Æí¸®ÇÏ°Ô ¼öÇàÇÒ ¼ö ÀÖµµ·Ï ÇÕ´Ï´Ù.
+    /// Shared-pointerê°€ ê°€ë¦¬í‚¤ëŠ” í˜•ì‹ì„ ì§€ì •í•œ í˜•ì‹(To)ìœ¼ë¡œ ë³€í™˜í•©ë‹ˆë‹¤.
+    /// ê¸°ì¡´ C++ í‘œì¤€ dynamic_castë¡œëŠ” ë¶ˆí¸í•œ Smart-pointer ë³€í™˜ì„ í¸ë¦¬í•˜ê²Œ ìˆ˜í–‰í•  ìˆ˜ ìˆë„ë¡ í•©ë‹ˆë‹¤.
     template <typename To, typename From> inline SharedPointer<To> DynamicCast(const SharedPointer<From>& from)
     {
         return SharedPointer<To>(dynamic_cast<To*>(from.pointee));

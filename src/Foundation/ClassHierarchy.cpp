@@ -1,4 +1,4 @@
-#include <Bibim/Config.h>
+ï»¿#include <Bibim/Config.h>
 #include <Bibim/ClassInfo.h>
 #include <Bibim/ClassHierarchy.h>
 #include <vector>
@@ -15,7 +15,7 @@ namespace Bibim
                 return (*it);
         }
 
-        // »ó½ÄÀûÀ¸·Î ÀÏ¾î³¯ ¼ö ¾øÀ½
+        // ìƒì‹ì ìœ¼ë¡œ ì¼ì–´ë‚  ìˆ˜ ì—†ìŒ
         return nullptr;
     }
 

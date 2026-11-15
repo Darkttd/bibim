@@ -1,4 +1,4 @@
-#include <Bibim/Config.h>
+ï»¿#include <Bibim/Config.h>
 #include <Bibim/Preferences.h>
 #include <Bibim/Environment.h>
 #include <Bibim/FileStream.h>
@@ -36,7 +36,7 @@ namespace Bibim
 
             if (allowed == false)
             {
-                // Çã¿ëµÇÁö ¾ÊÀº ¹®ÀÚ¿­ÀÌ Á¸ÀçÇÕ´Ï´Ù.
+                // í—ˆìš©ë˜ì§€ ì•Šì€ ë¬¸ìì—´ì´ ì¡´ì¬í•©ë‹ˆë‹¤.
                 BBBreak();
             }
         }
@@ -46,7 +46,7 @@ namespace Bibim
     {
         if (IsModified())
         {
-            // º¯°æµÈ µ¥ÀÌÅÍ°¡ ÀÖ´Âµ¥ ÀúÀåÀ» ¾ÈÇß½À´Ï´Ù.
+            // ë³€ê²½ëœ ë°ì´í„°ê°€ ìˆëŠ”ë° ì €ì¥ì„ ì•ˆí–ˆìŠµë‹ˆë‹¤.
             BBBreak();
         }
     }

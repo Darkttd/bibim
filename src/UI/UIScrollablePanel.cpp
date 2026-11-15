@@ -1,4 +1,4 @@
-#include <Bibim/Config.h>
+ï»¿#include <Bibim/Config.h>
 #include <Bibim/UIScrollablePanel.h>
 #include <Bibim/ComponentStreamReader.h>
 #include <Bibim/Math.h>
@@ -65,10 +65,10 @@ namespace Bibim
         content->SetX(content->GetX() + mousePositionDelta.X);
         content->SetY(content->GetY() + mousePositionDelta.Y);
 
-        // ¾î´À Á¤µµ ½ºÅ©·ÑÀÌ µÇ¾ú´Ù¸é ÀÚ±â ÀÚ½ÅÀ» Ä¸ÃÄÇÏµµ·Ï ¼öÁ¤ÇÕ´Ï´Ù.
+        // ì–´ëŠ ì •ë„ ìŠ¤í¬ë¡¤ì´ ë˜ì—ˆë‹¤ë©´ ìžê¸° ìžì‹ ì„ ìº¡ì³í•˜ë„ë¡ ìˆ˜ì •í•©ë‹ˆë‹¤.
         const Point2 mousePositionDeltaFromStart = mousePosition - startMousePosition;
         if (Math::Abs(mousePositionDeltaFromStart.X) > 8 ||
-            Math::Abs(mousePositionDeltaFromStart.Y) > 8) // ±×³É °æÇè¿¡ ÀÇÇØ Á¤ÇØÁø °ª
+            Math::Abs(mousePositionDeltaFromStart.Y) > 8) // ê·¸ëƒ¥ ê²½í—˜ì— ì˜í•´ ì •í•´ì§„ ê°’
         {
             if (args.GetDispatcher())
                 args.GetDispatcher()->SetCapture(this);
@@ -107,7 +107,7 @@ namespace Bibim
             return;
 
         BBAssert(content->GetAnchorPoint() == UIVisual::LeftTop);
-        BBAssertDebug(content->GetParent() == this); // ÀÌ±â ¶§¹®¿¡ content->ComputeBounds¿¡¼­ ¿Ã¹Ù¸¥ °ªÀ» ¹ÝÈ¯ÇÒ ¼ö ÀÖ½À´Ï´Ù.
+        BBAssertDebug(content->GetParent() == this); // ì´ê¸° ë•Œë¬¸ì— content->ComputeBoundsì—ì„œ ì˜¬ë°”ë¥¸ ê°’ì„ ë°˜í™˜í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
 
         const RectF bounds = context.GetCurrentBounds();
         const RectF contentBounds = content->ComputeBounds(context.GetCurrentBounds());

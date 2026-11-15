@@ -1,4 +1,4 @@
-#include <Bibim/Config.h>
+ï»¿#include <Bibim/Config.h>
 #include <Bibim/CrashDump.h>
 
 //#if (defined(BIBIM_PLATFORM_WINDOWS))
@@ -77,10 +77,10 @@
 //                if (fileHandle != INVALID_HANDLE_VALUE)
 //                {
 //                    std::ostringstream alertMessageStream;
-//                    alertMessageStream << "¾öÃ»³­ ¿À·ù°¡ ¹ß»ýÇß½À´Ï´Ù." << std::endl;
-//                    alertMessageStream << "¿À·ù¸¦ »¡¸® ÇØ°áÇÏ±â À§ÇØ ¿©·¯°¡Áö Á¤º¸¸¦ ¼öÁýÇÒ°Ô¿ä." << std::endl;
-//                    alertMessageStream << "Á¤º¸ ¼öÁýÀÌ ³¡³ª¸é ÀÚµ¿À¸·Î Á¾·áµÉÅ×´Ï ±â´Ù·ÁÁÖ¼¼¿ä." << std::endl;
-//                    alertMessageStream << "ÇÁ·Î±×·¥ÀÌ ³¡³ª¸é ½ÇÇà ÆÄÀÏ°ú °°Àº Æú´õ¿¡ ÀÖ´Â " << dumpFileNameStream.str() << "¸¦ º¸³»ÁÖ¼¼¿ä.";
+//                    alertMessageStream << "ì—„ì²­ë‚œ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤." << std::endl;
+//                    alertMessageStream << "ì˜¤ë¥˜ë¥¼ ë¹¨ë¦¬ í•´ê²°í•˜ê¸° ìœ„í•´ ì—¬ëŸ¬ê°€ì§€ ì •ë³´ë¥¼ ìˆ˜ì§‘í• ê²Œìš”." << std::endl;
+//                    alertMessageStream << "ì •ë³´ ìˆ˜ì§‘ì´ ëë‚˜ë©´ ìžë™ìœ¼ë¡œ ì¢…ë£Œë í…Œë‹ˆ ê¸°ë‹¤ë ¤ì£¼ì„¸ìš”." << std::endl;
+//                    alertMessageStream << "í”„ë¡œê·¸ëž¨ì´ ëë‚˜ë©´ ì‹¤í–‰ íŒŒì¼ê³¼ ê°™ì€ í´ë”ì— ìžˆëŠ” " << dumpFileNameStream.str() << "ë¥¼ ë³´ë‚´ì£¼ì„¸ìš”.";
 //
 //                    MessageBox(NULL, alertMessageStream.str().c_str(), "ERROR", MB_ICONERROR);
 //                    writeMiniDump(GetCurrentProcess(), GetCurrentProcessId(), fileHandle, MiniDumpNormal, &exceptionInfo, NULL, NULL);
