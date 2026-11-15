@@ -176,6 +176,7 @@ def save_xml(filename, element):
     f = open(filename, 'wb')
     f.write('<?xml version="1.0" encoding="utf-8"?>\n'.encode('utf-8'))
     f.write(xml_text)
+    f.write('\n'.encode('utf-8'))
     f.close()
     
     
@@ -337,7 +338,7 @@ def merge_sources(directory):
                 lines.append('#include "{0}/{1}"'.format(module, item))
 
     f = open(os.path.join(directory, 'Bibim.cpp'), 'w')
-    f.write('\n'.join(lines))
+    f.write('\n'.join(lines) + '\n')
     f.close()
     
 def merge_headers(directory):
@@ -360,7 +361,7 @@ def merge_headers(directory):
     lines.append('#endif')
     
     f = open(os.path.join(directory, 'All.h'), 'w')
-    f.write('\n'.join(lines))
+    f.write('\n'.join(lines) + '\n')
     f.close()
 
 

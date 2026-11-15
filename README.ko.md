@@ -101,6 +101,8 @@ Windows 도구처럼 `bin/Plugin/*.dll`을 불러오도록 `bin/`에서 실행�
   `BIBIM_PLATFORM_*` / `BIBIM_USE_*` 매크로로 감싸져 있습니다.
 - **줄바꿈과 BOM**: 각 파일의 기존 줄바꿈(대부분 CRLF)과 BOM을 그대로 유지합니다.
   파일 전체를 다시 포맷하지 마세요.
+- **파일 끝 개행**: 모든 텍스트 파일은 개행으로 끝납니다(파일의 줄바꿈에 맞춰 CRLF 또는 LF). CI가
+  `.github/scripts/check-final-newline.sh`로 검사하며, `extlibs/`, `tools/References/`, `bin/`은 제외합니다.
 - **인코딩**: 한글 주석처럼 ASCII가 아닌 문자가 들어간 소스 파일은 반드시 **BOM이 있는 UTF-8**로
   저장합니다. Visual Studio 프로젝트가 `/utf-8` 옵션을 쓰지 않아서, MSVC는 BOM으로 UTF-8임을 판별합니다.
 
