@@ -88,9 +88,12 @@ namespace Bibim
 
         if (length > 0)
         {
-            char* buffer = BBStackAlloc(char, length);
+            // String(const char*, int, int) needs a NUL-terminated string,
+            // and the stored characters are not followed by one.
+            char* buffer = BBStackAlloc(char, length + 1);
             readSize = stream->Read(buffer, length);
             BBAssert(readSize == length);
+            buffer[length] = '\0';
             
             const String result = String(buffer, 0, length);
             
