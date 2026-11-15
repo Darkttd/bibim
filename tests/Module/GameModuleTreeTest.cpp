@@ -151,6 +151,22 @@ TEST_CASE("Killing a module kills its descendants; reviving one revives its ance
     CHECK(sibling->GetAlive());
 }
 
+TEST_CASE("A direct child of the root can be killed and revived")
+{
+    GameModuleTree tree;
+    TestModule* top = new TestModule();
+    TestModule* child = new TestModule();
+    tree.GetRoot()->AttachChild(top)->AttachChild(child);
+
+    top->SetAlive(false);
+    CHECK_FALSE(child->GetAlive());
+
+    // The root has no module, so there is no ancestor to revive.
+    top->SetAlive(true);
+    CHECK(top->GetAlive());
+    CHECK(child->GetAlive());
+}
+
 TEST_CASE("Deactivating a module does not deactivate its children")
 {
     GameModuleTree tree;
