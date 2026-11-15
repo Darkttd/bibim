@@ -12,14 +12,13 @@ permissions:
 jobs:
   build-and-test:
     name: ${{ matrix.build_type }}
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       fail-fast: false
       matrix:
         build_type: [Debug, Release]
     steps:
-      # v7.0.1, pinned by commit
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/checkout@v7
 
       # libgles-dev / libegl-dev: OpenGL ES 2.0 and EGL headers used by the GLES2 renderer.
       - name: Install build tools and libraries
