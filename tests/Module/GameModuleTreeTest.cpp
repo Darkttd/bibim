@@ -10,12 +10,10 @@
 // documents a known bug: it is expected to fail until the bug is fixed, and then
 // the marker must be removed (doctest reports a should_fail case that passes).
 //
-// Known bugs that cannot run in-process yet (they abort, hang or crash), to be
+// Known bugs that cannot run in-process yet (they abort or crash), to be
 // covered when they are fixed:
 // - GameModule::SetID: the debug assertion is inverted, so it aborts in Debug
 //   builds when given a valid new ID.
-// - GameModuleFactory::Create: the binary search never narrows its range for some
-//   IDs (including the first entry and unknown IDs) and loops forever.
 // - GameModuleNode::OnModuleAliveChanged: reviving a module whose parent is the
 //   tree root dereferences the root's null module.
 #include <Bibim/Config.h>
