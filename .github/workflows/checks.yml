@@ -27,3 +27,12 @@ jobs:
 
       - name: Check that engine sources do not contain tabs
         run: .github/scripts/check-no-tabs.sh
+
+  encoding:
+    name: Encoding
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check that text files are UTF-8 without a byte order mark
+        run: .github/scripts/check-encoding.sh
