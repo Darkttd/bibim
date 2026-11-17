@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/GameAssetStorage.h>
 #include <Bibim/Assert.h>
 #include <Bibim/AssetProvider.h>

@@ -1,4 +1,4 @@
-﻿// Tests for the rectangle types Rect (int) and RectF (float).
+// Tests for the rectangle types Rect (int) and RectF (float).
 //
 // A rectangle is X, Y (left top) plus Width and Height; Y grows downward.
 // Contains includes the right and bottom edges.

@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #if (defined(BIBIM_PLATFORM_WINDOWS))
 
 #include <Bibim/Mouse.h>

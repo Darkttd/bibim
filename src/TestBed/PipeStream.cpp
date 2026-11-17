@@ -1,4 +1,4 @@
-﻿#include <Bibim/TestBed.h>
+#include <Bibim/TestBed.h>
 #include <Bibim/PipeClientStream.h>
 #include <iostream>
 using namespace Bibim;

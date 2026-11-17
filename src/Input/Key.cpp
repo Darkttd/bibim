@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/Key.h>
 #include <Bibim/String.h>
 #include <algorithm>

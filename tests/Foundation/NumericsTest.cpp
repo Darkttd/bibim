@@ -1,4 +1,4 @@
-﻿// Tests for the number parsing and formatting helpers in Numerics.h.
+// Tests for the number parsing and formatting helpers in Numerics.h.
 #include <Bibim/Config.h>
 #include <Bibim/Numerics.h>
 #include <doctest.h>

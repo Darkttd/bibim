@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/Memory.h>
 #include <cstring>
 #include <cstdlib>

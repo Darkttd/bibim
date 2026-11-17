@@ -1,4 +1,4 @@
-﻿// Tests for CollisionSpace2D: shape groups, which group pairs are tested,
+// Tests for CollisionSpace2D: shape groups, which group pairs are tested,
 // collision events and raycasts.
 //
 // The space holds its shapes in SharedPointers, so shapes created with new are

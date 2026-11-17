@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #ifndef __BIBIM_SOUNDFX_PC_H__
 #define __BIBIM_SOUNDFX_PC_H__
 

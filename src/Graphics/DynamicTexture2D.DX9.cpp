@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #if (defined(BIBIM_USE_DIRECTX9))
 
 #include <Bibim/DynamicTexture2D.DX9.h>

@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/UIHandledDrawingContext.h>
 #include <Bibim/Color.h>
 #include <Bibim/Math.h>

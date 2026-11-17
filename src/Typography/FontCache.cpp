@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/FontCache.h>
 #include <Bibim/BinaryReader.h>
 #include <Bibim/GameAssetStorage.h>

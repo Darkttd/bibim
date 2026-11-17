@@ -1,4 +1,4 @@
-﻿#include <Bibim/TestBed.h>
+#include <Bibim/TestBed.h>
 #include <Bibim/Startup.h>
 #include <windows.h>
 #include <crtdbg.h>

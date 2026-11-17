@@ -1,4 +1,4 @@
-﻿#include <Bibim/Startup.h>
+#include <Bibim/Startup.h>
 #include <Bibim/All.h>
 #include <Bibim/CrashDump.h>
 

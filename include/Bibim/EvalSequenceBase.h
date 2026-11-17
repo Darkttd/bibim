@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #ifndef __BIBIM_EVALUABLESEQUENCEBASE_H__
 #define __BIBIM_EVALUABLESEQUENCEBASE_H__
 

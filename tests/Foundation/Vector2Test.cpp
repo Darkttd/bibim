@@ -1,4 +1,4 @@
-﻿// Tests for Vector2.
+// Tests for Vector2.
 #include <Bibim/Config.h>
 #include <Bibim/Math.h>
 #include <Bibim/Vector2.h>

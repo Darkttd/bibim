@@ -1,4 +1,4 @@
-﻿# -*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 import os
 
 MODULES = (
@@ -212,6 +212,9 @@ def make_visual_studio_2010_property_sheet(name,
         include_directories.replace('/', '\\') + ';%(AdditionalIncludeDirectories)'
     ))
     cl_compile.append(ETElementWithText('WarningLevel', 'Level4'))
+    if platform == PLATFORM.WIN32:
+        # Sources are UTF-8 without BOM; without /utf-8, MSVC reads them in the system code page.
+        cl_compile.append(ETElementWithText('AdditionalOptions', '/utf-8 %(AdditionalOptions)'))
 
     if target == TARGET.DEBUG and platform == PLATFORM.ANDROID:
         cl_compile.append(ETElementWithText('PreprocessorDefinitions', '_DEBUG'))

@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/UIForceGridEffect.h>
 #include <Bibim/ComponentStreamReader.h>
 #include <Bibim/Math.h>

@@ -1,4 +1,4 @@
-﻿<Window x:Class="Bibim.Bab.CommandLineWindow"
+<Window x:Class="Bibim.Bab.CommandLineWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/Bibim.Baaaaaab;component/Icon.ico" Loaded="Window_Loaded" Height="222" Width="679" xmlns:my="clr-namespace:System;assembly=mscorlib" Title="Bibimbaaaaaab 시작">
     <Grid>

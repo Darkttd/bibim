@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/Numerics.h>
 #include <Bibim/Math.h>
 #include <float.h>

@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/Font.h>
 #include <Bibim/AssetStreamReader.h>
 #include <Bibim/Assert.h>

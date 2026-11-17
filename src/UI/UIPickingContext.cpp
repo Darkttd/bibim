@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/UIPickingContext.h>
 #include <Bibim/GraphicsDevice.h>
 #include <Bibim/UIRenderer.h>

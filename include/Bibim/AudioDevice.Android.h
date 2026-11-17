@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #ifndef __BIBIM_AUDIODEVICE_ANDROID_H__
 #define __BIBIM_AUDIODEVICE_ANDROID_H__
 

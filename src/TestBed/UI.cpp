@@ -1,4 +1,4 @@
-﻿//#include <Bibim/TestBed.h>
+//#include <Bibim/TestBed.h>
 //#include <Bibim/GameFramework.h>
 //#include <Bibim/BitMask.h>
 //#include <Bibim/Clock.h>

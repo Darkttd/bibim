@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #ifndef __BIBIM_FWD_H__
 #define __BIBIM_FWD_H__
 

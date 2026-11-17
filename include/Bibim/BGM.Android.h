@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #ifndef __BIBIM_BGM_ANDROID_H__
 #define __BIBIM_BGM_ANDROID_H__
 

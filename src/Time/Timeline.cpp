@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/Timeline.h>
 #include <Bibim/Assert.h>
 #include <Bibim/IUpdateable.h>

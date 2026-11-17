@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/PNG.h>
 #include <Bibim/AssetStreamReader.h>
 #include <Bibim/GameAsset.h>
