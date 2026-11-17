@@ -3,11 +3,6 @@
 //
 // The space holds its shapes in SharedPointers, so shapes created with new are
 // released with the space.
-//
-// Known bug, not tested because it crashes: CollisionSpace2D::SetGroup erases
-// the shape from its old group before adding it to the new one. When the space
-// holds the only reference, the erase deletes the shape and the add then uses
-// freed memory (found by ASan). The test below keeps its own reference.
 #include <Bibim/Config.h>
 #include <Bibim/CollisionSpace2D.h>
 #include <Bibim/RaycastReport2D.h>
@@ -77,8 +72,7 @@ TEST_CASE("CollisionSpace2D keeps track of which group each shape is in")
     CHECK(index == 0);
     CHECK(space.GetGroup(a) == 0);
 
-    const Shape2DPtr keepA = a; // see the SetGroup bug in the header
-    space.SetGroup(a, 1);
+    space.SetGroup(a, 1); // the space holds the only reference to a, so SetGroup must keep it alive
     CHECK(space.GetGroup(a) == 1);
     CHECK(space.GetShapes(0).empty());
     CHECK(space.GetShapes(1).size() == 2);

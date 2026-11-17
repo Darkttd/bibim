@@ -187,6 +187,8 @@ namespace Bibim
         int existingIndex = 0;
         if (Find(shape, &existingGroup, &existingIndex))
         {
+            // Keep shape alive in case erase releases the last reference to it.
+            const Shape2DPtr holder = shape;
             shapes[existingGroup].erase(shapes[existingGroup].begin() + existingIndex);
             shapes.at(group).push_back(shape);
         }
