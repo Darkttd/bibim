@@ -2,9 +2,12 @@
 add_executable(BibimTests
     main.cpp
     Animation/EaseTest.cpp
+    Foundation/Geom2DTest.cpp
     Foundation/MathTest.cpp
     Foundation/NumericsTest.cpp
+    Foundation/RectTest.cpp
     Foundation/StringTest.cpp
+    Foundation/Vector2Test.cpp
     IO/BinaryReaderWriterTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
