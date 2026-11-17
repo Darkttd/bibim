@@ -1,0 +1,111 @@
+# Measure how much of the engine the unit tests run, and show how a pull request
+# changes it. Informational only: it fails only if the build or the tests fail,
+# never because coverage went down. See issue #62.
+#
+# - On master pushes the summary is stored as the coverage-summary artifact; it
+#   is the baseline that pull requests compare against.
+# - On pull requests the report is compared with the latest master baseline and
+#   kept in one pull request comment, updated on every push. Pull requests from
+#   forks get the report only in the job summary (their token cannot comment).
+name: Coverage
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    name: Coverage
+    runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+      actions: read        # download the master baseline artifact
+      pull-requests: write # create or update the coverage comment
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install build tools, libraries and gcovr
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ninja-build libgles-dev libegl-dev python3-venv
+          python3 -m venv "$RUNNER_TEMP/gcovr"
+          "$RUNNER_TEMP/gcovr/bin/pip" install --quiet gcovr==8.8
+          echo "$RUNNER_TEMP/gcovr/bin" >> "$GITHUB_PATH"
+
+      - name: Configure
+        run: >
+          cmake -S . -B build-linux -G Ninja
+          -DCMAKE_BUILD_TYPE=Debug
+          -DCMAKE_C_FLAGS=--coverage
+          -DCMAKE_CXX_FLAGS=--coverage
+          -DCMAKE_EXE_LINKER_FLAGS=--coverage
+
+      - name: Build
+        run: cmake --build build-linux
+
+      - name: Test
+        run: ctest --test-dir build-linux --output-on-failure
+
+      # Only engine sources count: extlibs/ and tests/ are left out. Files that
+      # are compiled but never run are included with 0%.
+      - name: Collect coverage
+        run: |
+          mkdir -p coverage-html
+          gcovr --root . --filter 'src/' --filter 'include/' --exclude-throw-branches \
+            --json-summary coverage-summary.json \
+            --html-details coverage-html/index.html \
+            --print-summary \
+            build-linux
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: coverage-summary
+          path: coverage-summary.json
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: coverage-html
+          path: coverage-html/
+          retention-days: 14 # about 35 MB unpacked; only needed while reviewing
+
+      - name: Download the master baseline
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow coverage.yml --branch master --event push \
+                --status success --limit 1 --json databaseId,headSha --jq '.[0] | "\(.databaseId) \(.headSha)"')
+          if [ -n "$run" ]; then
+            gh run download "${run%% *}" --repo "$GITHUB_REPOSITORY" --name coverage-summary --dir baseline
+            sha=${run#* }
+            echo "BASELINE_LABEL=master (\`${sha:0:7}\`)" >> "$GITHUB_ENV"
+          else
+            echo "No master baseline yet."
+          fi
+
+      - name: Write the report
+        run: |
+          if [ -f baseline/coverage-summary.json ]; then
+            python3 .github/scripts/coverage-report.py coverage-summary.json baseline/coverage-summary.json "$BASELINE_LABEL" > coverage-report.md
+          else
+            python3 .github/scripts/coverage-report.py coverage-summary.json > coverage-report.md
+          fi
+          cat coverage-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Comment on the pull request
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          id=$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/$PR/comments" \
+               --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- bibim-coverage -->"))) | .id' | head -n 1)
+          if [ -n "$id" ]; then
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F body=@coverage-report.md > /dev/null
+          else
+            gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body-file coverage-report.md
+          fi
