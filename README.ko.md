@@ -105,6 +105,10 @@ Windows 도구처럼 `bin/Plugin/*.dll`을 불러오도록 `bin/`에서 실행�
   `.github/scripts/check-final-newline.sh`로 검사하며, `extlibs/`, `tools/References/`, `bin/`은 제외합니다.
 - **인코딩**: 한글 주석처럼 ASCII가 아닌 문자가 들어간 소스 파일은 반드시 **BOM이 있는 UTF-8**로
   저장합니다. Visual Studio 프로젝트가 `/utf-8` 옵션을 쓰지 않아서, MSVC는 BOM으로 UTF-8임을 판별합니다.
+- **탭 금지**: `src/`와 `include/`의 소스는 공백만 쓰며, 들여쓰기 한 단계는 4칸입니다. `#` 뒤의 전처리기
+  들여쓰기(`#    define`)와 줄 중간의 열 맞춤도 공백으로 합니다. CI가 `.github/scripts/check-no-tabs.sh`로
+  검사하며, `include/`에 복사해 둔 Lua·LuaTinker 헤더(`lua.h`, `luaconf.h`, `lauxlib.h`, `lualib.h`,
+  `lua_tinker.h`)는 제외합니다.
 - **새 코드의 언어**: 새로 추가하는 코드와 주석은 영어(알파벳)로만 씁니다. 이미 있는 한글 주석은
   그대로 둡니다. 예외는 한글·일본어 등 알파벳이 아닌 문자를 처리하는 코드와 그 테스트(예: 폰트나 문자
   입력용 테스트 문자열)뿐입니다.
