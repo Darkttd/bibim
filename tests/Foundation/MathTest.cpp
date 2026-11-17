@@ -36,6 +36,20 @@ TEST_CASE("Math::ToRadian and Math::ToDegree are inverse")
     CHECK(Math::ToDegree(Math::PiOver2) == doctest::Approx(90.0f));
 }
 
+TEST_CASE("Math pi constants are the nearest float values")
+{
+    CHECK(Math::Pi == 3.14159265358979323846f);
+
+    // Scaling a float by a power of two is exact, so these must match Pi bit for bit.
+    CHECK(Math::PiOver2 == Math::Pi / 2.0f);
+    CHECK(Math::PiOver4 == Math::Pi / 4.0f);
+    CHECK(Math::TwoPi == Math::Pi * 2.0f);
+
+    // With pi rounded to 1.5708f, the cosine of a quarter turn was about -3.7e-6.
+    CHECK(Math::Abs(Math::Cos(Math::PiOver2)) < 1e-7f);
+    CHECK(Math::Abs(Math::Sin(Math::Pi)) < 1e-6f);
+}
+
 TEST_CASE("Math::Floor rounds toward negative infinity")
 {
     CHECK(Math::Floor(2.7f) == doctest::Approx(2.0f));
