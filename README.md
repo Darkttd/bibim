@@ -10,7 +10,7 @@ for asset processing and debugging.
 
 | Platform | Renderer | Build files | Status |
 |---|---|---|---|
-| Windows | Direct3D 9 | `build/vs2008` – `build/vs2019` (Visual Studio) | Main platform |
+| Windows | Direct3D 9 | `build/vs2019` (Visual Studio 2019) | Main platform |
 | Android | OpenGL ES 2.0 | `build/eclipse` (Java side only; native build files are not in this repository) | Previously supported |
 | iOS | OpenGL ES 2.0 | `build/xcode6` | Previously supported |
 | Linux | OpenGL ES 2.0 | – | Port in progress |
