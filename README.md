@@ -101,9 +101,10 @@ Linux yet (for example texture cooking and Lua/HLSL compilation); see
 - **Platform-specific code** lives in files named with a suffix, for example `GameFramework.Windows.cpp`,
   `GraphicsDevice.GLES2.cpp` or `Thread.Unix.cpp`. Each file is guarded by the matching
   `BIBIM_PLATFORM_*` / `BIBIM_USE_*` macro from `include/Bibim/Config.h`.
-- **Line endings**: keep each file's existing line endings (most files use CRLF). Do not reformat whole
-  files.
-- **Final newline**: every text file ends with a newline (CRLF or LF, matching the file). CI checks this
+- **Line endings**: text files use LF, except `.bat`, `.cmd` and `.sln` files, which use CRLF.
+  `.gitattributes` applies this on commit and checkout on every OS, whatever `core.autocrlf` is set to.
+  Do not reformat whole files.
+- **Final newline**: every text file ends with a newline (LF, or CRLF in the files above). CI checks this
   with `.github/scripts/check-final-newline.sh`, skipping `extlibs/`, `tools/References/` and `bin/`.
 - **Encoding**: text files are UTF-8 *without* BOM. Without a BOM, MSVC reads a file in the system code
   page unless told otherwise, so `build/vs2019/Bibim.vcxproj` and the `Bibim.props` property sheets that

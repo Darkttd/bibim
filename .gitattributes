@@ -1,0 +1,12 @@
+# Store text as LF and check it out as LF on every OS, whatever core.autocrlf says.
+* text=auto eol=lf
+
+# Windows files that their tools expect with CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.sln text eol=crlf
+
+# Third-party sources and prebuilt tools are kept byte for byte.
+extlibs/**          -text
+tools/References/** -text
+bin/**              -text
