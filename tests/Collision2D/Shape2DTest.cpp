@@ -292,9 +292,7 @@ TEST_CASE("Raycast on a segment reports a normal perpendicular to it, facing the
     CHECK(Math::Equals(report.ImpactNormal, Vector2(-0.8f, 0.6f)));
 }
 
-TEST_CASE("A box hands its scaled extension to a user shape"
-          * doctest::should_fail()
-          * doctest::description("known bug: IntersectShapes2D::BoxUserShape passes GetExtension() instead of GetScaledExtension()"))
+TEST_CASE("A box hands its scaled extension to a user shape")
 {
     BoxShape2DPtr box = MakeStandingBox(3.0f, 4.0f);
     box->SetScale(2.0f);

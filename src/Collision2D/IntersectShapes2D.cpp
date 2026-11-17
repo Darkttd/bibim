@@ -138,7 +138,7 @@ namespace Bibim
 
     bool IntersectShapes2D::BoxUserShape(BoxShape2D* left, UserShape2D* right)
     {
-        return right->IntersectBox(left->GetCenter(), left->GetRotatedOrientation(), left->GetRotatedUp(), left->GetExtension());
+        return right->IntersectBox(left->GetCenter(), left->GetRotatedOrientation(), left->GetRotatedUp(), left->GetScaledExtension());
     }
 
     bool IntersectShapes2D::UserShapeUserShape(UserShape2D* left, UserShape2D* right)
