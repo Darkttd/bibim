@@ -1,0 +1,9 @@
+# Commits that only change encoding or whitespace, skipped by git blame.
+# GitHub reads this file automatically. Locally, run once:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# Store text files as UTF-8 without BOM (#74)
+747b8f38908f9107897cb6c2771d9ea7a00842a2
+
+# Store text files with LF line endings (#75)
+b92853e77bf65b0c9d980f3d862ab12c0ef25bc8
