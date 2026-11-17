@@ -10,7 +10,7 @@ C# 도구가 함께 제공됩니다.
 
 | 플랫폼 | 렌더러 | 빌드 파일 | 상태 |
 |---|---|---|---|
-| Windows | Direct3D 9 | `build/vs2008` – `build/vs2019` (Visual Studio) | 주 플랫폼 |
+| Windows | Direct3D 9 | `build/vs2019` (Visual Studio 2019) | 주 플랫폼 |
 | Android | OpenGL ES 2.0 | `build/eclipse` (Java 쪽만 있음, 네이티브 빌드 파일은 이 저장소에 없음) | 과거 지원 |
 | iOS | OpenGL ES 2.0 | `build/xcode6` | 과거 지원 |
 | Linux | OpenGL ES 2.0 | – | 포팅 진행 중 |
