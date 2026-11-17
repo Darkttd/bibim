@@ -73,7 +73,7 @@ TEST_CASE("CollisionSpace2D keeps track of which group each shape is in")
     CHECK(index == 0);
     CHECK(space.GetGroup(a) == 0);
 
-    space.SetGroup(a, 1); // the space holds the only reference to a
+    space.SetGroup(a, 1); // the space holds the only reference to a, so SetGroup must keep it alive
     CHECK(space.GetGroup(a) == 1);
     CHECK(space.GetShapes(0).empty());
     CHECK(space.GetShapes(1).size() == 2);
