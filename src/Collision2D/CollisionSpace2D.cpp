@@ -187,6 +187,8 @@ namespace Bibim
         int existingIndex = 0;
         if (Find(shape, &existingGroup, &existingIndex))
         {
+            // erase가 마지막 참조를 놓아 shape가 삭제되지 않도록 잡아둡니다.
+            const Shape2DPtr holder = shape;
             shapes[existingGroup].erase(shapes[existingGroup].begin() + existingIndex);
             shapes.at(group).push_back(shape);
         }
