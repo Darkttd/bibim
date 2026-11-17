@@ -1,5 +1,7 @@
 ﻿#include <Bibim/Config.h>
 #include <Bibim/Math.h>
+#include <Bibim/Vector2.h>
+#include <Bibim/Vector3.h>
 #include <doctest.h>
 
 using namespace Bibim;
@@ -38,4 +40,18 @@ TEST_CASE("Math::Floor rounds toward negative infinity")
 {
     CHECK(Math::Floor(2.7f) == doctest::Approx(2.0f));
     CHECK(Math::Floor(-2.3f) == doctest::Approx(-3.0f));
+}
+
+TEST_CASE("Math::Equals allows a difference below 0.00001")
+{
+    CHECK(Math::Equals(1.0f, 1.0f));
+    CHECK(Math::Equals(1.0f, 1.000005f));
+    CHECK_FALSE(Math::Equals(1.0f, 1.0001f));
+    CHECK_FALSE(Math::Equals(0.0f, -0.0001f));
+
+    CHECK(Math::Equals(Vector2(1.0f, 2.0f), Vector2(1.000005f, 2.0f)));
+    CHECK_FALSE(Math::Equals(Vector2(1.0f, 2.0f), Vector2(1.0f, 2.0001f)));
+
+    CHECK(Math::Equals(Vector3(1.0f, 2.0f, 3.0f), Vector3(1.0f, 2.0f, 3.000002f)));
+    CHECK_FALSE(Math::Equals(Vector3(1.0f, 2.0f, 3.0f), Vector3(1.0f, 2.0f, 3.0001f)));
 }
