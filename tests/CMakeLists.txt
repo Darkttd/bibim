@@ -2,6 +2,8 @@
 add_executable(BibimTests
     main.cpp
     Animation/EaseTest.cpp
+    Collision2D/CollisionSpace2DTest.cpp
+    Collision2D/Shape2DTest.cpp
     Foundation/Geom2DTest.cpp
     Foundation/MathTest.cpp
     Foundation/NumericsTest.cpp
