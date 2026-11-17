@@ -223,16 +223,12 @@ TEST_CASE("SegmentShape2D runs from its position along its rotated direction")
     CHECK(Math::Equals(segment->GetStartPoint(), Vector2(1.0f, 2.0f)));
     CHECK(Math::Equals(segment->GetEndPoint(), Vector2(11.0f, 2.0f)));
 
-    // Math::PiOver2 is 1.5708f, so the rotated direction is off by about 4e-6 and the end point,
-    // 10 units away, by about 4e-5: more than Math::Equals allows.
     segment->SetRotation(Math::PiOver2);
     CHECK(Math::Equals(segment->GetRotatedDirection(), Vector2(0.0f, 1.0f)));
-    CHECK(segment->GetEndPoint().X == doctest::Approx(1.0f).epsilon(1e-4));
-    CHECK(segment->GetEndPoint().Y == doctest::Approx(12.0f).epsilon(1e-4));
+    CHECK(Math::Equals(segment->GetEndPoint(), Vector2(1.0f, 12.0f)));
 
     segment->SetScale(0.5f);
-    CHECK(segment->GetEndPoint().X == doctest::Approx(1.0f).epsilon(1e-4));
-    CHECK(segment->GetEndPoint().Y == doctest::Approx(7.0f).epsilon(1e-4));
+    CHECK(Math::Equals(segment->GetEndPoint(), Vector2(1.0f, 7.0f)));
 
     segment->SetFrontLength(-3.0f);
     CHECK(segment->GetFrontLength() == 0.0f);
