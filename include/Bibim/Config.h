@@ -45,9 +45,9 @@
 #endif
 
 #if (defined(WIN64) || defined(__x86_64__) || defined(__arm64__))
-#	 define BIBIM_64BIT
+#    define BIBIM_64BIT
 #else
-# 	 define BIBIM_32BIT
+#    define BIBIM_32BIT
 #endif
 
 #if (__cplusplus >= 201103L || (defined(_MSC_VER) && _MSC_VER >= 1600))
