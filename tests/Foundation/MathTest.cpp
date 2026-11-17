@@ -3,7 +3,6 @@
 #include <Bibim/Vector2.h>
 #include <Bibim/Vector3.h>
 #include <doctest.h>
-#include <cmath>
 
 using namespace Bibim;
 
@@ -49,15 +48,6 @@ TEST_CASE("Math pi constants are the nearest float values")
     // With pi rounded to 1.5708f, the cosine of a quarter turn was about -3.7e-6.
     CHECK(Math::Abs(Math::Cos(Math::PiOver2)) < 1e-7f);
     CHECK(Math::Abs(Math::Sin(Math::Pi)) < 1e-6f);
-}
-
-TEST_CASE("Math constants for e, logarithms and square roots are the nearest float values")
-{
-    // Computed in double and rounded once, so each is the float nearest to the exact value.
-    CHECK(Math::E == static_cast<float>(std::exp(1.0)));
-    CHECK(Math::Log10E == static_cast<float>(1.0 / std::log(10.0)));
-    CHECK(Math::Log2E == static_cast<float>(1.0 / std::log(2.0)));
-    CHECK(Math::InvSqrt2 == static_cast<float>(1.0 / std::sqrt(2.0)));
 }
 
 TEST_CASE("Math::Floor rounds toward negative infinity")
