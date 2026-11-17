@@ -26,22 +26,11 @@
 #include <Bibim/SphereShape2D.h>
 #include <Bibim/UserShape2D.h>
 #include <doctest.h>
-#include <cmath>
 
 using namespace Bibim;
 
 namespace
 {
-    bool Near(float a, float b)
-    {
-        return std::fabs(a - b) < 0.0001f;
-    }
-
-    bool Near(Vector2 a, Vector2 b)
-    {
-        return Near(a.X, b.X) && Near(a.Y, b.Y);
-    }
-
     PointShape2DPtr MakePoint(float x, float y)
     {
         PointShape2DPtr shape = new PointShape2D();
@@ -214,8 +203,8 @@ TEST_CASE("Two axis-aligned boxes intersect when they overlap")
 TEST_CASE("BoxShape2D turns with its rotation")
 {
     BoxShape2DPtr box = MakeStandingBox(0.0f, 0.0f);
-    CHECK(Near(box->GetRotatedOrientation(), Vector2(0.0f, 1.0f)));
-    CHECK(Near(box->GetScaledExtension(), Vector2(2.0f, 1.0f)));
+    CHECK(Math::Equals(box->GetRotatedOrientation(), Vector2(0.0f, 1.0f)));
+    CHECK(Math::Equals(box->GetScaledExtension(), Vector2(2.0f, 1.0f)));
 
     BoxShape2DPtr other = MakeStandingBox(1.5f, 0.0f);
     CHECK(Shape2D::Intersect(box, other));
@@ -229,15 +218,19 @@ TEST_CASE("SegmentShape2D runs from its position along its rotated direction")
 {
     SegmentShape2DPtr segment = MakeSegment(1.0f, 2.0f, Vector2(2.0f, 0.0f), 10.0f);
     CHECK(segment->GetDirection() == Vector2(1.0f, 0.0f)); // normalized
-    CHECK(Near(segment->GetStartPoint(), Vector2(1.0f, 2.0f)));
-    CHECK(Near(segment->GetEndPoint(), Vector2(11.0f, 2.0f)));
+    CHECK(Math::Equals(segment->GetStartPoint(), Vector2(1.0f, 2.0f)));
+    CHECK(Math::Equals(segment->GetEndPoint(), Vector2(11.0f, 2.0f)));
 
+    // Math::PiOver2 is 1.5708f, so the rotated direction is off by about 4e-6 and the end point,
+    // 10 units away, by about 4e-5: more than Math::Equals allows.
     segment->SetRotation(Math::PiOver2);
-    CHECK(Near(segment->GetRotatedDirection(), Vector2(0.0f, 1.0f)));
-    CHECK(Near(segment->GetEndPoint(), Vector2(1.0f, 12.0f)));
+    CHECK(Math::Equals(segment->GetRotatedDirection(), Vector2(0.0f, 1.0f)));
+    CHECK(segment->GetEndPoint().X == doctest::Approx(1.0f).epsilon(1e-4));
+    CHECK(segment->GetEndPoint().Y == doctest::Approx(12.0f).epsilon(1e-4));
 
     segment->SetScale(0.5f);
-    CHECK(Near(segment->GetEndPoint(), Vector2(1.0f, 7.0f)));
+    CHECK(segment->GetEndPoint().X == doctest::Approx(1.0f).epsilon(1e-4));
+    CHECK(segment->GetEndPoint().Y == doctest::Approx(7.0f).epsilon(1e-4));
 
     segment->SetFrontLength(-3.0f);
     CHECK(segment->GetFrontLength() == 0.0f);
@@ -250,7 +243,7 @@ TEST_CASE("SegmentShape2D extends its back length behind its position"
     SegmentShape2DPtr segment = MakeSegment(0.0f, 0.0f, Vector2(1.0f, 0.0f), 5.0f);
     segment->SetBackLength(5.0f);
     CHECK(segment->GetLength() == 10.0f);
-    CHECK(Near(Vector2::GetDistance(segment->GetStartPoint(), segment->GetEndPoint()), segment->GetLength()));
+    CHECK(Vector2::GetDistance(segment->GetStartPoint(), segment->GetEndPoint()) == doctest::Approx(segment->GetLength()));
     CHECK(Shape2D::Intersect(MakePoint(-3.0f, 0.0f), segment));
 }
 
@@ -276,20 +269,20 @@ TEST_CASE("Raycast reports the impact point, normal and distance of spheres and 
     SphereShape2DPtr sphere = MakeSphere(10.0f, 0.0f, 2.0f);
     CHECK(sphere->Raycast(origin, direction, 20.0f, report, nullptr));
     CHECK(report.ImpactShape == sphere.GetPointee());
-    CHECK(Near(report.ImpactDistance, 8.0f));
-    CHECK(Near(report.ImpactPoint, Vector2(8.0f, 0.0f)));
-    CHECK(Near(report.ImpactNormal, Vector2(-1.0f, 0.0f)));
+    CHECK(report.ImpactDistance == doctest::Approx(8.0f));
+    CHECK(Math::Equals(report.ImpactPoint, Vector2(8.0f, 0.0f)));
+    CHECK(Math::Equals(report.ImpactNormal, Vector2(-1.0f, 0.0f)));
     CHECK_FALSE(sphere->Raycast(origin, direction, 5.0f, report, nullptr));
 
     AxisAlignedBoxShape2DPtr aabb = MakeAxisAlignedBox(10.0f, 0.0f, Vector2(-1.0f, -1.0f), Vector2(1.0f, 1.0f));
     CHECK(aabb->Raycast(origin, direction, 20.0f, report, nullptr));
-    CHECK(Near(report.ImpactDistance, 9.0f));
-    CHECK(Near(report.ImpactNormal, Vector2(-1.0f, 0.0f)));
+    CHECK(report.ImpactDistance == doctest::Approx(9.0f));
+    CHECK(Math::Equals(report.ImpactNormal, Vector2(-1.0f, 0.0f)));
 
     BoxShape2DPtr box = MakeStandingBox(10.0f, 0.0f);
     CHECK(box->Raycast(origin, direction, 20.0f, report, nullptr));
-    CHECK(Near(report.ImpactDistance, 9.0f));
-    CHECK(Near(report.ImpactNormal, Vector2(-1.0f, 0.0f)));
+    CHECK(report.ImpactDistance == doctest::Approx(9.0f));
+    CHECK(Math::Equals(report.ImpactNormal, Vector2(-1.0f, 0.0f)));
 
     CHECK_FALSE(MakePoint(5.0f, 0.0f)->Raycast(origin, direction, 20.0f, report, nullptr));
 }
@@ -302,9 +295,9 @@ TEST_CASE("Raycast on a segment reports a normal perpendicular to it, facing the
     SegmentShape2DPtr segment = MakeSegment(5.0f, 0.0f, Vector2(0.6f, 0.8f), 5.0f);
     RaycastReport2D report;
     CHECK(segment->Raycast(Vector2(0.0f, 1.0f), Vector2(1.0f, 0.0f), 20.0f, report, nullptr));
-    CHECK(Near(report.ImpactDistance, 5.75f));
-    CHECK(Near(report.ImpactPoint, Vector2(5.75f, 1.0f)));
-    CHECK(Near(report.ImpactNormal, Vector2(-0.8f, 0.6f)));
+    CHECK(report.ImpactDistance == doctest::Approx(5.75f));
+    CHECK(Math::Equals(report.ImpactPoint, Vector2(5.75f, 1.0f)));
+    CHECK(Math::Equals(report.ImpactNormal, Vector2(-0.8f, 0.6f)));
 }
 
 TEST_CASE("A box hands its scaled extension to a user shape"
