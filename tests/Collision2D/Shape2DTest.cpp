@@ -245,9 +245,7 @@ TEST_CASE("SegmentShape2D runs from its position along its rotated direction")
     CHECK(segment->GetFrontLength() == 0.0f);
 }
 
-TEST_CASE("SegmentShape2D extends its back length behind its position"
-          * doctest::should_fail()
-          * doctest::description("known bug: UpdateParameters puts the start point back length ahead of the position, not behind it"))
+TEST_CASE("SegmentShape2D extends its back length behind its position")
 {
     SegmentShape2DPtr segment = MakeSegment(0.0f, 0.0f, Vector2(1.0f, 0.0f), 5.0f);
     segment->SetBackLength(5.0f);
