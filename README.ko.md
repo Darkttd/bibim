@@ -99,8 +99,10 @@ Windows 도구처럼 `bin/Plugin/*.dll`을 불러오도록 `bin/`에서 실행�
 - **플랫폼별 코드**는 접미사가 붙은 파일에 둡니다. 예: `GameFramework.Windows.cpp`,
   `GraphicsDevice.GLES2.cpp`, `Thread.Unix.cpp`. 각 파일은 `include/Bibim/Config.h`의
   `BIBIM_PLATFORM_*` / `BIBIM_USE_*` 매크로로 감싸져 있습니다.
-- **줄바꿈**: 각 파일의 기존 줄바꿈(대부분 CRLF)을 그대로 유지합니다. 파일 전체를 다시 포맷하지 마세요.
-- **파일 끝 개행**: 모든 텍스트 파일은 개행으로 끝납니다(파일의 줄바꿈에 맞춰 CRLF 또는 LF). CI가
+- **줄바꿈**: 텍스트 파일은 LF를 씁니다. 예외로 `.bat`, `.cmd`, `.sln` 파일은 CRLF를 씁니다.
+  `.gitattributes`가 OS나 `core.autocrlf` 설정과 관계없이 커밋과 체크아웃 때 이를 적용합니다.
+  파일 전체를 다시 포맷하지 마세요.
+- **파일 끝 개행**: 모든 텍스트 파일은 개행으로 끝납니다(LF, 위 예외 파일은 CRLF). CI가
   `.github/scripts/check-final-newline.sh`로 검사하며, `extlibs/`, `tools/References/`, `bin/`은 제외합니다.
 - **인코딩**: 텍스트 파일은 **BOM 없는 UTF-8**로 저장합니다. MSVC는 BOM이 없으면 따로 지정하지 않는 한
   시스템 코드 페이지로 읽으므로, `build/vs2019/Bibim.vcxproj`와 게임 프로젝트가 가져오는 `Bibim.props`가

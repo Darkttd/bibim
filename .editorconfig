@@ -4,13 +4,21 @@ root = true
 
 [*]
 charset = utf-8
+end_of_line = lf
+
+# Windows files that their tools expect with CRLF (see .gitattributes).
+[*.{bat,cmd,sln}]
+end_of_line = crlf
 
 # Third-party sources and prebuilt tools are kept as they are.
 [extlibs/**]
 charset = unset
+end_of_line = unset
 
 [tools/References/**]
 charset = unset
+end_of_line = unset
 
 [bin/**]
 charset = unset
+end_of_line = unset
