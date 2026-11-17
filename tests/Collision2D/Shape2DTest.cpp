@@ -201,9 +201,7 @@ TEST_CASE("AxisAlignedBoxShape2D moves and scales its min and max with the shape
     CHECK(Shape2D::Intersect(MakePoint(11.5f, 0.0f), aabb));
 }
 
-TEST_CASE("Two axis-aligned boxes intersect when they overlap"
-          * doctest::should_fail()
-          * doctest::description("known bug: IntersectShapes2D::AxisAlignedBoxAxisAlignedBox passes the second box's max as its min"))
+TEST_CASE("Two axis-aligned boxes intersect when they overlap")
 {
     AxisAlignedBoxShape2DPtr a = MakeAxisAlignedBox(0.0f, 0.0f, Vector2(0.0f, 0.0f), Vector2(2.0f, 2.0f));
     AxisAlignedBoxShape2DPtr b = MakeAxisAlignedBox(1.0f, 1.0f, Vector2(0.0f, 0.0f), Vector2(2.0f, 2.0f));
