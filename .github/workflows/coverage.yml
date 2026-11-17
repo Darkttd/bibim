@@ -78,7 +78,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           run=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow coverage.yml --branch master --event push \
-                --status success --limit 1 --json databaseId,headSha --jq '.[0] | "\(.databaseId) \(.headSha)"')
+                --status success --limit 1 --json databaseId,headSha --jq '.[] | "\(.databaseId) \(.headSha)"' || true)
           if [ -n "$run" ]; then
             gh run download "${run%% *}" --repo "$GITHUB_REPOSITORY" --name coverage-summary --dir baseline
             sha=${run#* }
