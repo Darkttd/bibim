@@ -88,7 +88,7 @@ namespace Bibim
         revision = GetSpatialRevision();
         rotatedDirection = direction;
         rotatedDirection.Rotate(GetRotation());
-        startPoint = GetPosition() + (rotatedDirection * GetBackLength()  * GetScale());
+        startPoint = GetPosition() - (rotatedDirection * GetBackLength()  * GetScale());
         endPoint   = GetPosition() + (rotatedDirection * GetFrontLength() * GetScale());
     }
 
