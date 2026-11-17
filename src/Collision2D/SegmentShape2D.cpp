@@ -102,9 +102,9 @@ namespace Bibim
                 const Vector2 rotatedDirection = GetRotatedDirection();
                 outReport.ImpactShape = this;
                 outReport.ImpactPoint = origin + (direction * distance);
-                outReport.ImpactNormal = Vector2(rotatedDirection.Y, rotatedDirection.X);
+                outReport.ImpactNormal = Vector2(-rotatedDirection.Y, rotatedDirection.X);
                 outReport.ImpactDistance = distance;
-                if (outReport.ImpactNormal.Dot(rotatedDirection) > 0.0f)
+                if (outReport.ImpactNormal.Dot(direction) > 0.0f)
                     outReport.ImpactNormal = -outReport.ImpactNormal;
 
                 return true;
