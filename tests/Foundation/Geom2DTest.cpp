@@ -105,22 +105,22 @@ TEST_CASE("IntersectSegmentSegment handles segments on the same line")
     float t = -1.0f;
     CHECK(Geom2D::IntersectSegmentSegment(Vector2(0.0f, 0.0f), Vector2(10.0f, 0.0f),
                                           Vector2(5.0f, 0.0f), Vector2(15.0f, 0.0f), t));
-    CHECK(Near(t, 0.5f)); // the overlap starts at (5, 0)
+    CHECK(t == doctest::Approx(0.5f)); // the overlap starts at (5, 0)
 
     // Meeting end to end on the same line.
     CHECK(Geom2D::IntersectSegmentSegment(Vector2(0.0f, 0.0f), Vector2(10.0f, 0.0f),
                                           Vector2(10.0f, 0.0f), Vector2(20.0f, 0.0f), t));
-    CHECK(Near(t, 1.0f));
+    CHECK(t == doctest::Approx(1.0f));
 
     // The second segment covers the whole first one, given backwards.
     CHECK(Geom2D::IntersectSegmentSegment(Vector2(0.0f, 5.0f), Vector2(0.0f, 10.0f),
                                           Vector2(0.0f, 20.0f), Vector2(0.0f, 0.0f), t));
-    CHECK(Near(t, 0.0f));
+    CHECK(t == doctest::Approx(0.0f));
 
     // The Point2 overload does the same.
     CHECK_FALSE(Geom2D::IntersectSegmentSegment(Point2(0, 0), Point2(10, 0), Point2(20, 0), Point2(30, 0)));
     CHECK(Geom2D::IntersectSegmentSegment(Point2(0, 0), Point2(10, 0), Point2(5, 0), Point2(15, 0), t));
-    CHECK(Near(t, 0.5f));
+    CHECK(t == doctest::Approx(0.5f));
 }
 
 TEST_CASE("IntersectSegmentAxisAlignedBox detects segments crossing, inside and missing the box")
