@@ -96,9 +96,7 @@ TEST_CASE("RectF mirrors Rect with floats")
     CHECK(RectF::Union(a, b) == RectF(0.0f, 0.0f, 15.0f, 15.0f));
 }
 
-TEST_CASE("RectF::Intersects is true only when the rectangles overlap or touch"
-          * doctest::should_fail()
-          * doctest::description("known bug: Intersects compares the left and top edges with its own right and bottom instead of the other's"))
+TEST_CASE("RectF::Intersects is true only when the rectangles overlap or touch")
 {
     const RectF a(0.0f, 0.0f, 10.0f, 10.0f);
     CHECK(a.Intersects(RectF(5.0f, 5.0f, 10.0f, 10.0f)));
