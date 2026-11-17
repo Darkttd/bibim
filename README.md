@@ -109,7 +109,9 @@ Linux yet (for example texture cooking and Lua/HLSL compilation); see
 - **Encoding**: text files are UTF-8 *without* BOM. Without a BOM, MSVC reads a file in the system code
   page unless told otherwise, so `build/vs2019/Bibim.vcxproj` and the `Bibim.props` property sheets that
   game projects import pass `/utf-8`, and the C# projects in `tools/` set `<CodePage>65001</CodePage>`.
-  `.editorconfig` sets `charset = utf-8` so that editors do not add a BOM.
+  `.editorconfig` sets `charset = utf-8` so that editors do not add a BOM. CI checks this with
+  `.github/scripts/check-encoding.sh`, skipping `extlibs/`, `tools/References/` and `bin/`; Visual Studio
+  adds a BOM when it saves `.sln` and project files, so remove it before committing.
 - **No tabs**: sources in `src/` and `include/` use spaces only, 4 per indent level. This includes
   preprocessor indentation after `#` (`#    define`) and alignment in the middle of a line. CI checks this
   with `.github/scripts/check-no-tabs.sh`, skipping the Lua and LuaTinker headers copied into `include/`
