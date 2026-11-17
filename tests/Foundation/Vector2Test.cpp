@@ -3,22 +3,8 @@
 #include <Bibim/Math.h>
 #include <Bibim/Vector2.h>
 #include <doctest.h>
-#include <cmath>
 
 using namespace Bibim;
-
-namespace
-{
-    bool Near(float a, float b)
-    {
-        return std::fabs(a - b) < 0.0001f;
-    }
-
-    bool Near(Vector2 a, Vector2 b)
-    {
-        return Near(a.X, b.X) && Near(a.Y, b.Y);
-    }
-}
 
 TEST_CASE("Vector2 arithmetic works per component")
 {
@@ -44,7 +30,7 @@ TEST_CASE("Vector2 length, distance and Normalize")
     CHECK(Vector2::GetDistanceSquared(Vector2(1.0f, 1.0f), Vector2(4.0f, 5.0f)) == 25.0f);
 
     CHECK(v.Normalize() == 5.0f);
-    CHECK(Near(v, Vector2(0.6f, 0.8f)));
+    CHECK(Math::Equals(v, Vector2(0.6f, 0.8f)));
 
     // A unit vector is left as it is.
     Vector2 unit = Vector2::UnitX;
@@ -56,27 +42,27 @@ TEST_CASE("Vector2::Rotate turns from +X toward +Y")
 {
     Vector2 v = Vector2::UnitX;
     v.Rotate(Math::PiOver2);
-    CHECK(Near(v, Vector2::UnitY));
+    CHECK(Math::Equals(v, Vector2::UnitY));
     v.Rotate(Math::Pi);
-    CHECK(Near(v, Vector2(0.0f, -1.0f)));
+    CHECK(Math::Equals(v, Vector2(0.0f, -1.0f)));
 
     Vector2 w(2.0f, 0.0f);
     w.Rotate(1.0f, 0.0f); // sin, cos of a quarter turn
-    CHECK(Near(w, Vector2(0.0f, 2.0f)));
+    CHECK(Math::Equals(w, Vector2(0.0f, 2.0f)));
 
-    CHECK(Near(Vector2(0.0f, 1.0f).ToRadian(), Math::PiOver2));
-    CHECK(Near(Vector2(-1.0f, 0.0f).ToRadian(), Math::Pi));
+    CHECK(Vector2(0.0f, 1.0f).ToRadian() == doctest::Approx(Math::PiOver2));
+    CHECK(Vector2(-1.0f, 0.0f).ToRadian() == doctest::Approx(Math::Pi));
 }
 
 TEST_CASE("Vector2::Reflect bounces off a surface with the given normal")
 {
     Vector2 v(1.0f, 1.0f);
     v.Reflect(Vector2(0.0f, -1.0f));
-    CHECK(Near(v, Vector2(1.0f, -1.0f)));
+    CHECK(Math::Equals(v, Vector2(1.0f, -1.0f)));
 
     Vector2 w(1.0f, -2.0f);
     w.Reflect(Vector2(-1.0f, 0.0f));
-    CHECK(Near(w, Vector2(-1.0f, -2.0f)));
+    CHECK(Math::Equals(w, Vector2(-1.0f, -2.0f)));
 }
 
 TEST_CASE("Vector2::IsCollinear")
