@@ -1845,30 +1845,30 @@ namespace Bibim
             const int size = reader.ReadInt();
             if (size > 0)
             {
-				const int byteCodeSize = reader.ReadInt();
-				const int textCodeSize = reader.ReadInt();
+                const int byteCodeSize = reader.ReadInt();
+                const int textCodeSize = reader.ReadInt();
 
-#				if (defined(BIBIM_32BIT))
-					textCodeSize; // Unused
-					const int codeSize = byteCodeSize;
-					byte* code = BBStackAlloc(byte, codeSize);
-					reader.Read(code, codeSize);
+#               if (defined(BIBIM_32BIT))
+                    textCodeSize; // Unused
+                    const int codeSize = byteCodeSize;
+                    byte* code = BBStackAlloc(byte, codeSize);
+                    reader.Read(code, codeSize);
 
-					Lua::DoBuffer(code, codeSize, path);
+                    Lua::DoBuffer(code, codeSize, path);
 
-					BBStackFree(code);
-#				else
-					stream->Seek(byteCodeSize, Stream::FromCurrent);  // Skip 32bit Byte Code
+                    BBStackFree(code);
+#               else
+                    stream->Seek(byteCodeSize, Stream::FromCurrent);  // Skip 32bit Byte Code
 
-					const int codeSize = textCodeSize;
-					byte* code = BBStackAlloc(byte, codeSize);
-					reader.Read(code, codeSize);
-					for (int i = 0; i < codeSize; i++)
-						code[i] ^= 0xA8;
-					Lua::DoBuffer(code, codeSize, path);
+                    const int codeSize = textCodeSize;
+                    byte* code = BBStackAlloc(byte, codeSize);
+                    reader.Read(code, codeSize);
+                    for (int i = 0; i < codeSize; i++)
+                        code[i] ^= 0xA8;
+                    Lua::DoBuffer(code, codeSize, path);
 
-					BBStackFree(code);
-#				endif
+                    BBStackFree(code);
+#               endif
 
                 return;
             }
