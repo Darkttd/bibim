@@ -9,10 +9,10 @@ namespace Bibim
     const float Math::E = 2.71828f;
     const float Math::Log10E = 0.434294f;
     const float Math::Log2E = 1.4427f;
-    const float Math::Pi = 3.14159f;
-    const float Math::PiOver2 = 1.5708f;
-    const float Math::PiOver4 = 0.785398f;
-    const float Math::TwoPi = 6.28319f;
+    const float Math::Pi = 3.14159265358979323846f;
+    const float Math::PiOver2 = 1.57079632679489661923f;
+    const float Math::PiOver4 = 0.785398163397448309616f;
+    const float Math::TwoPi = 6.28318530717958647692f;
     const float Math::InvSqrt2 = 0.707106781186f;
 
     float Math::Sqrt(float value)
