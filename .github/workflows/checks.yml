@@ -18,3 +18,12 @@ jobs:
 
       - name: Check that text files end with a newline
         run: .github/scripts/check-final-newline.sh
+
+  no-tabs:
+    name: No tabs
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check that engine sources do not contain tabs
+        run: .github/scripts/check-no-tabs.sh
