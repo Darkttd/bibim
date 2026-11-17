@@ -1,12 +1,12 @@
 
-Microsoft VisualStudio Á¦Ç°±º¿¡¼­ DebuggingÇÒ ¶§,
-º¯¼ö Á¶»ç½Ä Ã¢¿¡ Bibim EngineÀÇ classµéÀÇ Field°¡ º¸±â ÁÁ°Ô Ç¥½ÃµÇ°Ô ÇØÁÖ´Â Visualizer Codes.
+Microsoft VisualStudio ì œí’ˆêµ°ì—ì„œ Debuggingí•  ë•Œ,
+ë³€ìˆ˜ ì¡°ì‚¬ì‹ ì°½ì— Bibim Engineì˜ classë“¤ì˜ Fieldê°€ ë³´ê¸° ì¢‹ê²Œ í‘œì‹œë˜ê²Œ í•´ì£¼ëŠ” Visualizer Codes.
 
-»ç¿ë¹ı
+ì‚¬ìš©ë²•
 
-1. µ¿ºÀ µÇ¾î ÀÖ´Â "VisualStudio Debugging Visualizers.txt"¿¡ ÀÖ´Â ³»¿ëÀ» º¹»çÇÕ´Ï´Ù.
-2. Notepad·Î (VisualStudio Directory)\Common7\Packages\Debugger\autoexp.dat¸¦ ¿±´Ï´Ù.
-3. [Visualizer] Section Áß Àû´çÇÑ °÷¿¡ ºÙ¿©³Ö±â ÇÕ´Ï´Ù.
-   (Àß ¸ğ¸£°ÚÀ¸¸é [Visualizer] ¹Ù·Î ¹ØÁÙ¿¡ ºÙ¿©³Ö½À´Ï´Ù)
+1. ë™ë´‰ ë˜ì–´ ìˆëŠ” "VisualStudio Debugging Visualizers.txt"ì— ìˆëŠ” ë‚´ìš©ì„ ë³µì‚¬í•©ë‹ˆë‹¤.
+2. Notepadë¡œ (VisualStudio Directory)\Common7\Packages\Debugger\autoexp.datë¥¼ ì—½ë‹ˆë‹¤.
+3. [Visualizer] Section ì¤‘ ì ë‹¹í•œ ê³³ì— ë¶™ì—¬ë„£ê¸° í•©ë‹ˆë‹¤.
+   (ì˜ ëª¨ë¥´ê² ìœ¼ë©´ [Visualizer] ë°”ë¡œ ë°‘ì¤„ì— ë¶™ì—¬ë„£ìŠµë‹ˆë‹¤)
 
-%% LineÀÌ Semi-colon (;) À¸·Î ½ÃÀÛÇÏ¸é ÁÖ¼®ÀÔ´Ï´Ù. ÁÖÀÇÇÏ¼¼¿ä.
+%% Lineì´ Semi-colon (;) ìœ¼ë¡œ ì‹œì‘í•˜ë©´ ì£¼ì„ì…ë‹ˆë‹¤. ì£¼ì˜í•˜ì„¸ìš”.

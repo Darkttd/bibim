@@ -1,4 +1,4 @@
-﻿#include <Bibim/UIFunctionEventHandler.h>
+#include <Bibim/UIFunctionEventHandler.h>
 #include <Bibim/ComponentStreamReader.h>
 #include <Bibim/UIFunctionTable.h>
 

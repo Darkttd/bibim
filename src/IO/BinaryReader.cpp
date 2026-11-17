@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/BinaryReader.h>
 #include <Bibim/Log.h>
 #include <Bibim/Memory.h>

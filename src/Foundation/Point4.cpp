@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/Point4.h>
 
 namespace Bibim

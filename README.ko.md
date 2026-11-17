@@ -99,12 +99,13 @@ Windows 도구처럼 `bin/Plugin/*.dll`을 불러오도록 `bin/`에서 실행�
 - **플랫폼별 코드**는 접미사가 붙은 파일에 둡니다. 예: `GameFramework.Windows.cpp`,
   `GraphicsDevice.GLES2.cpp`, `Thread.Unix.cpp`. 각 파일은 `include/Bibim/Config.h`의
   `BIBIM_PLATFORM_*` / `BIBIM_USE_*` 매크로로 감싸져 있습니다.
-- **줄바꿈과 BOM**: 각 파일의 기존 줄바꿈(대부분 CRLF)과 BOM을 그대로 유지합니다.
-  파일 전체를 다시 포맷하지 마세요.
+- **줄바꿈**: 각 파일의 기존 줄바꿈(대부분 CRLF)을 그대로 유지합니다. 파일 전체를 다시 포맷하지 마세요.
 - **파일 끝 개행**: 모든 텍스트 파일은 개행으로 끝납니다(파일의 줄바꿈에 맞춰 CRLF 또는 LF). CI가
   `.github/scripts/check-final-newline.sh`로 검사하며, `extlibs/`, `tools/References/`, `bin/`은 제외합니다.
-- **인코딩**: 한글 주석처럼 ASCII가 아닌 문자가 들어간 소스 파일은 반드시 **BOM이 있는 UTF-8**로
-  저장합니다. Visual Studio 프로젝트가 `/utf-8` 옵션을 쓰지 않아서, MSVC는 BOM으로 UTF-8임을 판별합니다.
+- **인코딩**: 텍스트 파일은 **BOM 없는 UTF-8**로 저장합니다. MSVC는 BOM이 없으면 따로 지정하지 않는 한
+  시스템 코드 페이지로 읽으므로, `build/vs2019/Bibim.vcxproj`와 게임 프로젝트가 가져오는 `Bibim.props`가
+  `/utf-8`을 넘기고, `tools/`의 C# 프로젝트는 `<CodePage>65001</CodePage>`를 지정합니다.
+  `.editorconfig`의 `charset = utf-8`이 편집기가 BOM을 붙이지 않게 합니다.
 - **탭 금지**: `src/`와 `include/`의 소스는 공백만 쓰며, 들여쓰기 한 단계는 4칸입니다. `#` 뒤의 전처리기
   들여쓰기(`#    define`)와 줄 중간의 열 맞춤도 공백으로 합니다. CI가 `.github/scripts/check-no-tabs.sh`로
   검사하며, `include/`에 복사해 둔 Lua·LuaTinker 헤더(`lua.h`, `luaconf.h`, `lauxlib.h`, `lualib.h`,

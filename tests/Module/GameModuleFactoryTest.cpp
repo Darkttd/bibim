@@ -1,4 +1,4 @@
-﻿// Tests for GameModuleFactory, which creates modules by class ID when loading
+// Tests for GameModuleFactory, which creates modules by class ID when loading
 // game data.
 //
 // The factory keeps its entries in one process-wide table, and nothing can

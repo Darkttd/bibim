@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/UIDomain.h>
 #include <Bibim/UIWindow.h>
 

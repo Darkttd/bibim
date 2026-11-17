@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/UICheckBox.h>
 #include <Bibim/ComponentStreamReader.h>
 #include <Bibim/UIMouseEventArgs.h>

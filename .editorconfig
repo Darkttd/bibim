@@ -1,0 +1,16 @@
+# Editor settings shared by everyone working on the repository.
+# See https://editorconfig.org
+root = true
+
+[*]
+charset = utf-8
+
+# Third-party sources and prebuilt tools are kept as they are.
+[extlibs/**]
+charset = unset
+
+[tools/References/**]
+charset = unset
+
+[bin/**]
+charset = unset

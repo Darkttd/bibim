@@ -1,4 +1,4 @@
-﻿namespace Bibim.Graphics
+namespace Bibim.Graphics
 {
     partial class ImageViewForm
     {

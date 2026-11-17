@@ -101,13 +101,14 @@ Linux yet (for example texture cooking and Lua/HLSL compilation); see
 - **Platform-specific code** lives in files named with a suffix, for example `GameFramework.Windows.cpp`,
   `GraphicsDevice.GLES2.cpp` or `Thread.Unix.cpp`. Each file is guarded by the matching
   `BIBIM_PLATFORM_*` / `BIBIM_USE_*` macro from `include/Bibim/Config.h`.
-- **Line endings and BOM**: keep each file's existing line endings (most files use CRLF) and byte order
-  mark. Do not reformat whole files.
+- **Line endings**: keep each file's existing line endings (most files use CRLF). Do not reformat whole
+  files.
 - **Final newline**: every text file ends with a newline (CRLF or LF, matching the file). CI checks this
   with `.github/scripts/check-final-newline.sh`, skipping `extlibs/`, `tools/References/` and `bin/`.
-- **Encoding**: source files that contain non-ASCII text (such as Korean comments) must be UTF-8
-  *with* BOM. The Visual Studio projects do not pass `/utf-8`, so MSVC relies on the BOM to read
-  them as UTF-8.
+- **Encoding**: text files are UTF-8 *without* BOM. Without a BOM, MSVC reads a file in the system code
+  page unless told otherwise, so `build/vs2019/Bibim.vcxproj` and the `Bibim.props` property sheets that
+  game projects import pass `/utf-8`, and the C# projects in `tools/` set `<CodePage>65001</CodePage>`.
+  `.editorconfig` sets `charset = utf-8` so that editors do not add a BOM.
 - **No tabs**: sources in `src/` and `include/` use spaces only, 4 per indent level. This includes
   preprocessor indentation after `#` (`#    define`) and alignment in the middle of a line. CI checks this
   with `.github/scripts/check-no-tabs.sh`, skipping the Lua and LuaTinker headers copied into `include/`

@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/DumpStream.h>
 #include <Bibim/Assert.h>
 

@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #if (defined(BIBIM_USE_OPENGLES2))
 
 #include <Bibim/UIRenderer.GLES2.h>

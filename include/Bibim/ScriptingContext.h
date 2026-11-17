@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #ifndef __BIBIM_SCRIPTINGCONTEXT_H__
 #define __BIBIM_SCRIPTINGCONTEXT_H__
 

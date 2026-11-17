@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Bibim.Asset;
 using Bibim.IO;
 

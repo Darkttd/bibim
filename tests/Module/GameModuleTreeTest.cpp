@@ -1,4 +1,4 @@
-﻿// Tests for GameModule / GameModuleNode / GameModuleTree.
+// Tests for GameModule / GameModuleNode / GameModuleTree.
 //
 // Ownership: modules and nodes created with new are not deleted here. Once
 // attached, the tree owns them: ~GameModuleTree deletes the root node, each

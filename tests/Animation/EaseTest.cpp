@@ -1,4 +1,4 @@
-﻿// Tests for the Ease functions behind the standard easing curves.
+// Tests for the Ease functions behind the standard easing curves.
 #include <Bibim/Config.h>
 #include <Bibim/Ease.h>
 #include <doctest.h>

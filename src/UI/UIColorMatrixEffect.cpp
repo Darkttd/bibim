@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/UIColorMatrixEffect.h>
 #include <Bibim/ComponentStreamReader.h>
 #include <Bibim/ShaderEffect.h>

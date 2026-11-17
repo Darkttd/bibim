@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/UIPanel.h>
 #include <Bibim/Assert.h>
 #include <Bibim/ComponentStreamReader.h>

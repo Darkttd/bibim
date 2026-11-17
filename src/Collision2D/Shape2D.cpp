@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/Shape2D.h>
 #include <Bibim/ComponentStreamReader.h>
 #include <Bibim/IntersectShapes2D.h>

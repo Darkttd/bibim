@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/CommandQueue.h>
 #include <Bibim/Command.h>
 

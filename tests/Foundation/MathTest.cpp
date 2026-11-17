@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/Math.h>
 #include <Bibim/Vector2.h>
 #include <Bibim/Vector3.h>

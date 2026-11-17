@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #if (defined(BIBIM_PLATFORM_ANDROID))
 
 #include <Bibim/FileStream.Android.h>

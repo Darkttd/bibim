@@ -1,4 +1,4 @@
-﻿// Tests for BinaryReader / BinaryWriter over MemoryStream.
+// Tests for BinaryReader / BinaryWriter over MemoryStream.
 //
 // Asset files are written by the Windows tools (Bibim.Toolkit), so the layout
 // must not depend on the platform: little-endian, int = 4 bytes, longint = 8

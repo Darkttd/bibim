@@ -1,4 +1,4 @@
-﻿// Tests for the 2D geometry helpers in Geom2D.h.
+// Tests for the 2D geometry helpers in Geom2D.h.
 //
 // Coordinates follow the engine's screen convention: X grows to the right and
 // Y grows downward, so "left top" is the minimum corner of a box.

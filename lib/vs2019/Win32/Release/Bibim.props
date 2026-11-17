@@ -8,6 +8,7 @@
         <ClCompile>
             <AdditionalIncludeDirectories>"$(BIBIM_DIR)include";"$(DXSDK_DIR)Include";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
             <WarningLevel>Level4</WarningLevel>
+            <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
         </ClCompile>
         <Link>
             <AdditionalDependencies>Bibim.lib;winmm.lib;ws2_32.lib;d3d9.lib;d3dx9.lib;libpng.lib;libjpeg.lib;freetype.lib;lua.lib;zlib.lib;irrKlang.lib;StormLibRAD.lib;%(AdditionalDependencies)</AdditionalDependencies>

@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/BinaryWriter.h>
 #include <Bibim/Log.h>
 #include <Bibim/Stream.h>

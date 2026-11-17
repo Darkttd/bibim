@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/EvalConstants.h>
 #include <Bibim/ComponentStreamReader.h>
 #include <Bibim/GameAsset.h>

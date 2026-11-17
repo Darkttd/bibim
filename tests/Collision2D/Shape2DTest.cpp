@@ -1,4 +1,4 @@
-﻿// Tests for the Collision2D shapes and the pairwise intersection table behind
+// Tests for the Collision2D shapes and the pairwise intersection table behind
 // Shape2D::Intersect.
 //
 // Shapes are reference counted (SharedPointer), so they are created with new

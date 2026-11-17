@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/EvalUnitRandom.h>
 #include <Bibim/Clock.h>
 #include <Bibim/ComponentStreamReader.h>

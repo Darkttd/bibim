@@ -1,4 +1,4 @@
-﻿#include <Bibim/Config.h>
+#include <Bibim/Config.h>
 #include <Bibim/UIImage.h>
 #include <Bibim/Assert.h>
 #include <Bibim/Color.h>
