@@ -13,7 +13,6 @@
 #include <Bibim/RaycastReport2D.h>
 #include <Bibim/SphereShape2D.h>
 #include <doctest.h>
-#include <cmath>
 #include <utility>
 #include <vector>
 
@@ -168,7 +167,7 @@ TEST_CASE("CollisionSpace2D::Raycast returns the closest hit among the related g
     RaycastReport2D report;
     CHECK(space.Raycast(Vector2(0.0f, 0.0f), Vector2(1.0f, 0.0f), 100.0f, 0, report));
     CHECK(report.ImpactShape == near);
-    CHECK(std::fabs(report.ImpactDistance - 4.0f) < 0.0001f);
+    CHECK(report.ImpactDistance == doctest::Approx(4.0f));
 
     CHECK_FALSE(space.Raycast(Vector2(0.0f, 0.0f), Vector2(1.0f, 0.0f), 3.0f, 0, report));
     CHECK_FALSE(space.Raycast(Vector2(0.0f, 0.0f), Vector2(0.0f, 1.0f), 100.0f, 0, report));
