@@ -108,6 +108,9 @@ Linux yet (for example texture cooking and Lua/HLSL compilation); see
 - **Encoding**: source files that contain non-ASCII text (such as Korean comments) must be UTF-8
   *with* BOM. The Visual Studio projects do not pass `/utf-8`, so MSVC relies on the BOM to read
   them as UTF-8.
+- **Language of new code**: new code and comments are written in English (the Latin alphabet) only.
+  Existing Korean comments are kept as they are. The only exception is code that handles non-alphabet
+  text (Korean, Japanese and so on) and its tests, for example test strings for fonts or text input.
 
 ## License
 
