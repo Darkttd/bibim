@@ -118,7 +118,7 @@ namespace Bibim
 
     bool IntersectShapes2D::AxisAlignedBoxAxisAlignedBox(AxisAlignedBoxShape2D* left, AxisAlignedBoxShape2D* right)
     {
-        return Geom2D::IntersectAxisAlignedBoxAxisAlignedBox(left->GetScaledMin(), left->GetScaledMax(), right->GetScaledMax(), right->GetScaledMax());
+        return Geom2D::IntersectAxisAlignedBoxAxisAlignedBox(left->GetScaledMin(), left->GetScaledMax(), right->GetScaledMin(), right->GetScaledMax());
     }
 
     bool IntersectShapes2D::AxisAlignedBoxBox(AxisAlignedBoxShape2D* /*left*/, BoxShape2D* /*right*/)
