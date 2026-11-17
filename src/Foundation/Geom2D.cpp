@@ -104,15 +104,15 @@ namespace Bibim
         return (a.X - c.X) * (b.Y - c.Y) - (a.Y - c.Y) * (b.X - c.X);
     }
 
-    // 두 선분이 같은 직선 위에 있을 때 사용합니다. (넓이 비교로는 판정할 수 없습니다.)
-    // 두번째 선분을 첫번째 선분(a→b) 위에 투영하여 겹치는 구간을 찾고, 그 구간의 시작 위치를 반환합니다.
+    // For two segments on the same line, where the triangle area test cannot decide.
+    // Projects the second segment onto the first (a to b), finds their overlap and returns where it starts.
     static bool IntersectCollinearSegments(Vector2 a, Vector2 b, Vector2 c, Vector2 d, float& outResult)
     {
         const Vector2 ab = b - a;
         const float abLengthSquared = ab.Dot(ab);
         if (abLengthSquared == 0.0f)
         {
-            // 첫번째 선분이 점인 경우: 그 점이 두번째 선분 위에 있는지 확인합니다.
+            // The first segment is a point: check whether it lies on the second segment.
             const Vector2 cd = d - c;
             const float cdLengthSquared = cd.Dot(cd);
             const bool onSegment = (cdLengthSquared == 0.0f) ? (a == c) : (0.0f <= cd.Dot(a - c) && cd.Dot(a - c) <= cdLengthSquared);
