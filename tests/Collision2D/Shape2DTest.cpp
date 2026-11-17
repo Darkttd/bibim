@@ -296,9 +296,7 @@ TEST_CASE("Raycast reports the impact point, normal and distance of spheres and 
     CHECK_FALSE(MakePoint(5.0f, 0.0f)->Raycast(origin, direction, 20.0f, report, nullptr));
 }
 
-TEST_CASE("Raycast on a segment reports a normal perpendicular to it, facing the ray"
-          * doctest::should_fail()
-          * doctest::description("known bug: SegmentShape2D::Raycast swaps the direction's X and Y instead of turning it a quarter"))
+TEST_CASE("Raycast on a segment reports a normal perpendicular to it, facing the ray")
 {
     // From (5, 0) to (8, 4).
     SegmentShape2DPtr segment = MakeSegment(5.0f, 0.0f, Vector2(0.6f, 0.8f), 5.0f);
