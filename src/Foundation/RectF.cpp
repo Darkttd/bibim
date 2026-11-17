@@ -6,7 +6,7 @@ namespace Bibim
 {
     bool RectF::Intersects(const RectF& other) const
     {
-        return GetRight() >= other.GetLeft() && GetLeft() <= GetRight() && GetBottom() >= other.GetTop() && GetTop() <= GetBottom();
+        return GetRight() >= other.GetLeft() && GetLeft() <= other.GetRight() && GetBottom() >= other.GetTop() && GetTop() <= other.GetBottom();
     }
 
     RectF RectF::Intersect(const RectF& a, const RectF& b)
