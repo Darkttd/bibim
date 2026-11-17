@@ -104,6 +104,36 @@ namespace Bibim
         return (a.X - c.X) * (b.Y - c.Y) - (a.Y - c.Y) * (b.X - c.X);
     }
 
+    // 두 선분이 같은 직선 위에 있을 때 사용합니다. (넓이 비교로는 판정할 수 없습니다.)
+    // 두번째 선분을 첫번째 선분(a→b) 위에 투영하여 겹치는 구간을 찾고, 그 구간의 시작 위치를 반환합니다.
+    static bool IntersectCollinearSegments(Vector2 a, Vector2 b, Vector2 c, Vector2 d, float& outResult)
+    {
+        const Vector2 ab = b - a;
+        const float abLengthSquared = ab.Dot(ab);
+        if (abLengthSquared == 0.0f)
+        {
+            // 첫번째 선분이 점인 경우: 그 점이 두번째 선분 위에 있는지 확인합니다.
+            const Vector2 cd = d - c;
+            const float cdLengthSquared = cd.Dot(cd);
+            const bool onSegment = (cdLengthSquared == 0.0f) ? (a == c) : (0.0f <= cd.Dot(a - c) && cd.Dot(a - c) <= cdLengthSquared);
+            if (onSegment)
+                outResult = 0.0f;
+            return onSegment;
+        }
+
+        const float tc = ab.Dot(c - a) / abLengthSquared;
+        const float td = ab.Dot(d - a) / abLengthSquared;
+        const float tMin = Math::Max(Math::Min(tc, td), 0.0f);
+        const float tMax = Math::Min(Math::Max(tc, td), 1.0f);
+        if (tMin <= tMax)
+        {
+            outResult = tMin;
+            return true;
+        }
+        else
+            return false;
+    }
+
     bool Geom2D::IntersectSegmentSegment(Point2 a, Point2 b, Point2 c, Point2 d, float& outResult)
     {
         const int a1 = Signed2DTriArea(a, b, d);
@@ -114,6 +144,9 @@ namespace Bibim
             const int a4 = a3 + a2 - a1;
             if (a3 * a4 <= 0)
             {
+                if (a1 == 0 && a2 == 0)
+                    return IntersectCollinearSegments(Vector2(a.X, a.Y), Vector2(b.X, b.Y), Vector2(c.X, c.Y), Vector2(d.X, d.Y), outResult);
+
                 outResult = static_cast<float>(a3) / static_cast<float>(a3 - a4);
                 return true;
             }
@@ -134,6 +167,9 @@ namespace Bibim
             const float a4 = a3 + a2 - a1;
             if (a3 * a4 <= 0.0f)
             {
+                if (a1 == 0.0f && a2 == 0.0f)
+                    return IntersectCollinearSegments(a, b, c, d, outResult);
+
                 outResult = a3 / (a3 - a4);
                 return true;
             }
