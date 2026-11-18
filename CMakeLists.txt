@@ -172,13 +172,25 @@ add_library(jpeg STATIC
 )
 target_include_directories(jpeg PUBLIC ${BIBIM_LIBJPEG_DIR})
 
+# Bundled FreeType 2.5.2, built like build/vs20xx/freetype.vcxproj: one
+# translation unit (custom/freetype-all.c) with the modules the engine uses.
+# custom/ comes first so its config/ftoption.h and config/ftmodule.h replace
+# the stock ones in include/.
+set(BIBIM_FREETYPE_DIR ${BIBIM_EXTLIBS}/freetype-2.5.2)
+add_library(freetype STATIC ${BIBIM_FREETYPE_DIR}/custom/freetype-all.c)
+target_include_directories(freetype PUBLIC
+    ${BIBIM_FREETYPE_DIR}/custom
+    ${BIBIM_FREETYPE_DIR}/include
+)
+target_compile_definitions(freetype PRIVATE FT2_BUILD_LIBRARY)
+
 add_library(Bibim STATIC
     ${BIBIM_SOURCES}
     ${BIBIM_EXTLIBS}/lua_tinker/lua_tinker.cpp
 )
 target_link_libraries(Bibim
     PUBLIC lua
-    PRIVATE png jpeg
+    PRIVATE png jpeg freetype
 )
 
 # Same third-party header locations as build/vs20xx/Bibim.vcxproj, so every
@@ -192,8 +204,6 @@ target_include_directories(Bibim
         ${BIBIM_EXTLIBS}/utf8_v2_3_4/source
         ${BIBIM_EXTLIBS}/rapidjson/include
     PRIVATE
-        ${BIBIM_EXTLIBS}/freetype-2.5.2/custom
-        ${BIBIM_EXTLIBS}/freetype-2.5.2/include
         ${BIBIM_EXTLIBS}/StormLib/src
 )
 
