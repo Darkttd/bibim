@@ -24,10 +24,11 @@ add_executable(BibimTests
     IO/BinaryReaderWriterTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
+    Platform/SDL3Test.cpp
     UI/UITransform3DTest.cpp
 )
 
-target_link_libraries(BibimTests PRIVATE Bibim)
+target_link_libraries(BibimTests PRIVATE Bibim SDL3::SDL3)
 target_include_directories(BibimTests PRIVATE ${BIBIM_EXTLIBS}/doctest-2.5.3)
 
 add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*,Preferences*)

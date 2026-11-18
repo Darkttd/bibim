@@ -31,6 +31,15 @@ if(NOT BIBIM_GLES2_LIBRARY)
         "Install it, e.g. 'libgles-dev' on Debian/Ubuntu or 'libglvnd' on Arch.")
 endif()
 
+# SDL3 is the window, GLES2 context and input layer (*.SDL3.cpp, enabled by
+# BIBIM_USE_SDL3 in Config.h). The system package is used.
+find_package(SDL3 3.4 CONFIG)
+if(NOT SDL3_FOUND)
+    message(FATAL_ERROR
+        "SDL3 3.4 or later not found. "
+        "Install it, e.g. 'libsdl3-dev' on Debian/Ubuntu or 'sdl3' on Arch.")
+endif()
+
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
@@ -198,7 +207,7 @@ add_library(Bibim STATIC
 )
 target_link_libraries(Bibim
     PUBLIC lua
-    PRIVATE png jpeg freetype ${BIBIM_GLES2_LIBRARY}
+    PRIVATE png jpeg freetype ${BIBIM_GLES2_LIBRARY} SDL3::SDL3
 )
 
 # Same third-party header locations as build/vs20xx/Bibim.vcxproj, so every
