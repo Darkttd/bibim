@@ -7,6 +7,7 @@ add_executable(BibimTests
     Diagnostics/SystemLoggerTest.cpp
     FileSystem/FileStreamTest.cpp
     Foundation/ColorTest.cpp
+    Foundation/EnvironmentTest.cpp
     Graphics/ImageReadTest.cpp
     Foundation/Geom2DTest.cpp
     Foundation/MathTest.cpp
@@ -27,4 +28,17 @@ add_executable(BibimTests
 target_link_libraries(BibimTests PRIVATE Bibim)
 target_include_directories(BibimTests PRIVATE ${BIBIM_EXTLIBS}/doctest-2.5.3)
 
-add_test(NAME BibimTests COMMAND BibimTests)
+add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*)
+
+# Environment reads the process environment once, so each setting runs in its
+# own process. The data directories are created under the build directory.
+set(BIBIM_TEST_DATA ${CMAKE_CURRENT_BINARY_DIR}/environment)
+add_test(NAME EnvironmentKorean COMMAND BibimTests --test-case=Environment*)
+set_tests_properties(EnvironmentKorean PROPERTIES ENVIRONMENT
+    "LC_ALL=;LC_MESSAGES=;LANG=ko_KR.UTF-8;XDG_DATA_HOME=${BIBIM_TEST_DATA}/xdg;BIBIM_EXPECTED_LOCALE=ko-KR;BIBIM_EXPECTED_APPDATA=${BIBIM_TEST_DATA}/xdg")
+add_test(NAME EnvironmentJapaneseOverride COMMAND BibimTests --test-case=Environment*)
+set_tests_properties(EnvironmentJapaneseOverride PROPERTIES ENVIRONMENT
+    "LC_ALL=ja_JP.UTF-8;LC_MESSAGES=;LANG=ko_KR.UTF-8;XDG_DATA_HOME=relative;HOME=${BIBIM_TEST_DATA}/home;BIBIM_EXPECTED_LOCALE=ja-JP;BIBIM_EXPECTED_APPDATA=${BIBIM_TEST_DATA}/home/.local/share")
+add_test(NAME EnvironmentDefault COMMAND BibimTests --test-case=Environment*)
+set_tests_properties(EnvironmentDefault PROPERTIES ENVIRONMENT
+    "LC_ALL=;LC_MESSAGES=;LANG=C.UTF-8;XDG_DATA_HOME=;HOME=${BIBIM_TEST_DATA}/home;BIBIM_EXPECTED_LOCALE=en-US;BIBIM_EXPECTED_APPDATA=${BIBIM_TEST_DATA}/home/.local/share")
