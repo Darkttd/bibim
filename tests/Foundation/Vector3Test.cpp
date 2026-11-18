@@ -79,10 +79,7 @@ TEST_CASE("Vector3 length and Normalize")
     CHECK(unit == Vector3::UnitY);
 }
 
-TEST_CASE("Vector3 GetDistance and GetDistanceSquared"
-          * doctest::should_fail(true)
-          * doctest::description("Known bug: GetDistanceSquared multiplies the Z difference by "
-                                 "(b.Y - a.Z) instead of (b.Z - a.Z)"))
+TEST_CASE("Vector3 GetDistance and GetDistanceSquared")
 {
     const Vector3 a(1.0f, 2.0f, 3.0f);
     const Vector3 b(3.0f, 5.0f, 9.0f);
