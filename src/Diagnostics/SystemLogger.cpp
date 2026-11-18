@@ -8,6 +8,8 @@
 #   include <windows.h>
 #elif (defined(BIBIM_PLATFORM_ANDROID))
 #   include <android/log.h>
+#elif (defined(BIBIM_PLATFORM_LINUX))
+#   include <cstdio>
 #endif
 
 namespace Bibim
@@ -67,6 +69,8 @@ namespace Bibim
                 BBStackFree(full);
 #           elif (defined(BIBIM_PLATFORM_ANDROID))
                 __android_log_print(HeadToLogPriority::Do(head), category, message);
+#           elif (defined(BIBIM_PLATFORM_LINUX))
+                std::fprintf(stderr, "(%s) %s[%s] %s\n", name.CStr(), head, category, message);
 #           endif
         }
         else
@@ -88,6 +92,8 @@ namespace Bibim
                 BBStackFree(full);
 #           elif (defined(BIBIM_PLATFORM_ANDROID))
                 __android_log_print(HeadToLogPriority::Do(head), GetName().CStr(), message);
+#           elif (defined(BIBIM_PLATFORM_LINUX))
+                std::fprintf(stderr, "(%s) %s%s\n", name.CStr(), head, message);
 #           endif
         }
     }
