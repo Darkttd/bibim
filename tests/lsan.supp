@@ -1,0 +1,6 @@
+# LeakSanitizer suppressions for the ASan build. SDL3 and the libraries it
+# loads (libdbus, the EGL/GLES drivers) keep allocations until exit; the
+# drivers are unloaded by then, so their frames show as <unknown module> and
+# only the libSDL3 frame below them can be matched.
+leak:libSDL3.so
+leak:libdbus-1.so

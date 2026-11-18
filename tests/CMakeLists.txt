@@ -24,6 +24,7 @@ add_executable(BibimTests
     IO/BinaryReaderWriterTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
+    Platform/GameWindowTest.cpp
     Platform/SDL3Test.cpp
     UI/UITransform3DTest.cpp
 )
@@ -32,6 +33,8 @@ target_link_libraries(BibimTests PRIVATE Bibim SDL3::SDL3)
 target_include_directories(BibimTests PRIVATE ${BIBIM_EXTLIBS}/doctest-2.5.3)
 
 add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*,Preferences*)
+set_tests_properties(BibimTests PROPERTIES ENVIRONMENT
+    "LSAN_OPTIONS=suppressions=${CMAKE_CURRENT_SOURCE_DIR}/lsan.supp:print_suppressions=0")
 
 # Environment reads the process environment once, so each setting runs in its
 # own process. The data directories are created under the build directory.
