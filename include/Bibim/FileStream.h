@@ -7,5 +7,6 @@
 #include <Bibim/FileStream.Windows.h>
 #include <Bibim/FileStream.Android.h>
 #include <Bibim/FileStream.iOS.h>
+#include <Bibim/FileStream.Linux.h>
 
 #endif

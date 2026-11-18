@@ -5,6 +5,7 @@ add_executable(BibimTests
     Collision2D/CollisionSpace2DTest.cpp
     Collision2D/Shape2DTest.cpp
     Diagnostics/SystemLoggerTest.cpp
+    FileSystem/FileStreamTest.cpp
     Foundation/ColorTest.cpp
     Graphics/ImageReadTest.cpp
     Foundation/Geom2DTest.cpp
