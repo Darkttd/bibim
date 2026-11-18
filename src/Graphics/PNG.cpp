@@ -87,9 +87,12 @@ namespace Bibim
                 {
                     const int a = k * 4;
                     const int b = k * 3;
-                    row[a + 0] = row[b + RED];
-                    row[a + 1] = row[b + GREEN];
-                    row[a + 2] = row[b + BLUE];
+                    const png_byte red   = row[b + RED];
+                    const png_byte green = row[b + GREEN];
+                    const png_byte blue  = row[b + BLUE];
+                    row[a + 0] = red;
+                    row[a + 1] = green;
+                    row[a + 2] = blue;
                     row[a + 3] = 0xff;
                 }
             }
