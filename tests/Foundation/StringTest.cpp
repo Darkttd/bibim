@@ -64,6 +64,25 @@ TEST_CASE("String::Substring stops at the end of the string")
     CHECK(s.Substring(5, 1) == String::Empty);
 }
 
+TEST_CASE("String constructors accept zero characters")
+{
+    const char* chars = "bibim";
+    const String original = "bibim";
+    const String strings[] = {
+        String(chars, 2, 0),
+        String(chars, 5),
+        String(chars, 5, 0),
+        String(original, 2, 0),
+    };
+    for (const String& s : strings)
+    {
+        CHECK(s.IsEmpty());
+        CHECK(s.GetLength() == 0);
+        CHECK(s.CStr()[0] == '\0');
+        CHECK(s == String::Empty);
+    }
+}
+
 TEST_CASE("Equal strings compare equal however they were built, including past 64 characters")
 {
     // String compares hash codes first, so every way of building a string must
