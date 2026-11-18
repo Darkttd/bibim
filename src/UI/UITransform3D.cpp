@@ -122,7 +122,11 @@ namespace Bibim
 
     Vector3 UITransform3D::TransformOrientation(Vector3 value)
     {
-        return Matrix4::RotationPitchYawRoll(rotation).TransformNormal(value);
+        // Turn the same way as ComputeMatrix, which rotates with Transformation
+        // (about X, Y, then Z), not RotationPitchYawRoll (Z, X, then Y).
+        return Matrix4::Transformation(Vector3::Zero, Vector3::One,
+                                       Vector3::Zero, rotation,
+                                       Vector3::Zero).TransformNormal(value);
     }
 
     void UITransform3D::OnRead(ComponentStreamReader& reader)

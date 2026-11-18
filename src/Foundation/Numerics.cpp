@@ -147,7 +147,7 @@ namespace Bibim
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    const float Float::Min = FLT_MIN;
+    const float Float::Min = -FLT_MAX;
     const float Float::Max = FLT_MAX;
 
     float Float::Parse(const char* s, int /*length*/)
@@ -165,7 +165,7 @@ namespace Bibim
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    const double Double::Min = DBL_MIN;
+    const double Double::Min = -DBL_MAX;
     const double Double::Max = DBL_MAX;
 
     double Double::Parse(const char* s, int /*length*/)
