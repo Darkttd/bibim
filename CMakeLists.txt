@@ -46,15 +46,12 @@ list(FILTER BIBIM_SOURCES EXCLUDE REGEX "\\.(Windows|DX9|Android|iOS|Mobile|PC)\
 # Test bed references headers that no longer exist in the repository.
 list(FILTER BIBIM_SOURCES EXCLUDE REGEX "/src/TestBed/")
 
-# Need Linux implementations of GameFramework, GameWindow, FileStream,
-# Environment or IME, which do not exist yet.
+# Need Linux implementations of GameFramework, GameWindow or IME, which do
+# not exist yet.
 set(BIBIM_PENDING_PLATFORM_SOURCES
-    Asset/FileAssetProviderBase.cpp
-    Asset/NetworkAssetProvider.cpp
     Framework/Dashboard.cpp
     Framework/GameFrameworkBase.cpp
     Framework/Lua.cpp
-    Framework/Preferences.cpp
     Framework/StandardGame.cpp
     Framework/Startup.cpp
     UI/UIEditText.cpp
