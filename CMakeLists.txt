@@ -69,11 +69,63 @@ target_include_directories(lua PUBLIC ${BIBIM_EXTLIBS}/lua-5.2.3/src)
 target_compile_definitions(lua PRIVATE LUA_USE_POSIX)
 target_link_libraries(lua PUBLIC m)
 
+# Bundled zlib 1.2.8 and libpng 1.6.9, built from the same sources as
+# build/vs20xx/zlib.vcxproj and libpng.vcxproj. PNG.cpp reads libpng internals
+# (pngstruct.h), so the system libpng cannot be used.
+set(BIBIM_ZLIB_DIR ${BIBIM_EXTLIBS}/zlib-1.2.8)
+add_library(zlib STATIC
+    ${BIBIM_ZLIB_DIR}/adler32.c
+    ${BIBIM_ZLIB_DIR}/compress.c
+    ${BIBIM_ZLIB_DIR}/crc32.c
+    ${BIBIM_ZLIB_DIR}/deflate.c
+    ${BIBIM_ZLIB_DIR}/gzclose.c
+    ${BIBIM_ZLIB_DIR}/gzlib.c
+    ${BIBIM_ZLIB_DIR}/gzread.c
+    ${BIBIM_ZLIB_DIR}/gzwrite.c
+    ${BIBIM_ZLIB_DIR}/infback.c
+    ${BIBIM_ZLIB_DIR}/inffast.c
+    ${BIBIM_ZLIB_DIR}/inflate.c
+    ${BIBIM_ZLIB_DIR}/inftrees.c
+    ${BIBIM_ZLIB_DIR}/trees.c
+    ${BIBIM_ZLIB_DIR}/uncompr.c
+    ${BIBIM_ZLIB_DIR}/zutil.c
+)
+target_include_directories(zlib PUBLIC ${BIBIM_ZLIB_DIR})
+# zconf.h only includes <unistd.h> (lseek, read, write in gz*.c) when told to.
+target_compile_definitions(zlib PRIVATE Z_HAVE_UNISTD_H)
+# zlib 1.2.8 uses K&R function definitions, which C23 (GCC 15's default)
+# removed; build it as the C89 it was written in.
+set_target_properties(zlib PROPERTIES C_STANDARD 90 C_EXTENSIONS ON)
+
+set(BIBIM_LIBPNG_DIR ${BIBIM_EXTLIBS}/libpng-1.6.9)
+add_library(png STATIC
+    ${BIBIM_LIBPNG_DIR}/png.c
+    ${BIBIM_LIBPNG_DIR}/pngerror.c
+    ${BIBIM_LIBPNG_DIR}/pngget.c
+    ${BIBIM_LIBPNG_DIR}/pngmem.c
+    ${BIBIM_LIBPNG_DIR}/pngpread.c
+    ${BIBIM_LIBPNG_DIR}/pngread.c
+    ${BIBIM_LIBPNG_DIR}/pngrio.c
+    ${BIBIM_LIBPNG_DIR}/pngrtran.c
+    ${BIBIM_LIBPNG_DIR}/pngrutil.c
+    ${BIBIM_LIBPNG_DIR}/pngset.c
+    ${BIBIM_LIBPNG_DIR}/pngtrans.c
+    ${BIBIM_LIBPNG_DIR}/pngwio.c
+    ${BIBIM_LIBPNG_DIR}/pngwrite.c
+    ${BIBIM_LIBPNG_DIR}/pngwtran.c
+    ${BIBIM_LIBPNG_DIR}/pngwutil.c
+)
+target_include_directories(png PUBLIC ${BIBIM_LIBPNG_DIR})
+target_link_libraries(png PUBLIC zlib m)
+
 add_library(Bibim STATIC
     ${BIBIM_SOURCES}
     ${BIBIM_EXTLIBS}/lua_tinker/lua_tinker.cpp
 )
-target_link_libraries(Bibim PUBLIC lua)
+target_link_libraries(Bibim
+    PUBLIC lua
+    PRIVATE png
+)
 
 # Same third-party header locations as build/vs20xx/Bibim.vcxproj, so every
 # platform compiles against the same library versions. PNG.cpp reads libpng
@@ -86,8 +138,6 @@ target_include_directories(Bibim
         ${BIBIM_EXTLIBS}/utf8_v2_3_4/source
         ${BIBIM_EXTLIBS}/rapidjson/include
     PRIVATE
-        ${BIBIM_EXTLIBS}/zlib-1.2.8
-        ${BIBIM_EXTLIBS}/libpng-1.6.9
         ${BIBIM_EXTLIBS}/jpeg-9a
         ${BIBIM_EXTLIBS}/freetype-2.5.2/custom
         ${BIBIM_EXTLIBS}/freetype-2.5.2/include
