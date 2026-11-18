@@ -72,6 +72,24 @@ TEST_CASE("GameWindow::Close destroys the window and asks the main loop to quit"
     CHECK(SDL_HasEvent(SDL_EVENT_QUIT));
 }
 
+TEST_CASE("GameWindow is not created again after Close")
+{
+    OffscreenVideo video;
+    GameModuleTree modules;
+    GameWindow* window = new GameWindow();
+    modules.GetRoot()->AttachChild(window);
+    window->SetVisible(true);
+    REQUIRE(window->GetHandle() != nullptr);
+    window->Close();
+
+    // GameFrameworkBase::Finalize hides the window after the main loop ends.
+    window->SetVisible(false);
+    window->SetTitle("Closed");
+    window->SetSize(Point2(16, 16));
+    CHECK(window->GetHandle() == nullptr);
+    CHECK_FALSE(window->GetVisible());
+}
+
 TEST_CASE("GraphicsDevice draws into a GLES2 context on the SDL window")
 {
     OffscreenVideo video;

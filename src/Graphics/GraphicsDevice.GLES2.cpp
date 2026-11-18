@@ -69,7 +69,8 @@ namespace Bibim
 #       if (defined(BIBIM_USE_EGL))
         eglSwapBuffers(eglDisplay, eglSurface);
 #       elif (defined(BIBIM_USE_SDL3))
-        if (Window* window = GetWindow())
+        Window* window = GetWindow();
+        if (window && window->GetHandle())
             SDL_GL_SwapWindow(static_cast<SDL_Window*>(window->GetHandle()));
 #       endif
     }

@@ -68,6 +68,7 @@ namespace Bibim
             virtual bool OnPaint();
 
         private:
+            bool EnsureHandle();
             void CreateHandle();
 
         private:
@@ -76,6 +77,7 @@ namespace Bibim
             Point2 position;
             Point2 size;
             bool visible;
+            bool closed;
 
             std::vector<DropFileEventListener*> dropFileEventListeners;
     };

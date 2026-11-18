@@ -18,7 +18,8 @@ namespace Bibim
 
     GameWindow::GameWindow()
         : handle(nullptr),
-          visible(false)
+          visible(false),
+          closed(false)
     {
     }
 
@@ -30,8 +31,8 @@ namespace Bibim
 
     void GameWindow::MoveToScreenCenter()
     {
-        if (handle == nullptr)
-            CreateHandle();
+        if (EnsureHandle() == false)
+            return;
 
         SDL_SetWindowPosition(ToSDLWindow(handle), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
     }
@@ -45,6 +46,7 @@ namespace Bibim
         SDL_DestroyWindow(ToSDLWindow(handle));
         handle = nullptr;
         visible = false;
+        closed = true;
 
         // Like PostQuitMessage on Windows: the main loop ends. The event stays
         // queued only while someone else (the GameFramework) holds the video
@@ -62,13 +64,11 @@ namespace Bibim
 
     void GameWindow::SetTitle(const String& value)
     {
-        if (handle == nullptr)
-            CreateHandle();
-
         if (title != value)
         {
             title = value;
-            SDL_SetWindowTitle(ToSDLWindow(handle), title.CStr());
+            if (EnsureHandle())
+                SDL_SetWindowTitle(ToSDLWindow(handle), title.CStr());
         }
     }
 
@@ -79,13 +79,11 @@ namespace Bibim
 
     void GameWindow::SetPosition(Point2 value)
     {
-        if (handle == nullptr)
-            CreateHandle();
-
         if (position != value)
         {
             position = value;
-            SDL_SetWindowPosition(ToSDLWindow(handle), position.X, position.Y);
+            if (EnsureHandle())
+                SDL_SetWindowPosition(ToSDLWindow(handle), position.X, position.Y);
         }
     }
 
@@ -99,7 +97,7 @@ namespace Bibim
         if (handle == nullptr)
         {
             size = value;
-            CreateHandle();
+            EnsureHandle();
             return;
         }
 
@@ -117,12 +115,12 @@ namespace Bibim
 
     void GameWindow::SetVisible(bool value)
     {
-        if (handle == nullptr)
-            CreateHandle();
-
         if (visible != value)
         {
             visible = value;
+            if (EnsureHandle() == false)
+                return;
+
             if (visible)
                 SDL_ShowWindow(ToSDLWindow(handle));
             else
@@ -137,8 +135,8 @@ namespace Bibim
 
     void GameWindow::SetFullscreenStyle(bool value)
     {
-        if (handle == nullptr)
-            CreateHandle();
+        if (EnsureHandle() == false)
+            return;
 
         SDL_SetWindowFullscreen(ToSDLWindow(handle), value);
     }
@@ -199,6 +197,16 @@ namespace Bibim
     bool GameWindow::OnPaint()
     {
         return false;
+    }
+
+    bool GameWindow::EnsureHandle()
+    {
+        // Like a destroyed HWND on Windows, a closed window is not created
+        // again by later calls.
+        if (handle == nullptr && closed == false)
+            CreateHandle();
+
+        return handle != nullptr;
     }
 
     void GameWindow::CreateHandle()
