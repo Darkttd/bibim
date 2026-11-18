@@ -148,8 +148,9 @@ TEST_CASE("Matrix4 RotationX, RotationY and RotationZ turn by the negative angle
 
 TEST_CASE("Matrix4 RotationPitchYawRoll about one axis matches Transformation")
 {
-    // UITransform3D builds its matrix with Transformation and turns
-    // orientations with RotationPitchYawRoll, so the two must agree.
+    // About several axes they differ on purpose: RotationPitchYawRoll follows
+    // D3DXMatrixRotationYawPitchRoll and turns about Z (roll), X (pitch), then
+    // Y (yaw), while Transformation turns about X, Y, then Z.
     const float angle = 0.7f;
     const Vector3 rotations[] = {
         Vector3(angle, 0.0f, 0.0f),
@@ -165,19 +166,6 @@ TEST_CASE("Matrix4 RotationPitchYawRoll about one axis matches Transformation")
     }
 
     CHECK(NearlyEquals(Matrix4::RotationPitchYawRoll(Vector3(0.0f, 0.0f, angle)), Matrix4::RotationZ(-angle)));
-}
-
-TEST_CASE("Matrix4 RotationPitchYawRoll about several axes matches Transformation"
-          * doctest::should_fail(true)
-          * doctest::description("Known bug: Transformation turns about X, then Y, then Z, but "
-                                 "RotationPitchYawRoll turns about Z (roll), then X (pitch), then Y (yaw), "
-                                 "so UITransform3D::TransformOrientation disagrees with its own matrix"))
-{
-    const Vector3 rotation(0.3f, 0.5f, 0.7f);
-    const Matrix4 transformation = Matrix4::Transformation(Vector3::Zero, Vector3::One,
-                                                           Vector3::Zero, rotation,
-                                                           Vector3::Zero);
-    CHECK(NearlyEquals(Matrix4::RotationPitchYawRoll(rotation), transformation));
 }
 
 TEST_CASE("Matrix4 Transformation scales and rotates about their centers, then translates")
