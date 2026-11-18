@@ -20,6 +20,7 @@
 #    define BIBIM_PLATFORM_UNIX
 #    define BIBIM_PLATFORM_LINUX
 #    define BIBIM_USE_OPENGLES2
+#    define BIBIM_USE_SDL3
 #else
 #    error "UNKNOWN PLATFORM"
 #    define BIBIM_PLATFORM_UNKNOWN

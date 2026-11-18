@@ -37,10 +37,11 @@ jobs:
       - uses: actions/checkout@v7
 
       # libgles-dev / libegl-dev: OpenGL ES 2.0 and EGL headers used by the GLES2 renderer.
+      # libsdl3-dev: SDL3, the window and input layer.
       - name: Install build tools and libraries
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ninja-build libgles-dev libegl-dev
+          sudo apt-get install -y --no-install-recommends ninja-build libgles-dev libegl-dev libsdl3-dev
 
       - name: Configure
         run: >
