@@ -279,7 +279,7 @@ namespace Bibim
 
     String::String(const String& original, int startIndex, int length)
     {
-        if (original.buffer->length > startIndex)
+        if (original.buffer->length > startIndex && length > 0)
         {
             if (startIndex + length <= original.buffer->length)
                 buffer.Reset(new StringBuffer(&original.buffer->s[startIndex], length));
