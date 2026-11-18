@@ -147,7 +147,7 @@ namespace Bibim
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    const float Float::Min = FLT_MIN;
+    const float Float::Min = -FLT_MAX;
     const float Float::Max = FLT_MAX;
 
     float Float::Parse(const char* s, int /*length*/)
