@@ -7,6 +7,7 @@
 #include <Bibim/Math.h>
 #include <Bibim/Vector3.h>
 #include <doctest.h>
+#include <cfloat>
 
 using namespace Bibim;
 
@@ -79,10 +80,7 @@ TEST_CASE("Vector3 length and Normalize")
     CHECK(unit == Vector3::UnitY);
 }
 
-TEST_CASE("Vector3 GetDistance and GetDistanceSquared"
-          * doctest::should_fail(true)
-          * doctest::description("Known bug: GetDistanceSquared multiplies the Z difference by "
-                                 "(b.Y - a.Z) instead of (b.Z - a.Z)"))
+TEST_CASE("Vector3 GetDistance and GetDistanceSquared")
 {
     const Vector3 a(1.0f, 2.0f, 3.0f);
     const Vector3 b(3.0f, 5.0f, 9.0f);
@@ -116,4 +114,10 @@ TEST_CASE("Vector3 Rotate turns counterclockwise about a unit axis")
     v = Vector3::UnitX;
     v.Rotate(Vector3::UnitZ, 1.0f, 0.0f);
     CHECK(v == Vector3::UnitY);
+}
+
+TEST_CASE("Vector3 Minimum and Maximum hold the lowest and highest floats")
+{
+    CHECK(Vector3::Minimum == Vector3(-FLT_MAX, -FLT_MAX, -FLT_MAX));
+    CHECK(Vector3::Maximum == Vector3(FLT_MAX, FLT_MAX, FLT_MAX));
 }

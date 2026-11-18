@@ -3,6 +3,7 @@
 #include <Bibim/Math.h>
 #include <Bibim/Vector2.h>
 #include <doctest.h>
+#include <cfloat>
 
 using namespace Bibim;
 
@@ -71,4 +72,10 @@ TEST_CASE("Vector2::IsCollinear")
     CHECK(Vector2::IsCollinear(Vector2(0.0f, 0.0f), Vector2(0.0f, 1.0f), Vector2(0.0f, 5.0f))); // vertical
     CHECK_FALSE(Vector2::IsCollinear(Vector2(0.0f, 0.0f), Vector2(1.0f, 1.0f), Vector2(3.0f, 2.0f)));
     CHECK_FALSE(Vector2::IsCollinear(Vector2(0.0f, 0.0f), Vector2(0.0f, 1.0f), Vector2(1.0f, 5.0f)));
+}
+
+TEST_CASE("Vector2 Minimum and Maximum hold the lowest and highest floats")
+{
+    CHECK(Vector2::Minimum == Vector2(-FLT_MAX, -FLT_MAX));
+    CHECK(Vector2::Maximum == Vector2(FLT_MAX, FLT_MAX));
 }

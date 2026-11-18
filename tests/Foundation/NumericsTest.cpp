@@ -2,6 +2,7 @@
 #include <Bibim/Config.h>
 #include <Bibim/Numerics.h>
 #include <doctest.h>
+#include <cfloat>
 
 using namespace Bibim;
 
@@ -78,6 +79,22 @@ TEST_CASE("Bool::ToString writes true or false")
 {
     CHECK(Bool::ToString(true) == "true");
     CHECK(Bool::ToString(false) == "false");
+}
+
+TEST_CASE("Float::Min and Float::Max are the lowest and highest finite floats")
+{
+    // Like Int::Min, Float::Min is the most negative value, not FLT_MIN (the
+    // smallest positive normalized float).
+    CHECK(Float::Min == -FLT_MAX);
+    CHECK(Float::Max == FLT_MAX);
+}
+
+TEST_CASE("Double::Min and Double::Max are the lowest and highest finite doubles")
+{
+    // Like Float::Min, Double::Min is the most negative value, not DBL_MIN
+    // (the smallest positive normalized double).
+    CHECK(Double::Min == -DBL_MAX);
+    CHECK(Double::Max == DBL_MAX);
 }
 
 TEST_CASE("Float::ToString writes six decimal places")
