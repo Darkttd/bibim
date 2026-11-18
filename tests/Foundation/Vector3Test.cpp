@@ -7,6 +7,7 @@
 #include <Bibim/Math.h>
 #include <Bibim/Vector3.h>
 #include <doctest.h>
+#include <cfloat>
 
 using namespace Bibim;
 
@@ -116,4 +117,10 @@ TEST_CASE("Vector3 Rotate turns counterclockwise about a unit axis")
     v = Vector3::UnitX;
     v.Rotate(Vector3::UnitZ, 1.0f, 0.0f);
     CHECK(v == Vector3::UnitY);
+}
+
+TEST_CASE("Vector3 Minimum and Maximum hold the lowest and highest floats")
+{
+    CHECK(Vector3::Minimum == Vector3(-FLT_MAX, -FLT_MAX, -FLT_MAX));
+    CHECK(Vector3::Maximum == Vector3(FLT_MAX, FLT_MAX, FLT_MAX));
 }
