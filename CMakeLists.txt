@@ -179,6 +179,9 @@ add_library(jpeg STATIC
     ${BIBIM_LIBJPEG_DIR}/jutils.c
 )
 target_include_directories(jpeg PUBLIC ${BIBIM_LIBJPEG_DIR})
+# The integer IDCT left-shifts negative coefficients (jidctint.c), which UBSan
+# reports; GCC and Clang define it as an arithmetic shift.
+target_compile_options(jpeg PRIVATE $<$<C_COMPILER_ID:GNU,Clang>:-fno-sanitize=shift-base>)
 
 # Bundled FreeType 2.5.2, built like build/vs20xx/freetype.vcxproj: one
 # translation unit (custom/freetype-all.c) with the modules the engine uses.
