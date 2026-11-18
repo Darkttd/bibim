@@ -178,12 +178,15 @@ namespace Bibim
         if (stream->CanRead() == false)
             return String::Empty;
 
-        std::vector<char> buffer;
-        buffer.resize(stream->GetLength());
-        stream->Read(&buffer[0], static_cast<int>(buffer.size()));
+        const int length = stream->GetLength();
+        if (length <= 0)
+            return String::Empty;
+
+        std::vector<char> buffer(length + 1, '\0');
+        stream->Read(&buffer[0], length);
         stream->Close();
 
-        return String(&buffer[0], 0, static_cast<int>(buffer.size()));
+        return String(&buffer[0], 0, length);
     }
 
     void Preferences::Save(const String& document)

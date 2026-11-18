@@ -20,6 +20,7 @@ add_executable(BibimTests
     Foundation/Vector2Test.cpp
     Foundation/Vector3Test.cpp
     Foundation/Vector4Test.cpp
+    Framework/PreferencesTest.cpp
     IO/BinaryReaderWriterTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
@@ -29,7 +30,7 @@ add_executable(BibimTests
 target_link_libraries(BibimTests PRIVATE Bibim)
 target_include_directories(BibimTests PRIVATE ${BIBIM_EXTLIBS}/doctest-2.5.3)
 
-add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*)
+add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*,Preferences*)
 
 # Environment reads the process environment once, so each setting runs in its
 # own process. The data directories are created under the build directory.
@@ -43,3 +44,6 @@ set_tests_properties(EnvironmentJapaneseOverride PROPERTIES ENVIRONMENT
 add_test(NAME EnvironmentDefault COMMAND BibimTests --test-case=Environment*)
 set_tests_properties(EnvironmentDefault PROPERTIES ENVIRONMENT
     "LC_ALL=;LC_MESSAGES=;LANG=C.UTF-8;XDG_DATA_HOME=;HOME=${BIBIM_TEST_DATA}/home;BIBIM_EXPECTED_LOCALE=en-US;BIBIM_EXPECTED_APPDATA=${BIBIM_TEST_DATA}/home/.local/share")
+add_test(NAME PreferencesTests COMMAND BibimTests --test-case=Preferences*)
+set_tests_properties(PreferencesTests PROPERTIES ENVIRONMENT
+    "XDG_DATA_HOME=${BIBIM_TEST_DATA}/preferences")
