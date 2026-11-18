@@ -14,13 +14,19 @@ namespace Bibim
     String::String(const char* s, int startIndex)
     {
         BBAssert(startIndex <= static_cast<int>(strlen(s)));
-        buffer.Reset(new StringBuffer(&s[startIndex]));
+        if (s[startIndex] != '\0')
+            buffer.Reset(new StringBuffer(&s[startIndex]));
+        else
+            buffer = Empty.buffer;
     }
 
     String::String(const char* s, int startIndex, int length)
     {
         BBAssert(startIndex <= static_cast<int>(strlen(s)));
-        buffer.Reset(new StringBuffer(&s[startIndex], length));
+        if (length > 0)
+            buffer.Reset(new StringBuffer(&s[startIndex], length));
+        else
+            buffer = Empty.buffer;
     }
 
     String::String(EmptyStringTag)
