@@ -22,6 +22,14 @@ if(NOT BIBIM_GLES2_INCLUDE_DIR OR NOT BIBIM_EGL_INCLUDE_DIR)
         "Install them, e.g. 'libgles-dev libegl-dev' on Debian/Ubuntu or 'libglvnd' on Arch.")
 endif()
 include_directories(${BIBIM_GLES2_INCLUDE_DIR} ${BIBIM_EGL_INCLUDE_DIR})
+# The GLES2 renderer calls gl* functions. No EGL function is called on Linux
+# (only the Android code path does), so libEGL is not linked.
+find_library(BIBIM_GLES2_LIBRARY GLESv2)
+if(NOT BIBIM_GLES2_LIBRARY)
+    message(FATAL_ERROR
+        "OpenGL ES 2.0 library not found (libGLESv2). "
+        "Install it, e.g. 'libgles-dev' on Debian/Ubuntu or 'libglvnd' on Arch.")
+endif()
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -190,7 +198,7 @@ add_library(Bibim STATIC
 )
 target_link_libraries(Bibim
     PUBLIC lua
-    PRIVATE png jpeg freetype
+    PRIVATE png jpeg freetype ${BIBIM_GLES2_LIBRARY}
 )
 
 # Same third-party header locations as build/vs20xx/Bibim.vcxproj, so every
