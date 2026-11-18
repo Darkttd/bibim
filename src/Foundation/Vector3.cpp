@@ -76,7 +76,7 @@ namespace Bibim
 
     float Vector3::GetDistanceSquared(Vector3 a, Vector3 b)
     {
-        return (b.X - a.X) * (b.X - a.X) + (b.Y - a.Y) * (b.Y - a.Y) + (b.Z - a.Z) * (b.Y - a.Z);
+        return (b.X - a.X) * (b.X - a.X) + (b.Y - a.Y) * (b.Y - a.Y) + (b.Z - a.Z) * (b.Z - a.Z);
     }
 
     const Vector3 Vector3::Zero  = Vector3(0.0f, 0.0f, 0.0f);
