@@ -94,10 +94,7 @@ namespace
     }
 }
 
-TEST_CASE("PNG::Read expands RGB rows to opaque RGBA"
-          * doctest::should_fail(true)
-          * doctest::description("Known bug: the in-place RGB to RGBA expansion overwrites the "
-                                 "first pixels of each row before reading them"))
+TEST_CASE("PNG::Read expands RGB rows to opaque RGBA")
 {
     const std::vector<byte> pixels = Decode(&PNG::Read, RgbPng, sizeof(RgbPng), 3, 2, false);
     CHECK(PixelIs(pixels, 3, 0, 0, 255, 0, 0, 255));
@@ -108,10 +105,7 @@ TEST_CASE("PNG::Read expands RGB rows to opaque RGBA"
     CHECK(PixelIs(pixels, 3, 2, 1, 70, 80, 90, 255));
 }
 
-TEST_CASE("PNG::Read swaps red and blue of RGB rows on request"
-          * doctest::should_fail(true)
-          * doctest::description("Known bug: the in-place RGB to RGBA expansion overwrites the "
-                                 "first pixels of each row before reading them"))
+TEST_CASE("PNG::Read swaps red and blue of RGB rows on request")
 {
     const std::vector<byte> pixels = Decode(&PNG::Read, RgbPng, sizeof(RgbPng), 3, 2, true);
     CHECK(PixelIs(pixels, 3, 0, 0, 0, 0, 255, 255));
