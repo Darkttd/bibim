@@ -118,13 +118,67 @@ add_library(png STATIC
 target_include_directories(png PUBLIC ${BIBIM_LIBPNG_DIR})
 target_link_libraries(png PUBLIC zlib m)
 
+# Bundled libjpeg 9a, built from the same sources as build/vs20xx/libjpeg.vcxproj
+# (jmemansi.c is the portable memory manager). jconfig.h includes the generic
+# jconfig.txt.
+set(BIBIM_LIBJPEG_DIR ${BIBIM_EXTLIBS}/jpeg-9a)
+add_library(jpeg STATIC
+    ${BIBIM_LIBJPEG_DIR}/jaricom.c
+    ${BIBIM_LIBJPEG_DIR}/jcapimin.c
+    ${BIBIM_LIBJPEG_DIR}/jcapistd.c
+    ${BIBIM_LIBJPEG_DIR}/jcarith.c
+    ${BIBIM_LIBJPEG_DIR}/jccoefct.c
+    ${BIBIM_LIBJPEG_DIR}/jccolor.c
+    ${BIBIM_LIBJPEG_DIR}/jcdctmgr.c
+    ${BIBIM_LIBJPEG_DIR}/jchuff.c
+    ${BIBIM_LIBJPEG_DIR}/jcinit.c
+    ${BIBIM_LIBJPEG_DIR}/jcmainct.c
+    ${BIBIM_LIBJPEG_DIR}/jcmarker.c
+    ${BIBIM_LIBJPEG_DIR}/jcmaster.c
+    ${BIBIM_LIBJPEG_DIR}/jcomapi.c
+    ${BIBIM_LIBJPEG_DIR}/jcparam.c
+    ${BIBIM_LIBJPEG_DIR}/jcprepct.c
+    ${BIBIM_LIBJPEG_DIR}/jcsample.c
+    ${BIBIM_LIBJPEG_DIR}/jctrans.c
+    ${BIBIM_LIBJPEG_DIR}/jdapimin.c
+    ${BIBIM_LIBJPEG_DIR}/jdapistd.c
+    ${BIBIM_LIBJPEG_DIR}/jdarith.c
+    ${BIBIM_LIBJPEG_DIR}/jdatadst.c
+    ${BIBIM_LIBJPEG_DIR}/jdatasrc.c
+    ${BIBIM_LIBJPEG_DIR}/jdcoefct.c
+    ${BIBIM_LIBJPEG_DIR}/jdcolor.c
+    ${BIBIM_LIBJPEG_DIR}/jddctmgr.c
+    ${BIBIM_LIBJPEG_DIR}/jdhuff.c
+    ${BIBIM_LIBJPEG_DIR}/jdinput.c
+    ${BIBIM_LIBJPEG_DIR}/jdmainct.c
+    ${BIBIM_LIBJPEG_DIR}/jdmarker.c
+    ${BIBIM_LIBJPEG_DIR}/jdmaster.c
+    ${BIBIM_LIBJPEG_DIR}/jdmerge.c
+    ${BIBIM_LIBJPEG_DIR}/jdpostct.c
+    ${BIBIM_LIBJPEG_DIR}/jdsample.c
+    ${BIBIM_LIBJPEG_DIR}/jdtrans.c
+    ${BIBIM_LIBJPEG_DIR}/jerror.c
+    ${BIBIM_LIBJPEG_DIR}/jfdctflt.c
+    ${BIBIM_LIBJPEG_DIR}/jfdctfst.c
+    ${BIBIM_LIBJPEG_DIR}/jfdctint.c
+    ${BIBIM_LIBJPEG_DIR}/jidctflt.c
+    ${BIBIM_LIBJPEG_DIR}/jidctfst.c
+    ${BIBIM_LIBJPEG_DIR}/jidctint.c
+    ${BIBIM_LIBJPEG_DIR}/jmemansi.c
+    ${BIBIM_LIBJPEG_DIR}/jmemmgr.c
+    ${BIBIM_LIBJPEG_DIR}/jquant1.c
+    ${BIBIM_LIBJPEG_DIR}/jquant2.c
+    ${BIBIM_LIBJPEG_DIR}/jutils.c
+)
+target_include_directories(jpeg PUBLIC ${BIBIM_LIBJPEG_DIR})
+
 add_library(Bibim STATIC
     ${BIBIM_SOURCES}
     ${BIBIM_EXTLIBS}/lua_tinker/lua_tinker.cpp
 )
 target_link_libraries(Bibim
     PUBLIC lua
-    PRIVATE png
+    PRIVATE png jpeg
 )
 
 # Same third-party header locations as build/vs20xx/Bibim.vcxproj, so every
@@ -138,7 +192,6 @@ target_include_directories(Bibim
         ${BIBIM_EXTLIBS}/utf8_v2_3_4/source
         ${BIBIM_EXTLIBS}/rapidjson/include
     PRIVATE
-        ${BIBIM_EXTLIBS}/jpeg-9a
         ${BIBIM_EXTLIBS}/freetype-2.5.2/custom
         ${BIBIM_EXTLIBS}/freetype-2.5.2/include
         ${BIBIM_EXTLIBS}/StormLib/src
