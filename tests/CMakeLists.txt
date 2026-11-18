@@ -18,7 +18,6 @@ add_executable(BibimTests
     IO/BinaryReaderWriterTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
-    UI/UITransform3DTest.cpp
 )
 
 target_link_libraries(BibimTests PRIVATE Bibim)
