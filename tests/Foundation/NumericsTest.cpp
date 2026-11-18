@@ -89,6 +89,14 @@ TEST_CASE("Float::Min and Float::Max are the lowest and highest finite floats")
     CHECK(Float::Max == FLT_MAX);
 }
 
+TEST_CASE("Double::Min and Double::Max are the lowest and highest finite doubles")
+{
+    // Like Float::Min, Double::Min is the most negative value, not DBL_MIN
+    // (the smallest positive normalized double).
+    CHECK(Double::Min == -DBL_MAX);
+    CHECK(Double::Max == DBL_MAX);
+}
+
 TEST_CASE("Float::ToString writes six decimal places")
 {
     CHECK(Float::ToString(3.5f) == "3.500000");

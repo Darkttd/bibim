@@ -165,7 +165,7 @@ namespace Bibim
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    const double Double::Min = DBL_MIN;
+    const double Double::Min = -DBL_MAX;
     const double Double::Max = DBL_MAX;
 
     double Double::Parse(const char* s, int /*length*/)
