@@ -10,6 +10,9 @@
 #include <Bibim/RenderTargetTexture2D.GLES2.h>
 #include <Bibim/Window.h>
 #include <algorithm>
+#if (defined(BIBIM_USE_SDL3))
+#   include <SDL3/SDL.h>
+#endif
 
 namespace Bibim
 {
@@ -20,6 +23,8 @@ namespace Bibim
         eglDisplay = nullptr;
         eglSurface = nullptr;
         eglContext = nullptr;
+#       elif (defined(BIBIM_USE_SDL3))
+        sdlContext = nullptr;
 #       endif
     }
 
@@ -63,6 +68,9 @@ namespace Bibim
     {
 #       if (defined(BIBIM_USE_EGL))
         eglSwapBuffers(eglDisplay, eglSurface);
+#       elif (defined(BIBIM_USE_SDL3))
+        if (Window* window = GetWindow())
+            SDL_GL_SwapWindow(static_cast<SDL_Window*>(window->GetHandle()));
 #       endif
     }
 
@@ -211,6 +219,26 @@ namespace Bibim
         }
 #       endif
 
+#       if (defined(BIBIM_USE_SDL3))
+        BBAssert(GetWindow());
+        // Hold the video subsystem so the context outlives a window that is
+        // destroyed first.
+        if (SDL_InitSubSystem(SDL_INIT_VIDEO) == false)
+        {
+            Log::Error("GraphicsDevice", SDL_GetError());
+            return;
+        }
+        SDL_Window* sdlWindow = static_cast<SDL_Window*>(GetWindow()->GetHandle());
+        sdlContext = SDL_GL_CreateContext(sdlWindow);
+        if (sdlContext == nullptr)
+        {
+            Log::Error("GraphicsDevice", SDL_GetError());
+            SDL_QuitSubSystem(SDL_INIT_VIDEO);
+            return;
+        }
+        SDL_GL_SetSwapInterval(1);
+#       endif
+
         // capabilities.displayModes;
         capabilities.vertexShaderVersion = GraphicsCapabilities::VS20;
         capabilities.pixelShaderVersion = GraphicsCapabilities::PS20;
@@ -236,6 +264,13 @@ namespace Bibim
                 eglDestroySurface(eglDisplay, eglSurface);
 
             eglTerminate(eglDisplay);
+        }
+#       elif (defined(BIBIM_USE_SDL3))
+        if (sdlContext)
+        {
+            SDL_GL_DestroyContext(static_cast<SDL_GLContext>(sdlContext));
+            sdlContext = nullptr;
+            SDL_QuitSubSystem(SDL_INIT_VIDEO);
         }
 #       endif
     }
