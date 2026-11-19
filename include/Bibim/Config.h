@@ -45,7 +45,7 @@
 #    define BIBIM_COMPILER_GCC
 #endif
 
-#if (defined(WIN64) || defined(__x86_64__) || defined(__arm64__))
+#if (defined(__LP64__) || defined(_WIN64))
 #    define BIBIM_64BIT
 #else
 #    define BIBIM_32BIT
