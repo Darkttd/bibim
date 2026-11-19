@@ -6,7 +6,6 @@
 #include <SDL3/SDL.h>
 #include <doctest.h>
 #include <functional>
-#include <string>
 #include "../Platform/OffscreenVideo.h"
 
 using namespace Bibim;
@@ -43,7 +42,7 @@ namespace
     class DropRecorder : public GameWindow::DropFileEventListener
     {
         public:
-            std::string filename;
+            String filename;
 
             virtual void OnWindowFileDropped(Window* /*window*/, const char* filename)
             {

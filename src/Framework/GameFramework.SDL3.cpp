@@ -5,13 +5,14 @@
 #include <Bibim/GameWindow.h>
 #include <Bibim/Log.h>
 #include <SDL3/SDL.h>
-#include <string>
 
 namespace Bibim
 {
-    // Not a String: a default String copies String::Empty, which may not be
-    // initialized yet when this file's statics are.
-    static std::string CommandLine;
+    static String& CommandLine()
+    {
+        static String value;
+        return value;
+    }
 
     GameFramework::GameFramework()
     {
@@ -31,13 +32,14 @@ namespace Bibim
 
     void GameFramework::SetCommandLine(int argc, const char* const* argv)
     {
-        CommandLine.clear();
+        String value;
         for (int i = 0; i < argc; i++)
         {
             if (i > 0)
-                CommandLine += ' ';
-            CommandLine += argv[i];
+                value += ' ';
+            value += argv[i];
         }
+        CommandLine() = value;
     }
 
     void GameFramework::Construct(int width, int height)
@@ -48,7 +50,7 @@ namespace Bibim
         if (videoInitialized == false)
             Log::Error("GameFramework", SDL_GetError());
 
-        GameFrameworkBase::Construct(width, height, CommandLine.c_str());
+        GameFrameworkBase::Construct(width, height, CommandLine());
     }
 
     void GameFramework::Run()
