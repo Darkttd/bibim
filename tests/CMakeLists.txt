@@ -27,6 +27,8 @@ add_executable(BibimTests
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
     Platform/GameWindowTest.cpp
+    Platform/OffscreenVideo.cpp
+    Platform/PinLoadedLibraries.cpp
     Platform/SDL3Test.cpp
     UI/UITransform3DTest.cpp
 )
