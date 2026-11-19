@@ -55,15 +55,14 @@ list(FILTER BIBIM_SOURCES EXCLUDE REGEX "\\.(Windows|DX9|Android|iOS|Mobile|PC)\
 # Test bed references headers that no longer exist in the repository.
 list(FILTER BIBIM_SOURCES EXCLUDE REGEX "/src/TestBed/")
 
-# Need Linux implementations of GameFramework, GameWindow or IME, which do
-# not exist yet.
+# Need a Linux GameFramework, StormLib or audio implementation, which do not
+# exist yet.
 set(BIBIM_PENDING_PLATFORM_SOURCES
     Framework/Dashboard.cpp
     Framework/GameFrameworkBase.cpp
     Framework/Lua.cpp
     Framework/StandardGame.cpp
     Framework/Startup.cpp
-    UI/UIEditText.cpp
 )
 foreach(pending ${BIBIM_PENDING_PLATFORM_SOURCES})
     list(REMOVE_ITEM BIBIM_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/${pending})
