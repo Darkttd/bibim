@@ -4,5 +4,6 @@
 
 #include <Bibim/IME.Windows.h>
 #include <Bibim/IME.Mobile.h>
+#include <Bibim/IME.SDL3.h>
 
 #endif

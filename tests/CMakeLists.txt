@@ -22,6 +22,7 @@ add_executable(BibimTests
     Foundation/Vector3Test.cpp
     Foundation/Vector4Test.cpp
     Framework/PreferencesTest.cpp
+    Input/IMETest.cpp
     IO/BinaryReaderWriterTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
