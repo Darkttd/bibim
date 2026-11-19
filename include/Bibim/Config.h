@@ -45,7 +45,10 @@
 #    define BIBIM_COMPILER_GCC
 #endif
 
-#if (defined(WIN64) || defined(__x86_64__) || defined(__arm64__))
+// Decide by data model instead of listing architectures: 64-bit Windows
+// compilers define _WIN64 (LLP64) and other 64-bit targets define __LP64__
+// (x86-64, aarch64, riscv64 on Linux, Android and Apple). wasm32 stays 32-bit.
+#if (defined(_WIN64) || defined(__LP64__))
 #    define BIBIM_64BIT
 #else
 #    define BIBIM_32BIT

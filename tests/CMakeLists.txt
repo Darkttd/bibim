@@ -8,6 +8,7 @@ add_executable(BibimTests
     Diagnostics/SystemLoggerTest.cpp
     FileSystem/FileStreamTest.cpp
     Foundation/ColorTest.cpp
+    Foundation/ConfigTest.cpp
     Foundation/EnvironmentTest.cpp
     Graphics/ImageReadTest.cpp
     Foundation/Geom2DTest.cpp
