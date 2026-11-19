@@ -38,10 +38,12 @@ jobs:
 
       # libgles-dev / libegl-dev: OpenGL ES 2.0 and EGL headers used by the GLES2 renderer.
       # libsdl3-dev: SDL3, the window and input layer.
+      # libegl-mesa0: Mesa EGL with the llvmpipe software renderer, for the GLES2 tests
+      # on SDL's offscreen video driver.
       - name: Install build tools and libraries
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ninja-build libgles-dev libegl-dev libsdl3-dev
+          sudo apt-get install -y --no-install-recommends ninja-build libgles-dev libegl-dev libsdl3-dev libegl-mesa0
 
       - name: Configure
         run: >

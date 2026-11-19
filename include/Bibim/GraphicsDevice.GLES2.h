@@ -54,6 +54,8 @@ namespace Bibim
             void* eglDisplay;
             void* eglSurface;
             void* eglContext;
+#           elif (defined(BIBIM_USE_SDL3))
+            void* sdlContext;
 #           endif
 
             GraphicsCapabilities capabilities;

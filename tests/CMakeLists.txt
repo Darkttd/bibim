@@ -25,6 +25,7 @@ add_executable(BibimTests
     IO/BinaryReaderWriterTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
+    Platform/GameWindowTest.cpp
     Platform/SDL3Test.cpp
     UI/UITransform3DTest.cpp
 )

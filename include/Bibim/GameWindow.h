@@ -4,5 +4,6 @@
 
 #include <Bibim/GameWindow.Windows.h>
 #include <Bibim/GameWindow.Mobile.h>
+#include <Bibim/GameWindow.SDL3.h>
 
 #endif
