@@ -117,6 +117,10 @@ Windows 도구처럼 `bin/Plugin/*.dll`을 불러오도록 `bin/`에서 실행�
 - **새 코드의 언어**: 새로 추가하는 코드와 주석은 영어(알파벳)로만 씁니다. 이미 있는 한글 주석은
   그대로 둡니다. 예외는 한글·일본어 등 알파벳이 아닌 문자를 처리하는 코드와 그 테스트(예: 폰트나 문자
   입력용 테스트 문자열)뿐입니다.
+- **include**: 엔진 헤더는 소스와 테스트 모두 꺾쇠괄호로 `#include <Bibim/...>`처럼 씁니다. `tests/` 아래의
+  테스트 전용 헤더는 큰따옴표와 `tests/` 기준 경로로 씁니다(예: `#include "Platform/OffscreenVideo.h"`).
+  `../`는 쓰지 않습니다. 생성되는 `include/Bibim/All.h`와 `src/Bibim.cpp`, 복사해 둔 Lua 헤더,
+  `"AudioBridge-ObjectiveC.h"`의 기존 큰따옴표 include는 그대로 둡니다.
 
 ## 라이선스
 
