@@ -143,7 +143,7 @@ namespace Bibim
             {
                 static void Do(DisplayModeCollection& modes, IDirect3D9* d3dObject, D3DFORMAT format, int bitsPerPixel)
                 {
-                    D3DDISPLAYMODE item = { 0, };
+                    D3DDISPLAYMODE item = {};
                     const int count = d3dObject->GetAdapterModeCount(D3DADAPTER_DEFAULT, format);
                     modes.reserve(modes.size() + count);
                     for (int i = 0; i < count; i++)
@@ -317,7 +317,7 @@ namespace Bibim
             BBAssert(d3dCaps.MaxSimultaneousTextures >= 2);
         }
 
-        const D3DVIEWPORT9 vp = { 0, 0, windowSize.X, windowSize.Y, 0.0f, 1.0f };
+        const D3DVIEWPORT9 vp = { 0, 0, static_cast<DWORD>(windowSize.X), static_cast<DWORD>(windowSize.Y), 0.0f, 1.0f };
         result = d3dDevice->SetViewport(&vp);
         if (result != D3D_OK)
             Log::Warning("Graphics", "Set viewport failed.");

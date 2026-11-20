@@ -7,6 +7,9 @@
 [submodule "extlibs/libpng-1.6.9"]
 	path = extlibs/libpng-1.6.9
 	url = https://github.com/pnggroup/libpng.git
+[submodule "extlibs/doctest-2.5.3"]
+	path = extlibs/doctest-2.5.3
+	url = https://github.com/doctest/doctest.git
 [submodule "extlibs/freetype-2.5.2"]
 	path = extlibs/freetype-2.5.2
 	url = https://gitlab.freedesktop.org/freetype/freetype.git

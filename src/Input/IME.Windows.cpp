@@ -178,7 +178,7 @@ namespace Bibim
                                 }
                                 break;
                             case IDCANCEL:
-                                EndDialog(windowHandle, NULL);
+                                EndDialog(windowHandle, 0);
                                 break;
                         }
                     }
@@ -242,6 +242,9 @@ namespace Bibim
                 break;
             case Password:
                 editStyle = ES_PASSWORD;
+                break;
+            case Plain:
+            case Email:
                 break;
         }
 

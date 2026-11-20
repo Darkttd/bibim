@@ -56,7 +56,7 @@ namespace Bibim
         Initialize();
         PostInitialize();
 
-        MSG msg = { 0, };
+        MSG msg = {};
         for (;;)
         {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
