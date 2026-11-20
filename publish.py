@@ -88,7 +88,6 @@ def get_library_directories(environment, platform, target):
 
     if platform == PLATFORM.WIN32:
         l += ['$(DXSDK_DIR)Lib/x86']
-        l += ['$(BIBIM_DIR)extlibs/irrKlang-1.4.0/lib/Win32-visualStudio']
     
     return l    
 
@@ -131,10 +130,6 @@ def get_dependencies(environment, platform, target):
     elif emscripten:
         l += ['libpng.bc', 'libjpeg.bc', 'freetype.bc', 'lua.bc', 'zlib.bc']
     
-    # irrKlang
-    if win32:
-        l += ['irrKlang.lib']
-        
     # OpenAL
     # if win32:
     #     l += ['OpenAL32.lib']

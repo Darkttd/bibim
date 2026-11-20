@@ -130,5 +130,3 @@ Bibim is being placed under the MIT License, as agreed with the original author.
 adds the `LICENSE` file is in progress upstream: [halak/bibim#2](https://github.com/halak/bibim/pull/2).
 
 The third-party libraries in `extlibs/` keep their own licenses; see `LICENSE-BUNDLE`.
-Note that **irrKlang** (`extlibs/irrKlang-1.4.0`) is not open source: its binaries may be redistributed
-only in non-commercial products. See `extlibs/irrKlang-1.4.0/readme.txt`.
