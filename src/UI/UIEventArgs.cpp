@@ -15,7 +15,8 @@ namespace Bibim
     }
 
     UIEventArgs::UIEventArgs(const UIEventArgs& original)
-        : target(original.target)
+        : SharedObject(),
+          target(original.target)
     {
     }
 

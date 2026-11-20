@@ -32,7 +32,9 @@ namespace Bibim
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         // Macro Functions
-#   if (defined(BIBIM_PLATFORM_WINDOWS))
+        // MinGW-w64 has _malloca too, but GCC cannot tell that _freea frees only
+        // heap blocks and reports -Wfree-nonheap-object.
+#   if (defined(BIBIM_COMPILER_MSVC))
 #       define BBStackAlloc(type, count) reinterpret_cast<type*>(_malloca(sizeof(type) * (count)))
 #       define BBStackFree(pointer) (_freea(pointer))
 #   else

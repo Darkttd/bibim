@@ -8,7 +8,7 @@ namespace Bibim
         const String* components[] = { &a, &b, &c, &d, &e };
         
         String result = a;
-        for (int i = 1; i < sizeof(components) / sizeof(components[0]); i++)
+        for (int i = 1; i < static_cast<int>(sizeof(components) / sizeof(components[0])); i++)
         {
             const String& s = *components[i];
             if (s.IsEmpty() || (s.GetLength() == 1 && s[0] == '/'))

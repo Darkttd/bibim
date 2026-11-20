@@ -25,21 +25,21 @@ namespace Bibim
     Random::Random()
         : index(0)
     {
-        for (int i = 0; i < sizeof(states) / sizeof(states[0]); i++)
+        for (int i = 0; i < static_cast<int>(sizeof(states) / sizeof(states[0])); i++)
             states[i] = i;
     }
 
     Random::Random(uint seed)
         : index(0)
     {
-        for (int i = 0; i < sizeof(states) / sizeof(states[0]); i++)
+        for (int i = 0; i < static_cast<int>(sizeof(states) / sizeof(states[0])); i++)
             states[i] = seed + i;
     }
 
     Random::Random(const Random& original)
         : index(original.index)
     {
-        for (int i = 0; i < sizeof(states) / sizeof(states[0]); i++)
+        for (int i = 0; i < static_cast<int>(sizeof(states) / sizeof(states[0])); i++)
             states[i] = original.states[i];
     }
 
@@ -98,7 +98,7 @@ namespace Bibim
     Random& Random::operator = (const Random& right)
     {
         index = right.index;
-        for (int i = 0; i < sizeof(states) / sizeof(states[0]); i++)
+        for (int i = 0; i < static_cast<int>(sizeof(states) / sizeof(states[0])); i++)
             states[i] = right.states[i];
         return *this;
     }

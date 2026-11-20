@@ -47,7 +47,8 @@ namespace Bibim
     }
 
     Font::Font(const Font& original)
-        : library(original.library),
+        : GameAsset(),
+          library(original.library),
           shadowOffset(original.shadowOffset),
           spacing(1.0f),
           color(original.color),

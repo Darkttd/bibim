@@ -160,6 +160,7 @@ namespace Bibim
             unsigned long mode = value ? 1 : 0;
             return ioctlsocket(handle, FIONBIO, &mode) == 0;
 #       else
+            BBUnusedParameter(value);
             // return ioctl(handle, FIONBIO, &mode) == 0;
             return true;
 #       endif

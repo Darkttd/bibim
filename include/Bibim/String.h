@@ -748,7 +748,8 @@ namespace Bibim
     }
 
     String::StringBuffer::StringBuffer(const StringBuffer& original)
-        : s(nullptr),
+        : SharedObject(),
+          s(nullptr),
           length(0),
           hashCode(0)
     {

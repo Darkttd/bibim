@@ -21,7 +21,7 @@ namespace Bibim
     {
     }
 
-    int ForkStream::Read(void* buffer, int size)
+    int ForkStream::Read(void* /*buffer*/, int /*size*/)
     {
         return 0;
     }
@@ -43,7 +43,7 @@ namespace Bibim
             (*it)->Flush();
     }
 
-    int ForkStream::Seek(int offset, SeekOrigin origin)
+    int ForkStream::Seek(int /*offset*/, SeekOrigin /*origin*/)
     {
         return 0;
     }

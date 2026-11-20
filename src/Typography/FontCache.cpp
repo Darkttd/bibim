@@ -259,7 +259,7 @@ namespace Bibim
                 faceIndex    = Int::Parse(parameters.FaceURI.Substring(separatorIndex + 1).CStr());
             }
 
-            if (FT_Error error = FT_New_Face(ftLibrary, assetStorage, faceFilename, faceIndex, &primaryFace))
+            if (FT_New_Face(ftLibrary, assetStorage, faceFilename, faceIndex, &primaryFace))
             {
                 if (library->GetOSFontDirectory().IsEmpty() == false)
                 {
@@ -275,18 +275,18 @@ namespace Bibim
                 }
             }
 
-            if (FT_Error error = FT_New_Face(ftLibrary, assetStorage, library->GetAlternativeFace(), 0, &alternativeFace))
+            if (FT_New_Face(ftLibrary, assetStorage, library->GetAlternativeFace(), 0, &alternativeFace))
             {
                 // ERROR 처리 (return하지는 않음)
             }
         }
         else
         {
-            if (FT_Error error = FT_New_Memory_Face(ftLibrary,
-                                                    &parameters.FaceData[0],
-                                                    parameters.FaceData.size(),
-                                                    0,
-                                                    &primaryFace))
+            if (FT_New_Memory_Face(ftLibrary,
+                                   &parameters.FaceData[0],
+                                   parameters.FaceData.size(),
+                                   0,
+                                   &primaryFace))
             {
                 // ERROR 처리 (return하지는 않음)
             }
@@ -301,7 +301,7 @@ namespace Bibim
 
         if (parameters.StrokeSize > 0.0f)
         {
-            if (FT_Error error = FT_Stroker_New(ftLibrary, &stroker))
+            if (FT_Stroker_New(ftLibrary, &stroker))
             {
                 // ERROR 처리
             }
@@ -506,13 +506,12 @@ namespace Bibim
 
             if (parameters.StrokeSize > 0.0f)
             {
-                FT_Error result = 0;
                 FT_Glyph strokedGlyph = nullptr;
                 FT_Load_Glyph(faceGlyphIndex.first, faceGlyphIndex.second, loadFlags | FT_LOAD_NO_BITMAP);
                 FT_Get_Glyph(faceGlyphIndex.first->glyph, &strokedGlyph);
                 if (FT_Glyph_Stroke(&strokedGlyph, stroker, 1) == 0)
                 {
-                    result = FT_Glyph_To_Bitmap(&strokedGlyph, FT_RENDER_MODE_NORMAL, nullptr, 1);
+                    FT_Glyph_To_Bitmap(&strokedGlyph, FT_RENDER_MODE_NORMAL, nullptr, 1);
 
                     FT_BitmapGlyph strokedGlyphBitmap = reinterpret_cast<FT_BitmapGlyph>(strokedGlyph);
 

@@ -458,7 +458,7 @@ namespace lua_tinker
     }
 
     template<typename RVal, typename T1> 
-    void push_functor(lua_State *L, RVal (*func)(T1))
+    void push_functor(lua_State *L, RVal (* /*func*/)(T1))
     { 
         lua_pushcclosure(L, functor<RVal,T1>::invoke, 1);
     }
@@ -594,73 +594,73 @@ namespace lua_tinker
     
     // push_functor
     template<typename RVal, typename T>
-    void push_functor(lua_State *L, RVal (T::*func)()) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)()) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T>::invoke, 1); 
     }
 
     template<typename RVal, typename T>
-    void push_functor(lua_State *L, RVal (T::*func)() const) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)() const) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T>::invoke, 1); 
     }
 
     template<typename RVal, typename T, typename T1>
-    void push_functor(lua_State *L, RVal (T::*func)(T1)) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)(T1)) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T,T1>::invoke, 1); 
     }
 
     template<typename RVal, typename T, typename T1>
-    void push_functor(lua_State *L, RVal (T::*func)(T1) const) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)(T1) const) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T,T1>::invoke, 1); 
     }
 
     template<typename RVal, typename T, typename T1, typename T2>
-    void push_functor(lua_State *L, RVal (T::*func)(T1,T2)) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)(T1,T2)) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T,T1,T2>::invoke, 1); 
     }
 
     template<typename RVal, typename T, typename T1, typename T2>
-    void push_functor(lua_State *L, RVal (T::*func)(T1,T2) const) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)(T1,T2) const) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T,T1,T2>::invoke, 1); 
     }
 
     template<typename RVal, typename T, typename T1, typename T2, typename T3>
-    void push_functor(lua_State *L, RVal (T::*func)(T1,T2,T3)) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)(T1,T2,T3)) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T,T1,T2,T3>::invoke, 1); 
     }
 
     template<typename RVal, typename T, typename T1, typename T2, typename T3>
-    void push_functor(lua_State *L, RVal (T::*func)(T1,T2,T3) const) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)(T1,T2,T3) const) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T,T1,T2,T3>::invoke, 1); 
     }
 
     template<typename RVal, typename T, typename T1, typename T2, typename T3, typename T4>
-    void push_functor(lua_State *L, RVal (T::*func)(T1,T2,T3,T4)) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)(T1,T2,T3,T4)) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T,T1,T2,T3,T4>::invoke, 1); 
     }
 
     template<typename RVal, typename T, typename T1, typename T2, typename T3, typename T4>
-    void push_functor(lua_State *L, RVal (T::*func)(T1,T2,T3,T4) const) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)(T1,T2,T3,T4) const) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T,T1,T2,T3,T4>::invoke, 1); 
     }
 
     template<typename RVal, typename T, typename T1, typename T2, typename T3, typename T4, typename T5>
-    void push_functor(lua_State *L, RVal (T::*func)(T1,T2,T3,T4,T5)) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)(T1,T2,T3,T4,T5)) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T,T1,T2,T3,T4,T5>::invoke, 1); 
     }
 
     template<typename RVal, typename T, typename T1, typename T2, typename T3, typename T4, typename T5>
-    void push_functor(lua_State *L, RVal (T::*func)(T1,T2,T3,T4,T5) const) 
+    void push_functor(lua_State *L, RVal (T::* /*func*/)(T1,T2,T3,T4,T5) const) 
     { 
         lua_pushcclosure(L, mem_functor<RVal,T,T1,T2,T3,T4,T5>::invoke, 1); 
     }

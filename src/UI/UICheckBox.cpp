@@ -64,7 +64,7 @@ namespace Bibim
             state = HoveringState;
 
         const int activeVisualIndex = static_cast<int>(state) + ((checked) ? 3 : 0);
-        BBAssertDebug(0 <= activeVisualIndex && activeVisualIndex < sizeof(visuals) / sizeof(visuals[0]));
+        BBAssertDebug(0 <= activeVisualIndex && activeVisualIndex < static_cast<int>(sizeof(visuals) / sizeof(visuals[0])));
         UIVisual* activeVisual = visuals[activeVisualIndex];
 
         if (GetFrozen())
@@ -78,7 +78,7 @@ namespace Bibim
 
         if (GetHideInactives())
         {
-            for (int i = 0; i < sizeof(visuals) / sizeof(visuals[0]); i++)
+            for (int i = 0; i < static_cast<int>(sizeof(visuals) / sizeof(visuals[0])); i++)
             {
                 if (visuals[i] && i != activeVisualIndex)
                     visuals[i]->Hide();
