@@ -846,13 +846,13 @@
     <ClCompile Include="..\..\src\UI\UIForceGridEffect.cpp">
       <Filter>03. Game\UI\Effects\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Audio\AudioDevice.PC.cpp">
+    <ClCompile Include="..\..\src\Audio\AudioDevice.Silent.cpp">
       <Filter>03. Game\Audio\PC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Audio\BGM.PC.cpp">
+    <ClCompile Include="..\..\src\Audio\BGM.Silent.cpp">
       <Filter>03. Game\Audio\PC</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Audio\SoundFX.PC.cpp">
+    <ClCompile Include="..\..\src\Audio\SoundFX.Silent.cpp">
       <Filter>03. Game\Audio\PC</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Audio\AudioDevice.Android.cpp">
@@ -1728,13 +1728,13 @@
     <ClInclude Include="..\..\include\Bibim\UIForceGridEffect.h">
       <Filter>03. Game\UI\Effects\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Bibim\AudioDevice.PC.h">
+    <ClInclude Include="..\..\include\Bibim\AudioDevice.Silent.h">
       <Filter>03. Game\Audio\PC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Bibim\BGM.PC.h">
+    <ClInclude Include="..\..\include\Bibim\BGM.Silent.h">
       <Filter>03. Game\Audio\PC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Bibim\SoundFX.PC.h">
+    <ClInclude Include="..\..\include\Bibim\SoundFX.Silent.h">
       <Filter>03. Game\Audio\PC</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\Bibim\AudioDevice.Android.h">

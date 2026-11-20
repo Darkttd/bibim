@@ -1,19 +1,17 @@
 #pragma once
-#ifndef __BIBIM_BGM_PC_H__
-#define __BIBIM_BGM_PC_H__
+#ifndef __BIBIM_BGM_SILENT_H__
+#define __BIBIM_BGM_SILENT_H__
 
 #include <Bibim/FWD.h>
 #if (defined(BIBIM_PLATFORM_PC))
 
 #include <Bibim/TimelineGameModule.h>
-#include <Bibim/Lock.h>
 #include <Bibim/String.h>
-#include <vector>
-
-namespace irrklang { class ISound; };
 
 namespace Bibim
 {
+    // Keeps the settings but plays nothing until the audio backend lands
+    // (phase 5 of #8).
     class BGM : public TimelineGameModule
     {
         BBModuleClass(BGM, TimelineGameModule, 'B', 'G', 'M', 'M');
@@ -25,7 +23,7 @@ namespace Bibim
             virtual void Update(float dt, int timestamp);
 
             inline void Change(const String& name);
-            inline void Change(const String& name, float rewindTime);
+            void Change(const String& name, float rewindTime);
 
             inline AudioDevice* GetAudioDevice() const;
             void SetAudioDevice(AudioDevice* value);
@@ -45,28 +43,9 @@ namespace Bibim
             float GetPlayTime() const;
 
         private:
-            void Change(const String& name, float rewindTime, float startTime);
-
-            void UpdateVolumes();
-            void DropAliveBGM();
-            void DropAllDeadBGMs();
-
-            typedef std::pair<irrklang::ISound*, float> DeadBGM;
-
-        private:
-            class EventListener;
-
-        private:
             AudioDevice* audioDevice;
-            irrklang::ISound* aliveBGM;
-            float aliveBGMVolume;
-            String aliveBGMName;
-            std::vector<DeadBGM> deadBGMs;
             float volume;
             float crossfadeTime;
-            EventListener* eventListener;
-            Lock bgmRewindLock;
-            float bgmRewindTime;
             bool mute;
     };
 
@@ -74,12 +53,7 @@ namespace Bibim
 
     void BGM::Change(const String& name)
     {
-        Change(name, 0.0f, 0.0f);
-    }
-
-    void BGM::Change(const String& name, float rewindTime)
-    {
-        Change(name, rewindTime, 0.0f);
+        Change(name, 0.0f);
     }
 
     AudioDevice* BGM::GetAudioDevice() const
