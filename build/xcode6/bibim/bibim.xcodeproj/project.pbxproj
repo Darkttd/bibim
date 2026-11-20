@@ -896,7 +896,7 @@
 		8BE4C40C1A3C78BD00F39521 /* wrppm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = wrppm.c; path = "../../../extlibs/jpeg-9a/wrppm.c"; sourceTree = SOURCE_ROOT; };
 		8BE4C40D1A3C78BD00F39521 /* wrrle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = wrrle.c; path = "../../../extlibs/jpeg-9a/wrrle.c"; sourceTree = SOURCE_ROOT; };
 		8BE4C40E1A3C78BD00F39521 /* wrtarga.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = wrtarga.c; path = "../../../extlibs/jpeg-9a/wrtarga.c"; sourceTree = SOURCE_ROOT; };
-		8BE4C4561A3C790C00F39521 /* freetype-all.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "freetype-all.c"; path = "../../../extlibs/freetype-2.5.2/custom/freetype-all.c"; sourceTree = SOURCE_ROOT; };
+		8BE4C4561A3C790C00F39521 /* freetype-all.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "freetype-all.c"; path = "../../../extlibs/freetype-custom/freetype-all.c"; sourceTree = SOURCE_ROOT; };
 		8BE4C4861A3C7B2200F39521 /* libosx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libosx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BE4C7631A3C7F6400F39521 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
 		8BE4C9171A3C804100F39521 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -2898,7 +2898,7 @@
 					../../extlibs/utf8_v2_3_4/source,
 					"../../extlibs/libpng-1.6.9",
 					"../../extlibs/jpeg-9a",
-					"../../extlibs/freetype-2.5.2/custom",
+					"../../extlibs/freetype-custom",
 					"../../extlibs/freetype-2.5.2/include",
 					../../extlibs/lua_tinker,
 					"../../extlibs/lua-5.2.3/src",
@@ -2948,7 +2948,7 @@
 					../../extlibs/utf8_v2_3_4/source,
 					"../../extlibs/libpng-1.6.9",
 					"../../extlibs/jpeg-9a",
-					"../../extlibs/freetype-2.5.2/custom",
+					"../../extlibs/freetype-custom",
 					"../../extlibs/freetype-2.5.2/include",
 					../../extlibs/lua_tinker,
 					"../../extlibs/lua-5.2.3/src",
