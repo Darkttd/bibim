@@ -27,6 +27,8 @@ jobs:
       pull-requests: write # create or update the coverage comment
     steps:
       - uses: actions/checkout@v7
+        with:
+          submodules: true
 
       - name: Install build tools, libraries and gcovr
         run: |

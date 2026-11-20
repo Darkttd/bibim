@@ -1,0 +1,3 @@
+[submodule "extlibs/StormLib"]
+	path = extlibs/StormLib
+	url = https://github.com/ladislav-zezula/StormLib.git
