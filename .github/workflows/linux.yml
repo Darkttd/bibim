@@ -35,6 +35,8 @@ jobs:
             sanitize_flags: -fsanitize=undefined -fno-sanitize-recover=all -fno-omit-frame-pointer
     steps:
       - uses: actions/checkout@v7
+        with:
+          submodules: true
 
       # libgles-dev / libegl-dev: OpenGL ES 2.0 and EGL headers used by the GLES2 renderer.
       # libsdl3-dev: SDL3, the window and input layer.
