@@ -22,6 +22,8 @@ namespace Bibim
 
             inline void* GetHandle() const;
 
+            static String ToArchivedName(const String& path);
+
         private:
             void* handle;
     };
