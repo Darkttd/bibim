@@ -3,7 +3,7 @@
 #define __BIBIM_MPQSTREAM_H__
 
 #include <Bibim/FWD.h>
-#if (defined(BIBIM_PLATFORM_WINDOWS))
+#if (defined(BIBIM_PLATFORM_PC))
 
 #include <Bibim/Stream.h>
 #include <Bibim/String.h>

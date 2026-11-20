@@ -1,5 +1,5 @@
 #include <Bibim/Config.h>
-#if (defined(BIBIM_PLATFORM_WINDOWS))
+#if (defined(BIBIM_PLATFORM_PC))
 
 #include <Bibim/MPQStream.h>
 #include <Bibim/MPQ.h>
