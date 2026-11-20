@@ -115,6 +115,14 @@ TEST_CASE("MPQStream reads and seeks a file in the archive")
     CHECK(ReadAll(&stream) == Contents);
 }
 
+TEST_CASE("MPQStream opens a file named with slashes")
+{
+    TemporaryArchive archive;
+    MPQPtr mpq = new MPQ(archive.path);
+    MPQStream stream(mpq, "Data/Hello.ab");
+    CHECK(ReadAll(&stream) == Contents);
+}
+
 TEST_CASE("MPQStream reads nothing from a file that is not in the archive")
 {
     TemporaryArchive archive;

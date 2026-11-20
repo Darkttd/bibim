@@ -1,3 +1,6 @@
+[submodule "extlibs/StormLib"]
+	path = extlibs/StormLib
+	url = https://github.com/ladislav-zezula/StormLib.git
 [submodule "extlibs/doctest-2.5.3"]
 	path = extlibs/doctest-2.5.3
 	url = https://github.com/doctest/doctest.git
