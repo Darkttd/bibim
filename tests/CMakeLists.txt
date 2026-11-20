@@ -2,9 +2,13 @@
 add_executable(BibimTests
     main.cpp
     Animation/EaseTest.cpp
+    Asset/FileAssetProviderTest.cpp
     Audio/SilentAudioTest.cpp
     Collision2D/CollisionSpace2DTest.cpp
     Collision2D/Shape2DTest.cpp
+    Common/TemporaryDirectory.cpp
+    FileSystem/FileStreamTest.cpp
+    FileSystem/MPQTest.cpp
     Foundation/ColorTest.cpp
     Foundation/ConfigTest.cpp
     Foundation/Geom2DTest.cpp
@@ -35,10 +39,7 @@ endif()
 # Linux only: the SDL3 platform layer, and tests that use POSIX file system
 # and environment functions.
 target_sources(BibimTests PRIVATE
-    Asset/FileAssetProviderTest.cpp
     Diagnostics/SystemLoggerTest.cpp
-    FileSystem/FileStreamTest.cpp
-    FileSystem/MPQTest.cpp
     Foundation/EnvironmentTest.cpp
     Framework/GameFrameworkTest.cpp
     Framework/PreferencesTest.cpp

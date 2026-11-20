@@ -2,41 +2,14 @@
 #include <Bibim/Config.h>
 #include <Bibim/FileStream.h>
 #include <doctest.h>
-#include <cstdio>
-#include <cstdlib>
 #include <cstring>
 #include <string>
-#include <unistd.h>
+#include "Common/TemporaryDirectory.h"
 
 using namespace Bibim;
 
 namespace
 {
-    class TemporaryDirectory
-    {
-        public:
-            TemporaryDirectory()
-            {
-                char pattern[] = "/tmp/BibimTestsXXXXXX";
-                REQUIRE(mkdtemp(pattern) != nullptr);
-                path = pattern;
-            }
-
-            ~TemporaryDirectory()
-            {
-                const std::string command = "rm -rf '" + path + "'";
-                std::system(command.c_str());
-            }
-
-            String Get(const char* name) const
-            {
-                return String((path + "/" + name).c_str());
-            }
-
-        private:
-            std::string path;
-    };
-
     void WriteFile(const String& path, const char* text)
     {
         FileStreamPtr stream = new FileStream(path, FileStream::WriteOnly);
