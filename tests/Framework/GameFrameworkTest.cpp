@@ -6,7 +6,7 @@
 #include <SDL3/SDL.h>
 #include <doctest.h>
 #include <functional>
-#include "../Platform/OffscreenVideo.h"
+#include "Platform/OffscreenVideo.h"
 
 using namespace Bibim;
 

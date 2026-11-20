@@ -1,5 +1,5 @@
-#include "OffscreenVideo.h"
-#include "PinLoadedLibraries.h"
+#include "Platform/OffscreenVideo.h"
+#include "Platform/PinLoadedLibraries.h"
 #include <SDL3/SDL.h>
 #include <doctest.h>
 

@@ -35,7 +35,7 @@ add_executable(BibimTests
 )
 
 target_link_libraries(BibimTests PRIVATE Bibim SDL3::SDL3)
-target_include_directories(BibimTests PRIVATE ${BIBIM_EXTLIBS}/doctest-2.5.3)
+target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBIM_EXTLIBS}/doctest-2.5.3)
 
 add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*,GameFramework*,Preferences*)
 
@@ -58,6 +58,7 @@ add_test(NAME GameFrameworkTests COMMAND BibimTests --test-case=GameFramework*)
 
 add_executable(BBMainSmoke BBMainSmoke.cpp Platform/PinLoadedLibraries.cpp)
 target_link_libraries(BBMainSmoke PRIVATE Bibim)
+target_include_directories(BBMainSmoke PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 add_test(NAME BBMainSmoke COMMAND BBMainSmoke --flag "two words")
 set_tests_properties(BBMainSmoke PROPERTIES ENVIRONMENT
     "SDL_VIDEO_DRIVER=offscreen;BIBIM_EXPECTED_STARTUP_ARGS=$<TARGET_FILE:BBMainSmoke> --flag two words")

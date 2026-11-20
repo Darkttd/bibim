@@ -10,7 +10,7 @@
 #include <SDL3/SDL.h>
 #include <doctest.h>
 #include <string>
-#include "OffscreenVideo.h"
+#include "Platform/OffscreenVideo.h"
 
 using namespace Bibim;
 
