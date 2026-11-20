@@ -33,12 +33,15 @@ C# 도구가 함께 제공됩니다.
 |---|---|
 | `include/Bibim/` | 공개 헤더 |
 | `src/` | 엔진 소스 (모듈별 디렉터리) |
-| `extlibs/` | 함께 포함된 서드파티 라이브러리 |
+| `extlibs/` | 함께 포함된 서드파티 라이브러리. 일부는 git submodule |
 | `build/` | 툴체인별 IDE 프로젝트, `Doxyfile` |
 | `lib/` | 빌드 결과물과, 게임 프로젝트가 가져다 쓰는 property sheet |
 | `tools/` | C# 도구 (`Bibim.Toolkit`, `Bibim.Baaaaaab`) |
 | `bin/` | 미리 빌드된 도구 |
 | `docs/` | 메모 |
+
+`extlibs/`의 일부 라이브러리는 upstream 릴리스 태그에 고정된 git submodule입니다. `git clone --recursive`로
+받거나, 이미 받은 저장소에서는 `git submodule update --init`을 실행하세요.
 
 ## Windows에서 빌드하기
 

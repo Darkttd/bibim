@@ -1,0 +1,3 @@
+[submodule "extlibs/zlib-1.2.8"]
+	path = extlibs/zlib-1.2.8
+	url = https://github.com/madler/zlib.git
