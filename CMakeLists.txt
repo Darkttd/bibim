@@ -191,13 +191,13 @@ target_include_directories(jpeg PUBLIC ${BIBIM_LIBJPEG_DIR})
 target_compile_options(jpeg PRIVATE $<$<C_COMPILER_ID:GNU,Clang>:-fno-sanitize=shift-base>)
 
 # Bundled FreeType 2.5.2, built like build/vs20xx/freetype.vcxproj: one
-# translation unit (custom/freetype-all.c) with the modules the engine uses.
-# custom/ comes first so its config/ftoption.h and config/ftmodule.h replace
-# the stock ones in include/.
+# translation unit (freetype-custom/freetype-all.c) with the modules the engine
+# uses. freetype-custom/ comes first so its config/ftoption.h and
+# config/ftmodule.h replace the stock ones in include/.
 set(BIBIM_FREETYPE_DIR ${BIBIM_EXTLIBS}/freetype-2.5.2)
-add_library(freetype STATIC ${BIBIM_FREETYPE_DIR}/custom/freetype-all.c)
+add_library(freetype STATIC ${BIBIM_EXTLIBS}/freetype-custom/freetype-all.c)
 target_include_directories(freetype PUBLIC
-    ${BIBIM_FREETYPE_DIR}/custom
+    ${BIBIM_EXTLIBS}/freetype-custom
     ${BIBIM_FREETYPE_DIR}/include
 )
 target_compile_definitions(freetype PRIVATE FT2_BUILD_LIBRARY)
