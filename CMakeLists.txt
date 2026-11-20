@@ -1,10 +1,5 @@
 # Linux build of the Bibim engine.
 # Windows keeps using build/vs20xx, Android build/eclipse, iOS build/xcode6.
-#
-# Status (Linux port, phase 1): builds the platform-independent engine core
-# as a static library. Sources that need the Linux platform layer
-# (window, input, file system, audio) are listed in BIBIM_PENDING_PLATFORM_SOURCES
-# and will be added as that layer lands.
 cmake_minimum_required(VERSION 3.16)
 project(Bibim LANGUAGES C CXX)
 
@@ -53,15 +48,6 @@ list(FILTER BIBIM_SOURCES EXCLUDE REGEX "\\.(Windows|DX9|Android|iOS|Mobile)\\.c
 
 # Test bed references headers that no longer exist in the repository.
 list(FILTER BIBIM_SOURCES EXCLUDE REGEX "/src/TestBed/")
-
-# Need StormLib or a Linux audio implementation, which do not exist yet.
-set(BIBIM_PENDING_PLATFORM_SOURCES
-    Framework/Lua.cpp
-    Framework/StandardGame.cpp
-)
-foreach(pending ${BIBIM_PENDING_PLATFORM_SOURCES})
-    list(REMOVE_ITEM BIBIM_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/${pending})
-endforeach()
 
 # Bundled Lua 5.2.3, built like build/vs20xx/lua.vcxproj: every source except the
 # standalone interpreter and compiler. lua_tinker needs the 5.2 API, so the

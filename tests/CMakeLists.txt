@@ -25,6 +25,7 @@ add_executable(BibimTests
     Foundation/Vector4Test.cpp
     Framework/GameFrameworkTest.cpp
     Framework/PreferencesTest.cpp
+    Framework/StandardGameTest.cpp
     Input/IMETest.cpp
     IO/BinaryReaderWriterTest.cpp
     Module/GameModuleFactoryTest.cpp
@@ -39,7 +40,7 @@ add_executable(BibimTests
 target_link_libraries(BibimTests PRIVATE Bibim SDL3::SDL3 stormlib)
 target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBIM_EXTLIBS}/doctest-2.5.3)
 
-add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*,GameFramework*,Preferences*)
+add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*,GameFramework*,Preferences*,StandardGame*)
 
 # Environment reads the process environment once, so each setting runs in its
 # own process. The data directories are created under the build directory.
@@ -57,6 +58,9 @@ add_test(NAME PreferencesTests COMMAND BibimTests --test-case=Preferences*)
 set_tests_properties(PreferencesTests PROPERTIES ENVIRONMENT
     "XDG_DATA_HOME=${BIBIM_TEST_DATA}/preferences")
 add_test(NAME GameFrameworkTests COMMAND BibimTests --test-case=GameFramework*)
+add_test(NAME StandardGameTests COMMAND BibimTests --test-case=StandardGame*)
+set_tests_properties(StandardGameTests PROPERTIES ENVIRONMENT
+    "XDG_DATA_HOME=${BIBIM_TEST_DATA}/standardgame")
 
 add_executable(BBMainSmoke BBMainSmoke.cpp Platform/PinLoadedLibraries.cpp)
 target_link_libraries(BBMainSmoke PRIVATE Bibim)

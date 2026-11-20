@@ -361,6 +361,8 @@ namespace Bibim
         lua_tinker::set(state, "PLATFORM", "Android");
 #       elif (defined(BIBIM_PLATFORM_IOS))
         lua_tinker::set(state, "PLATFORM", "iOS");
+#       elif (defined(BIBIM_PLATFORM_LINUX))
+        lua_tinker::set(state, "PLATFORM", "Linux");
 #       endif
     }
 
