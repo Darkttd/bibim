@@ -1,12 +1,24 @@
-# Linux build of the Bibim engine.
-# Windows keeps using build/vs20xx, Android build/eclipse, iOS build/xcode6.
+# CMake build of the Bibim engine for Linux and for 64-bit Windows with
+# MinGW-w64 (natively or cross-compiled with cmake/mingw-w64-x86_64.cmake).
+# The Visual Studio build stays in build/vs20xx, Android in build/eclipse and
+# iOS in build/xcode6.
 cmake_minimum_required(VERSION 3.16)
 project(Bibim LANGUAGES C CXX)
 
-if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    message(FATAL_ERROR "This CMake build targets Linux only. Use build/vs20xx on Windows.")
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(BIBIM_LINUX ON)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND MINGW)
+    if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
+        message(FATAL_ERROR "The MinGW-w64 build targets 64-bit Windows (x86_64) only.")
+    endif()
+    set(BIBIM_WINDOWS ON)
+else()
+    message(FATAL_ERROR
+        "This CMake build targets Linux and MinGW-w64 on Windows. "
+        "Use build/vs20xx for Visual Studio.")
 endif()
 
+if(BIBIM_LINUX)
 # The GLES2 renderer includes the OpenGL ES 2.0 and EGL headers. Fail at
 # configure time with a clear message instead of midway through the build.
 find_path(BIBIM_GLES2_INCLUDE_DIR GLES2/gl2.h)
@@ -34,6 +46,7 @@ if(NOT SDL3_FOUND)
         "SDL3 3.4 or later not found. "
         "Install it, e.g. 'libsdl3-dev' on Debian/Ubuntu or 'sdl3' on Arch.")
 endif()
+endif()
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -44,7 +57,11 @@ set(BIBIM_EXTLIBS ${CMAKE_CURRENT_SOURCE_DIR}/extlibs)
 file(GLOB BIBIM_SOURCES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*/*.cpp)
 
 # Other platforms' implementations.
-list(FILTER BIBIM_SOURCES EXCLUDE REGEX "\\.(Windows|DX9|Android|iOS|Mobile)\\.cpp$")
+if(BIBIM_LINUX)
+    list(FILTER BIBIM_SOURCES EXCLUDE REGEX "\\.(Windows|DX9|Android|iOS|Mobile)\\.cpp$")
+else()
+    list(FILTER BIBIM_SOURCES EXCLUDE REGEX "\\.(Linux|Unix|SDL3|GLES2|Android|iOS|Mobile)\\.cpp$")
+endif()
 
 # Test bed references headers that no longer exist in the repository.
 list(FILTER BIBIM_SOURCES EXCLUDE REGEX "/src/TestBed/")
@@ -60,8 +77,10 @@ list(REMOVE_ITEM BIBIM_LUA_SOURCES
 )
 add_library(lua STATIC ${BIBIM_LUA_SOURCES})
 target_include_directories(lua PUBLIC ${BIBIM_EXTLIBS}/lua-5.2.3/src)
-target_compile_definitions(lua PRIVATE LUA_USE_POSIX)
-target_link_libraries(lua PUBLIC m)
+if(BIBIM_LINUX)
+    target_compile_definitions(lua PRIVATE LUA_USE_POSIX)
+    target_link_libraries(lua PUBLIC m)
+endif()
 
 # Bundled zlib 1.2.8 and libpng 1.6.9, built from the same sources as
 # build/vs20xx/zlib.vcxproj and libpng.vcxproj. PNG.cpp reads libpng internals
@@ -86,7 +105,9 @@ add_library(zlib STATIC
 )
 target_include_directories(zlib PUBLIC ${BIBIM_ZLIB_DIR})
 # zconf.h only includes <unistd.h> (lseek, read, write in gz*.c) when told to.
-target_compile_definitions(zlib PRIVATE Z_HAVE_UNISTD_H)
+if(BIBIM_LINUX)
+    target_compile_definitions(zlib PRIVATE Z_HAVE_UNISTD_H)
+endif()
 # zlib 1.2.8 uses K&R function definitions, which C23 (GCC 15's default)
 # removed; build it as the C89 it was written in.
 set_target_properties(zlib PROPERTIES C_STANDARD 90 C_EXTENSIONS ON)
@@ -424,6 +445,10 @@ add_library(stormlib STATIC
 target_include_directories(stormlib PUBLIC ${BIBIM_STORMLIB_DIR}/src)
 target_compile_definitions(stormlib PRIVATE _7ZIP_ST BZ_STRICT_ANSI __SYS_ZLIB)
 target_link_libraries(stormlib PRIVATE zlib)
+if(BIBIM_WINDOWS)
+    # FileStream.cpp opens http:// archives with WinINet.
+    target_link_libraries(stormlib PRIVATE wininet)
+endif()
 
 add_library(Bibim STATIC
     ${BIBIM_SOURCES}
@@ -431,8 +456,19 @@ add_library(Bibim STATIC
 )
 target_link_libraries(Bibim
     PUBLIC lua
-    PRIVATE png jpeg freetype stormlib ${BIBIM_GLES2_LIBRARY} SDL3::SDL3
+    PRIVATE png jpeg freetype stormlib
 )
+if(BIBIM_LINUX)
+    target_link_libraries(Bibim PRIVATE ${BIBIM_GLES2_LIBRARY} SDL3::SDL3)
+else()
+    target_link_libraries(Bibim PUBLIC d3d9 d3dx9 winmm ws2_32 imm32)
+    # windows.h would otherwise define min and max macros (Config.h defines
+    # NOMINMAX only for MSVC).
+    target_compile_definitions(Bibim PUBLIC NOMINMAX _CRT_SECURE_NO_WARNINGS)
+    # Executables carry the MinGW runtime (libstdc++, libgcc, winpthread), so
+    # they run without its DLLs next to them, on Windows and under Wine.
+    add_link_options(-static)
+endif()
 
 # Same third-party header locations as build/vs20xx/Bibim.vcxproj, so every
 # platform compiles against the same library versions. PNG.cpp reads libpng

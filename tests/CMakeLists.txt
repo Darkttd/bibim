@@ -2,17 +2,11 @@
 add_executable(BibimTests
     main.cpp
     Animation/EaseTest.cpp
-    Asset/FileAssetProviderTest.cpp
     Audio/SilentAudioTest.cpp
     Collision2D/CollisionSpace2DTest.cpp
     Collision2D/Shape2DTest.cpp
-    Diagnostics/SystemLoggerTest.cpp
-    FileSystem/FileStreamTest.cpp
-    FileSystem/MPQTest.cpp
     Foundation/ColorTest.cpp
     Foundation/ConfigTest.cpp
-    Foundation/EnvironmentTest.cpp
-    Graphics/ImageReadTest.cpp
     Foundation/Geom2DTest.cpp
     Foundation/MathTest.cpp
     Foundation/Matrix4Test.cpp
@@ -23,23 +17,39 @@ add_executable(BibimTests
     Foundation/Vector2Test.cpp
     Foundation/Vector3Test.cpp
     Foundation/Vector4Test.cpp
+    Graphics/ImageReadTest.cpp
+    IO/BinaryReaderWriterTest.cpp
+    Module/GameModuleFactoryTest.cpp
+    Module/GameModuleTreeTest.cpp
+    UI/UITransform3DTest.cpp
+)
+target_link_libraries(BibimTests PRIVATE Bibim stormlib)
+target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBIM_EXTLIBS}/doctest-2.5.3)
+
+if(BIBIM_WINDOWS)
+    add_test(NAME BibimTests COMMAND BibimTests)
+    return()
+endif()
+
+# Linux only: the SDL3 platform layer, and tests that use POSIX file system
+# and environment functions.
+target_sources(BibimTests PRIVATE
+    Asset/FileAssetProviderTest.cpp
+    Diagnostics/SystemLoggerTest.cpp
+    FileSystem/FileStreamTest.cpp
+    FileSystem/MPQTest.cpp
+    Foundation/EnvironmentTest.cpp
     Framework/GameFrameworkTest.cpp
     Framework/PreferencesTest.cpp
     Framework/StandardGameTest.cpp
     Input/IMETest.cpp
     Input/MouseTest.cpp
-    IO/BinaryReaderWriterTest.cpp
-    Module/GameModuleFactoryTest.cpp
-    Module/GameModuleTreeTest.cpp
     Platform/GameWindowTest.cpp
     Platform/OffscreenVideo.cpp
     Platform/PinLoadedLibraries.cpp
     Platform/SDL3Test.cpp
-    UI/UITransform3DTest.cpp
 )
-
-target_link_libraries(BibimTests PRIVATE Bibim SDL3::SDL3 stormlib)
-target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBIM_EXTLIBS}/doctest-2.5.3)
+target_link_libraries(BibimTests PRIVATE SDL3::SDL3)
 
 add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*,GameFramework*,Preferences*,StandardGame*)
 
