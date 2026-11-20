@@ -25,7 +25,7 @@ namespace Bibim
             isVisible = value;
             ::ShowCursor(value ? TRUE : FALSE);
 
-            CURSORINFO cursorInfo = { 0, };
+            CURSORINFO cursorInfo = {};
             cursorInfo.cbSize = sizeof(cursorInfo);
             ::GetCursorInfo(&cursorInfo);
             state.IsVisible = cursorInfo.flags != 0;
