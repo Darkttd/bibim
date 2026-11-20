@@ -1,7 +1,7 @@
 #include <Bibim/Config.h>
-#if (defined(BIBIM_USE_SDL3))
+#if (defined(BIBIM_PLATFORM_PC))
 
-#include <Bibim/SoundFX.SDL3.h>
+#include <Bibim/SoundFX.Silent.h>
 #include <Bibim/Math.h>
 
 namespace Bibim

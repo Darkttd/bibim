@@ -1,9 +1,9 @@
 #pragma once
-#ifndef __BIBIM_SOUNDFX_SDL3_H__
-#define __BIBIM_SOUNDFX_SDL3_H__
+#ifndef __BIBIM_SOUNDFX_SILENT_H__
+#define __BIBIM_SOUNDFX_SILENT_H__
 
 #include <Bibim/FWD.h>
-#if (defined(BIBIM_USE_SDL3))
+#if (defined(BIBIM_PLATFORM_PC))
 
 #include <Bibim/TimelineGameModule.h>
 #include <Bibim/String.h>

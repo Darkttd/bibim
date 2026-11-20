@@ -48,9 +48,8 @@ set(BIBIM_EXTLIBS ${CMAKE_CURRENT_SOURCE_DIR}/extlibs)
 
 file(GLOB BIBIM_SOURCES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*/*.cpp)
 
-# Other platforms' implementations. *.PC.cpp is the irrKlang audio backend,
-# whose bundled Linux binary is 32-bit only; it gets replaced in a later phase.
-list(FILTER BIBIM_SOURCES EXCLUDE REGEX "\\.(Windows|DX9|Android|iOS|Mobile|PC)\\.cpp$")
+# Other platforms' implementations.
+list(FILTER BIBIM_SOURCES EXCLUDE REGEX "\\.(Windows|DX9|Android|iOS|Mobile)\\.cpp$")
 
 # Test bed references headers that no longer exist in the repository.
 list(FILTER BIBIM_SOURCES EXCLUDE REGEX "/src/TestBed/")

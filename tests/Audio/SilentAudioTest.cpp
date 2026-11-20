@@ -1,4 +1,4 @@
-// The SDL3 audio classes play nothing yet but keep their settings, so games
+// The PC audio classes play nothing yet but keep their settings, so games
 // that set volumes and mute flags behave the same until real audio lands.
 #include <Bibim/Config.h>
 #include <Bibim/AudioDevice.h>
