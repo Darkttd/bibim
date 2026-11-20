@@ -3,7 +3,7 @@
 #define __BIBIM_AUDIODEVICE_PC_H__
 
 #include <Bibim/FWD.h>
-#if (defined(BIBIM_PLATFORM_PC))
+#if (defined(BIBIM_PLATFORM_PC) && !defined(BIBIM_USE_SDL3))
 
 #include <Bibim/GameModule.h>
 #include <Bibim/String.h>

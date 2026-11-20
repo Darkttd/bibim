@@ -1,5 +1,5 @@
 #include <Bibim/Config.h>
-#if (defined(BIBIM_PLATFORM_PC))
+#if (defined(BIBIM_PLATFORM_PC) && !defined(BIBIM_USE_SDL3))
 
 #include <Bibim/AudioDevice.PC.h>
 #include <Bibim/Assert.h>
