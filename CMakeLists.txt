@@ -196,13 +196,238 @@ target_include_directories(freetype PUBLIC
 )
 target_compile_definitions(freetype PRIVATE FT2_BUILD_LIBRARY)
 
+# Bundled StormLib 8.21 (MPQ archives), built from the same sources as
+# build/vs20xx/StormLib.vcxproj except the LZMA multithreading files, which use
+# Win32 threads. _7ZIP_ST (single-threaded LZMA) and BZ_STRICT_ANSI (no
+# Windows-only _fdopen in bzip2) are what StormLib's own CMake build defines.
+# __SYS_ZLIB uses the bundled zlib target instead of StormLib's copy.
+set(BIBIM_STORMLIB_DIR ${BIBIM_EXTLIBS}/StormLib)
+add_library(stormlib STATIC
+    ${BIBIM_STORMLIB_DIR}/src/FileStream.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SBaseCommon.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SBaseDumpData.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SBaseFileTable.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SCompression.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileAddFile.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileAttributes.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileCompactArchive.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileCreateArchive.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileExtractFile.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileFindFile.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileListFile.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileOpenArchive.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileOpenFileEx.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFilePatchArchives.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileReadFile.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileVerify.cpp
+    ${BIBIM_STORMLIB_DIR}/src/adpcm/adpcm.cpp
+    ${BIBIM_STORMLIB_DIR}/src/bzip2/blocksort.c
+    ${BIBIM_STORMLIB_DIR}/src/bzip2/bzlib.c
+    ${BIBIM_STORMLIB_DIR}/src/bzip2/compress.c
+    ${BIBIM_STORMLIB_DIR}/src/bzip2/crctable.c
+    ${BIBIM_STORMLIB_DIR}/src/bzip2/decompress.c
+    ${BIBIM_STORMLIB_DIR}/src/bzip2/huffman.c
+    ${BIBIM_STORMLIB_DIR}/src/bzip2/randtable.c
+    ${BIBIM_STORMLIB_DIR}/src/huffman/huff.cpp
+    ${BIBIM_STORMLIB_DIR}/src/jenkins/lookup3.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/hashes/hash_memory.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/hashes/md5.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/hashes/sha1.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/math/ltm_desc.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/math/multi.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/math/rand_prime.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/base64_decode.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/crypt_argchk.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/crypt_find_hash.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/crypt_find_prng.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/crypt_hash_descriptor.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/crypt_hash_is_valid.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/crypt_libc.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/crypt_ltc_mp_descriptor.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/crypt_prng_descriptor.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/crypt_prng_is_valid.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/crypt_register_hash.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/crypt_register_prng.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/misc/zeromem.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_bit_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_boolean.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_choice.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_ia5_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_integer.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_object_identifier.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_octet_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_printable_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_sequence_ex.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_sequence_flexi.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_sequence_multi.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_short_integer.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_utctime.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_utf8_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_bit_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_boolean.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_ia5_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_integer.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_object_identifier.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_octet_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_printable_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_sequence.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_short_integer.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_utctime.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_utf8_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_sequence_free.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/ecc/ltc_ecc_map.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/ecc/ltc_ecc_mul2add.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/ecc/ltc_ecc_mulmod.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/ecc/ltc_ecc_points.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/ecc/ltc_ecc_projective_add_point.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/ecc/ltc_ecc_projective_dbl_point.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/pkcs1/pkcs_1_mgf1.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/pkcs1/pkcs_1_oaep_decode.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/pkcs1/pkcs_1_pss_decode.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/pkcs1/pkcs_1_v1_5_decode.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_exptmod.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_free.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_import.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_make_key.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_verify_hash.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_verify_simple.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_fast_mp_invmod.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_fast_mp_montgomery_reduce.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_fast_s_mp_mul_digs.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_fast_s_mp_mul_high_digs.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_fast_s_mp_sqr.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_2expt.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_abs.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_add.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_add_d.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_addmod.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_and.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_clamp.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_clear.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_clear_multi.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_cmp.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_cmp_d.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_cmp_mag.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_cnt_lsb.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_copy.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_count_bits.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_div.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_div_2.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_div_2d.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_div_3.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_div_d.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_dr_is_modulus.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_dr_reduce.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_dr_setup.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_exch.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_expt_d.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_exptmod.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_exptmod_fast.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_exteuclid.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_fread.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_fwrite.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_gcd.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_get_int.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_grow.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_init.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_init_copy.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_init_multi.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_init_set.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_init_set_int.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_init_size.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_invmod.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_invmod_slow.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_is_square.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_jacobi.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_karatsuba_mul.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_karatsuba_sqr.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_lcm.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_lshd.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_mod.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_mod_2d.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_mod_d.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_montgomery_calc_normalization.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_montgomery_reduce.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_montgomery_setup.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_mul.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_mul_2.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_mul_2d.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_mul_d.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_mulmod.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_n_root.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_neg.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_or.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_prime_fermat.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_prime_is_divisible.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_prime_is_prime.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_prime_miller_rabin.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_prime_next_prime.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_prime_rabin_miller_trials.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_prime_random_ex.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_radix_size.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_radix_smap.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_rand.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_read_radix.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_read_signed_bin.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_read_unsigned_bin.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_reduce.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_reduce_2k.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_reduce_2k_l.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_reduce_2k_setup.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_reduce_2k_setup_l.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_reduce_is_2k.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_reduce_is_2k_l.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_reduce_setup.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_rshd.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_set.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_set_int.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_shrink.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_signed_bin_size.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_sqr.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_sqrmod.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_sqrt.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_sub.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_sub_d.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_submod.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_to_signed_bin.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_to_signed_bin_n.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_to_unsigned_bin.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_to_unsigned_bin_n.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_toom_mul.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_toom_sqr.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_toradix.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_toradix_n.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_unsigned_bin_size.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_xor.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_mp_zero.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_prime_tab.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_reverse.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_s_mp_add.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_s_mp_exptmod.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_s_mp_mul_digs.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_s_mp_mul_high_digs.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_s_mp_sqr.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_s_mp_sub.c
+    ${BIBIM_STORMLIB_DIR}/src/libtommath/bncore.c
+    ${BIBIM_STORMLIB_DIR}/src/lzma/C/LzFind.c
+    ${BIBIM_STORMLIB_DIR}/src/lzma/C/LzmaDec.c
+    ${BIBIM_STORMLIB_DIR}/src/lzma/C/LzmaEnc.c
+    ${BIBIM_STORMLIB_DIR}/src/pklib/crc32.c
+    ${BIBIM_STORMLIB_DIR}/src/pklib/explode.c
+    ${BIBIM_STORMLIB_DIR}/src/pklib/implode.c
+    ${BIBIM_STORMLIB_DIR}/src/sparse/sparse.cpp
+)
+target_include_directories(stormlib PUBLIC ${BIBIM_STORMLIB_DIR}/src)
+target_compile_definitions(stormlib PRIVATE _7ZIP_ST BZ_STRICT_ANSI __SYS_ZLIB)
+target_link_libraries(stormlib PRIVATE zlib)
+
 add_library(Bibim STATIC
     ${BIBIM_SOURCES}
     ${BIBIM_EXTLIBS}/lua_tinker/lua_tinker.cpp
 )
 target_link_libraries(Bibim
     PUBLIC lua
-    PRIVATE png jpeg freetype ${BIBIM_GLES2_LIBRARY} SDL3::SDL3
+    PRIVATE png jpeg freetype stormlib ${BIBIM_GLES2_LIBRARY} SDL3::SDL3
 )
 
 # Same third-party header locations as build/vs20xx/Bibim.vcxproj, so every
@@ -215,8 +440,6 @@ target_include_directories(Bibim
         ${BIBIM_EXTLIBS}/lua_tinker
         ${BIBIM_EXTLIBS}/utf8_v2_3_4/source
         ${BIBIM_EXTLIBS}/rapidjson/include
-    PRIVATE
-        ${BIBIM_EXTLIBS}/StormLib/src
 )
 
 # Config.h derives BIBIM_DEBUG from _DEBUG, as on Windows.

@@ -7,6 +7,7 @@ add_executable(BibimTests
     Collision2D/Shape2DTest.cpp
     Diagnostics/SystemLoggerTest.cpp
     FileSystem/FileStreamTest.cpp
+    FileSystem/MPQTest.cpp
     Foundation/ColorTest.cpp
     Foundation/ConfigTest.cpp
     Foundation/EnvironmentTest.cpp
@@ -34,7 +35,7 @@ add_executable(BibimTests
     UI/UITransform3DTest.cpp
 )
 
-target_link_libraries(BibimTests PRIVATE Bibim SDL3::SDL3)
+target_link_libraries(BibimTests PRIVATE Bibim SDL3::SDL3 stormlib)
 target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBIM_EXTLIBS}/doctest-2.5.3)
 
 add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*,GameFramework*,Preferences*)
