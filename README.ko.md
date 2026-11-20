@@ -62,6 +62,33 @@ C# 도구가 함께 제공됩니다.
 `publish.py`는 이 property sheet와 단일 파일 소스 `src/Bibim.cpp`, `include/Bibim/All.h`를
 다시 생성합니다. 소스 파일을 추가하거나 의존성을 바꾼 뒤에 실행하세요.
 
+## CMake로 빌드하기 (Linux, MinGW-w64)
+
+루트 `CMakeLists.txt`는 엔진과 단위 테스트를 Linux용으로, 그리고 MinGW-w64 GCC로 64비트 Windows용으로
+빌드합니다. 위의 Visual Studio 빌드와는 별개이며 바뀌지 않습니다. 빌드 폴더는 IDE 프로젝트가 들어 있는
+`build/`가 아닌 다른 이름을 쓰세요.
+
+Linux (CMake 3.16 이상, GCC, SDL3 3.4 이상, OpenGL ES 2.0/EGL 헤더):
+
+```
+cmake -S . -B build-linux -G Ninja -DCMAKE_BUILD_TYPE=Debug
+cmake --build build-linux
+ctest --test-dir build-linux
+```
+
+Windows용은 Linux에서 MinGW-w64로 크로스 컴파일합니다(Arch는 `mingw-w64-gcc`, Debian/Ubuntu는
+`g++-mingw-w64-x86-64`). Wine이 설치되어 있으면 `ctest`가 Wine으로 테스트를 실행합니다.
+
+```
+cmake -S . -B build-mingw -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=cmake/mingw-w64-x86_64.cmake
+cmake --build build-mingw
+ctest --test-dir build-mingw
+```
+
+아직은 플랫폼과 무관한 테스트만 Windows에서 실행합니다. 실행 파일은 MinGW 런타임을 정적으로 링크하므로
+MinGW DLL이 필요 없습니다. Windows에서 MinGW-w64로 직접 빌드하는 방법(예: MSYS2 UCRT64)은 아직 시도하지
+않았습니다.
+
 ## 도구
 
 미리 빌드된 도구는 `bin/`에, 소스는 `tools/`(`tools/Bibim.Toolkit.sln`)에 있습니다.
