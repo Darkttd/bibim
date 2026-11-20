@@ -27,6 +27,7 @@ add_executable(BibimTests
     Framework/PreferencesTest.cpp
     Framework/StandardGameTest.cpp
     Input/IMETest.cpp
+    Input/MouseTest.cpp
     IO/BinaryReaderWriterTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
