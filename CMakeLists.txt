@@ -181,10 +181,9 @@ target_include_directories(freetype PUBLIC
 )
 target_compile_definitions(freetype PRIVATE FT2_BUILD_LIBRARY)
 
-# Bundled StormLib 8.21 (MPQ archives), built from the same sources as
-# build/vs20xx/StormLib.vcxproj except the LZMA multithreading files, which use
-# Win32 threads. _7ZIP_ST (single-threaded LZMA) and BZ_STRICT_ANSI (no
-# Windows-only _fdopen in bzip2) are what StormLib's own CMake build defines.
+# Bundled StormLib 9.40 (MPQ archives), built from the source lists in its own
+# CMakeLists.txt (SRC_FILES, TOMCRYPT_FILES, TOMMATH_FILES, BZIP2_FILES) with
+# the same definitions: _7ZIP_ST (single-threaded LZMA) and BZ_STRICT_ANSI.
 # __SYS_ZLIB uses the bundled zlib target instead of StormLib's copy.
 set(BIBIM_STORMLIB_DIR ${BIBIM_EXTLIBS}/StormLib)
 add_library(stormlib STATIC
@@ -192,6 +191,7 @@ add_library(stormlib STATIC
     ${BIBIM_STORMLIB_DIR}/src/SBaseCommon.cpp
     ${BIBIM_STORMLIB_DIR}/src/SBaseDumpData.cpp
     ${BIBIM_STORMLIB_DIR}/src/SBaseFileTable.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SBaseSubTypes.cpp
     ${BIBIM_STORMLIB_DIR}/src/SCompression.cpp
     ${BIBIM_STORMLIB_DIR}/src/SFileAddFile.cpp
     ${BIBIM_STORMLIB_DIR}/src/SFileAttributes.cpp
@@ -199,12 +199,14 @@ add_library(stormlib STATIC
     ${BIBIM_STORMLIB_DIR}/src/SFileCreateArchive.cpp
     ${BIBIM_STORMLIB_DIR}/src/SFileExtractFile.cpp
     ${BIBIM_STORMLIB_DIR}/src/SFileFindFile.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SFileGetFileInfo.cpp
     ${BIBIM_STORMLIB_DIR}/src/SFileListFile.cpp
     ${BIBIM_STORMLIB_DIR}/src/SFileOpenArchive.cpp
     ${BIBIM_STORMLIB_DIR}/src/SFileOpenFileEx.cpp
     ${BIBIM_STORMLIB_DIR}/src/SFilePatchArchives.cpp
     ${BIBIM_STORMLIB_DIR}/src/SFileReadFile.cpp
     ${BIBIM_STORMLIB_DIR}/src/SFileVerify.cpp
+    ${BIBIM_STORMLIB_DIR}/src/SMemUtf8.cpp
     ${BIBIM_STORMLIB_DIR}/src/adpcm/adpcm.cpp
     ${BIBIM_STORMLIB_DIR}/src/bzip2/blocksort.c
     ${BIBIM_STORMLIB_DIR}/src/bzip2/bzlib.c
@@ -218,6 +220,7 @@ add_library(stormlib STATIC
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/hashes/hash_memory.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/hashes/md5.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/hashes/sha1.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/hashes/sha256.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/math/ltm_desc.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/math/multi.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/math/rand_prime.c
@@ -248,6 +251,20 @@ add_library(stormlib STATIC
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_short_integer.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_utctime.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_decode_utf8_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_bit_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_boolean.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_ia5_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_integer.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_object_identifier.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_octet_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_printable_string.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_sequence_ex.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_sequence_multi.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_set.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_setof.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_short_integer.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_utctime.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_encode_utf8_string.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_bit_string.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_boolean.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/asn1/der_length_ia5_string.c
@@ -269,11 +286,14 @@ add_library(stormlib STATIC
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/pkcs1/pkcs_1_mgf1.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/pkcs1/pkcs_1_oaep_decode.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/pkcs1/pkcs_1_pss_decode.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/pkcs1/pkcs_1_pss_encode.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/pkcs1/pkcs_1_v1_5_decode.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/pkcs1/pkcs_1_v1_5_encode.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_exptmod.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_free.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_import.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_make_key.c
+    ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_sign_hash.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_verify_hash.c
     ${BIBIM_STORMLIB_DIR}/src/libtomcrypt/src/pk/rsa/rsa_verify_simple.c
     ${BIBIM_STORMLIB_DIR}/src/libtommath/bn_fast_mp_invmod.c
@@ -397,7 +417,6 @@ add_library(stormlib STATIC
     ${BIBIM_STORMLIB_DIR}/src/lzma/C/LzFind.c
     ${BIBIM_STORMLIB_DIR}/src/lzma/C/LzmaDec.c
     ${BIBIM_STORMLIB_DIR}/src/lzma/C/LzmaEnc.c
-    ${BIBIM_STORMLIB_DIR}/src/pklib/crc32.c
     ${BIBIM_STORMLIB_DIR}/src/pklib/explode.c
     ${BIBIM_STORMLIB_DIR}/src/pklib/implode.c
     ${BIBIM_STORMLIB_DIR}/src/sparse/sparse.cpp
