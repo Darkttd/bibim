@@ -1,0 +1,44 @@
+# Cross-compile the engine for 64-bit Windows with MinGW-w64 on Linux and run
+# the unit tests under Wine (see cmake/mingw-w64-x86_64.cmake).
+name: MinGW
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: MinGW ${{ matrix.build_type }}
+    runs-on: ubuntu-26.04
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [Debug, Release]
+    steps:
+      - uses: actions/checkout@v7
+
+      # g++-mingw-w64-x86-64: the cross compiler, with the d3d9/d3dx9 headers and
+      # import libraries. wine: runs the Windows test executable.
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ninja-build g++-mingw-w64-x86-64 wine
+
+      - name: Configure
+        run: >
+          cmake -S . -B build-mingw -G Ninja
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          -DCMAKE_TOOLCHAIN_FILE=cmake/mingw-w64-x86_64.cmake
+
+      - name: Build
+        run: cmake --build build-mingw
+
+      - name: Test
+        env:
+          WINEPREFIX: ${{ runner.temp }}/wine
+          WINEDEBUG: -all
+        run: ctest --test-dir build-mingw --output-on-failure
