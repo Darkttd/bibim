@@ -7,10 +7,8 @@
 #include <Bibim/String.h>
 #include <StormLib.h>
 #include <doctest.h>
-#include <cstdio>
-#include <cstdlib>
 #include <cstring>
-#include <unistd.h>
+#include "Common/TemporaryDirectory.h"
 
 using namespace Bibim;
 
@@ -23,12 +21,8 @@ namespace
     {
         public:
             TemporaryArchive()
+                : path(directory.Get("Test.mpq"))
             {
-                char pattern[] = "/tmp/BibimTestsXXXXXX";
-                REQUIRE(mkdtemp(pattern) != nullptr);
-                directory = pattern;
-                path = directory + "/Test.mpq";
-
                 HANDLE archive = nullptr;
                 REQUIRE(SFileCreateArchive(path.CStr(), MPQ_CREATE_ARCHIVE_V1, 16, &archive));
                 AddFile(archive, "Data\\Hello.ab");
@@ -36,13 +30,7 @@ namespace
                 REQUIRE(SFileCloseArchive(archive));
             }
 
-            ~TemporaryArchive()
-            {
-                std::remove(path.CStr());
-                rmdir(directory.CStr());
-            }
-
-            String directory;
+            TemporaryDirectory directory;
             String path;
 
         private:
@@ -82,7 +70,7 @@ TEST_CASE("MPQ opens an archive and finds its files")
 TEST_CASE("MPQ has no handle when the archive does not exist")
 {
     TemporaryArchive archive;
-    MPQPtr mpq = new MPQ(archive.directory + "/Missing.mpq");
+    MPQPtr mpq = new MPQ(archive.directory.Get("Missing.mpq"));
     CHECK(mpq->GetHandle() == nullptr);
     CHECK_FALSE(mpq->Has("Readme.txt"));
 }
