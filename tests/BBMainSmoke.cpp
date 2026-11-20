@@ -1,4 +1,4 @@
-// A game built with BBMain, as Maple and touhoubreak are. It checks its startup
+// A game built with BBMain, as Maple is. It checks its startup
 // args against BIBIM_EXPECTED_STARTUP_ARGS and exits after a few frames.
 #include <Bibim/Config.h>
 #include <Bibim/GameFramework.h>
