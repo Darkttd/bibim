@@ -24,6 +24,7 @@ add_executable(BibimTests
     UI/UITransform3DTest.cpp
 )
 target_link_libraries(BibimTests PRIVATE Bibim stormlib)
+target_compile_options(BibimTests PRIVATE ${BIBIM_WARNING_OPTIONS})
 target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBIM_EXTLIBS}/doctest-2.5.3)
 
 if(BIBIM_WINDOWS)
@@ -74,6 +75,7 @@ set_tests_properties(StandardGameTests PROPERTIES ENVIRONMENT
 
 add_executable(BBMainSmoke BBMainSmoke.cpp Platform/PinLoadedLibraries.cpp)
 target_link_libraries(BBMainSmoke PRIVATE Bibim)
+target_compile_options(BBMainSmoke PRIVATE ${BIBIM_WARNING_OPTIONS})
 target_include_directories(BBMainSmoke PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 add_test(NAME BBMainSmoke COMMAND BBMainSmoke --flag "two words")
 set_tests_properties(BBMainSmoke PROPERTIES ENVIRONMENT

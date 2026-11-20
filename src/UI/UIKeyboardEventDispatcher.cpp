@@ -47,7 +47,7 @@ namespace Bibim
         const Key::Code shift = state.IsPressed(Key::Shift) ? Key::Shift : Key::None;
 
         int code = 0;
-        for (int i = 0; i < sizeof(state.Keys) / sizeof(state.Keys[0]); i++)
+        for (int i = 0; i < static_cast<int>(sizeof(state.Keys) / sizeof(state.Keys[0])); i++)
         {
             const int currentField = state.Keys[i];
             const int lastField    = lastState.Keys[i];

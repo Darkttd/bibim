@@ -110,6 +110,7 @@ namespace Bibim
 
                 inline Vertex();
                 inline Vertex(const Vertex& original);
+                Vertex& operator = (const Vertex& right) = default;
 
                 inline Vertex(Vector2 position, unsigned long color);
                 inline Vertex(Vector2 position, unsigned long color, Vector2 texCoord1);
@@ -204,15 +205,17 @@ namespace Bibim
     };
 
 #   define BBEffectorClass(classname)
-//#   define BBEffectorClass(classname)   public: \
-//                                            static void* operator new (size_t /*s*/) \
-//                                            { \
-//                                                return UIEffectorAllocator<classname>::Instance.Allocate(); \
-//                                            } \
-//                                            static void operator delete (void* p) \
-//                                            { \
-//                                                UIEffectorAllocator<classname>::Instance.Deallocate(p); \
-//                                            }
+#if 0
+#   define BBEffectorClass(classname)   public: \
+                                            static void* operator new (size_t /*s*/) \
+                                            { \
+                                                return UIEffectorAllocator<classname>::Instance.Allocate(); \
+                                            } \
+                                            static void operator delete (void* p) \
+                                            { \
+                                                UIEffectorAllocator<classname>::Instance.Deallocate(p); \
+                                            }
+#endif
 //
 //    template <typename T> class UIEffectorAllocator
 //    {

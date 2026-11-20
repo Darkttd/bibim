@@ -29,19 +29,19 @@ namespace Bibim
 
     KeyboardState::KeyboardState()
     {
-        for (int i = 0; i < sizeof(Keys) / sizeof(Keys[0]); i++)
+        for (int i = 0; i < static_cast<int>(sizeof(Keys) / sizeof(Keys[0])); i++)
             Keys[i] = 0x00000000;
     }
 
     KeyboardState::KeyboardState(const KeyboardState& original)
     {
-        for (int i = 0; i < sizeof(Keys) / sizeof(Keys[0]); i++)
+        for (int i = 0; i < static_cast<int>(sizeof(Keys) / sizeof(Keys[0])); i++)
             Keys[i] = original.Keys[i];
     }
 
     bool KeyboardState::IsPressed() const
     {
-        for (int i = 0; i < sizeof(Keys) / sizeof(Keys[0]); i++)
+        for (int i = 0; i < static_cast<int>(sizeof(Keys) / sizeof(Keys[0])); i++)
         {
             if (Keys[i] != 0x00000000)
                 return true;
@@ -64,7 +64,7 @@ namespace Bibim
 
     KeyboardState& KeyboardState::operator = (const KeyboardState& right)
     {
-        for (int i = 0; i < sizeof(Keys) / sizeof(Keys[0]); i++)
+        for (int i = 0; i < static_cast<int>(sizeof(Keys) / sizeof(Keys[0])); i++)
             Keys[i] = right.Keys[i];
 
         return *this;
@@ -72,7 +72,7 @@ namespace Bibim
 
     bool KeyboardState::operator == (const KeyboardState& right) const
     {
-        for (int i = 0; i < sizeof(Keys) / sizeof(Keys[0]); i++)
+        for (int i = 0; i < static_cast<int>(sizeof(Keys) / sizeof(Keys[0])); i++)
         {
             if (Keys[i] != right.Keys[i])
                 return false;

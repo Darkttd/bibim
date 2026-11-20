@@ -51,9 +51,9 @@ namespace Bibim
 
     void Keyboard::AllowDefaultKeys()
     {
-        for (int i = 0; i < sizeof(allowedKeys) / sizeof(allowedKeys[0]); i++)
+        for (int i = 0; i < static_cast<int>(sizeof(allowedKeys) / sizeof(allowedKeys[0])); i++)
             allowedKeys[i] = 0x00000000;
-        for (int i = 0; i < sizeof(Key::Codes) / sizeof(Key::Codes[0]) && Key::Codes[i] != Key::None; i++)
+        for (int i = 0; i < static_cast<int>(sizeof(Key::Codes) / sizeof(Key::Codes[0])) && Key::Codes[i] != Key::None; i++)
             SetAllowKey(Key::Codes[i], true);
     }
 }

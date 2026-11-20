@@ -441,7 +441,7 @@ namespace Bibim
             };
 
             const Vector2 end = center + (direction * length);
-            for (int i = 0; i < sizeof(data) / sizeof(data[0]); i++)
+            for (int i = 0; i < static_cast<int>(sizeof(data) / sizeof(data[0])); i++)
             {
                 if (direction.Dot(data[i].Normal) < 0.0f)
                 {
@@ -477,7 +477,7 @@ namespace Bibim
                 { Vector2(+Math::InvSqrt2, +Math::InvSqrt2), Vector2(right, bottom) },
             };
 
-            for (int i = 0; i < sizeof(data) / sizeof(data[0]); i++)
+            for (int i = 0; i < static_cast<int>(sizeof(data) / sizeof(data[0])); i++)
             {
                 if (direction.Dot(data[i].Normal) < 0.0f)
                 {

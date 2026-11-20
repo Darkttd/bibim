@@ -55,6 +55,8 @@ namespace Bibim
         {
             socketStream = new NetworkStream(socket);
         }
+#       else
+        BBUnusedParameter(endPoint);
 #       endif
     }
 

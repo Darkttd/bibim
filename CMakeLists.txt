@@ -460,8 +460,13 @@ target_include_directories(Bibim
         ${BIBIM_EXTLIBS}/lua-5.2.3/src
         ${BIBIM_EXTLIBS}/lua_tinker
         ${BIBIM_EXTLIBS}/utf8_v2_3_4/source
-        ${BIBIM_EXTLIBS}/rapidjson/include
 )
+target_include_directories(Bibim SYSTEM PUBLIC ${BIBIM_EXTLIBS}/rapidjson/include)
+
+# Warnings for the engine's own code and its tests; the bundled libraries
+# keep their defaults. The sources carry MSVC's #pragma warning on purpose.
+set(BIBIM_WARNING_OPTIONS -Wall -Wextra -Wno-unknown-pragmas)
+target_compile_options(Bibim PRIVATE ${BIBIM_WARNING_OPTIONS})
 
 # Config.h derives BIBIM_DEBUG from _DEBUG, as on Windows.
 target_compile_definitions(Bibim PUBLIC $<$<CONFIG:Debug>:_DEBUG>)

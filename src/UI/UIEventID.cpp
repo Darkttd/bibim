@@ -64,7 +64,7 @@ namespace Bibim
     {
         if (name.IsEmpty() == false)
         {
-            for (int i = 0; i < sizeof(EventNames) / sizeof(EventNames[0]); i++)
+            for (int i = 0; i < static_cast<int>(sizeof(EventNames) / sizeof(EventNames[0])); i++)
             {
                 if (EventNames[i].EqualsIgnoreCase(name))
                     return static_cast<Type>(i);
