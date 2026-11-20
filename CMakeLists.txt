@@ -130,7 +130,7 @@ add_library(png STATIC
     ${BIBIM_LIBPNG_DIR}/pngwtran.c
     ${BIBIM_LIBPNG_DIR}/pngwutil.c
 )
-target_include_directories(png PUBLIC ${BIBIM_LIBPNG_DIR})
+target_include_directories(png PUBLIC ${BIBIM_LIBPNG_DIR} ${BIBIM_EXTLIBS}/libpng-config)
 target_link_libraries(png PUBLIC zlib m)
 
 # Bundled libjpeg 9a, built from the same sources as build/vs20xx/libjpeg.vcxproj
