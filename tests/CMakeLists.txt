@@ -21,20 +21,23 @@ add_executable(BibimTests
     Foundation/Vector2Test.cpp
     Foundation/Vector3Test.cpp
     Foundation/Vector4Test.cpp
+    Framework/GameFrameworkTest.cpp
     Framework/PreferencesTest.cpp
     Input/IMETest.cpp
     IO/BinaryReaderWriterTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
     Platform/GameWindowTest.cpp
+    Platform/OffscreenVideo.cpp
+    Platform/PinLoadedLibraries.cpp
     Platform/SDL3Test.cpp
     UI/UITransform3DTest.cpp
 )
 
 target_link_libraries(BibimTests PRIVATE Bibim SDL3::SDL3)
-target_include_directories(BibimTests PRIVATE ${BIBIM_EXTLIBS}/doctest-2.5.3)
+target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBIM_EXTLIBS}/doctest-2.5.3)
 
-add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*,Preferences*)
+add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*,GameFramework*,Preferences*)
 
 # Environment reads the process environment once, so each setting runs in its
 # own process. The data directories are created under the build directory.
@@ -51,3 +54,11 @@ set_tests_properties(EnvironmentDefault PROPERTIES ENVIRONMENT
 add_test(NAME PreferencesTests COMMAND BibimTests --test-case=Preferences*)
 set_tests_properties(PreferencesTests PROPERTIES ENVIRONMENT
     "XDG_DATA_HOME=${BIBIM_TEST_DATA}/preferences")
+add_test(NAME GameFrameworkTests COMMAND BibimTests --test-case=GameFramework*)
+
+add_executable(BBMainSmoke BBMainSmoke.cpp Platform/PinLoadedLibraries.cpp)
+target_link_libraries(BBMainSmoke PRIVATE Bibim)
+target_include_directories(BBMainSmoke PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+add_test(NAME BBMainSmoke COMMAND BBMainSmoke --flag "two words")
+set_tests_properties(BBMainSmoke PROPERTIES ENVIRONMENT
+    "SDL_VIDEO_DRIVER=offscreen;BIBIM_EXPECTED_STARTUP_ARGS=$<TARGET_FILE:BBMainSmoke> --flag two words")

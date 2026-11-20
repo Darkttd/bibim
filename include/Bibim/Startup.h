@@ -31,6 +31,16 @@ namespace Bibim
         { \
             return new gameClass(); \
         }
+#elif (defined(BIBIM_USE_SDL3))
+#   include <Bibim/GameFramework.h>
+#   define BBMain(gameclass) \
+        int main(int argc, char** argv) \
+        { \
+            Bibim::GameFramework::SetCommandLine(argc, argv); \
+            gameclass g; \
+            g.Run(); \
+            return 0; \
+        }
 #endif
 
 #endif

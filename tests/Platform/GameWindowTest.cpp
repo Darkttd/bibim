@@ -9,57 +9,13 @@
 #include <Bibim/GraphicsDevice.h>
 #include <SDL3/SDL.h>
 #include <doctest.h>
-#include <dlfcn.h>
-#include <link.h>
 #include <string>
+#include "Platform/OffscreenVideo.h"
 
 using namespace Bibim;
 
 namespace
 {
-    int PinLoadedLibrary(dl_phdr_info* info, size_t, void*)
-    {
-        if (info->dlpi_name != nullptr && info->dlpi_name[0] != '\0')
-            dlopen(info->dlpi_name, RTLD_NOW | RTLD_NOLOAD);
-        return 0;
-    }
-
-    // SDL unloads the GL driver when its last GL window is destroyed. The
-    // driver's one-time allocations then lose their owner and LeakSanitizer
-    // reports them, with every driver frame shown as <unknown module>. Taking
-    // one more reference to each library loaded for a GL window and context
-    // keeps the driver in memory until exit.
-    bool PinGLDriver()
-    {
-        SDL_Window* window = SDL_CreateWindow("", 1, 1, SDL_WINDOW_OPENGL | SDL_WINDOW_HIDDEN);
-        if (window == nullptr)
-            return false;
-        SDL_GLContext context = SDL_GL_CreateContext(window);
-        dl_iterate_phdr(PinLoadedLibrary, nullptr);
-        if (context != nullptr)
-            SDL_GL_DestroyContext(context);
-        SDL_DestroyWindow(window);
-        return context != nullptr;
-    }
-
-    // Holds the video subsystem for the whole case, as the GameFramework does.
-    struct OffscreenVideo
-    {
-        OffscreenVideo()
-        {
-            REQUIRE(SDL_SetHint(SDL_HINT_VIDEO_DRIVER, "offscreen"));
-            REQUIRE_MESSAGE(SDL_InitSubSystem(SDL_INIT_VIDEO), SDL_GetError());
-
-            static const bool pinned = PinGLDriver();
-            REQUIRE_MESSAGE(pinned, SDL_GetError());
-        }
-
-        ~OffscreenVideo()
-        {
-            SDL_QuitSubSystem(SDL_INIT_VIDEO);
-        }
-    };
-
     int CountSDLWindows()
     {
         int count = -1;
