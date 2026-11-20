@@ -128,5 +128,3 @@ Bibim은 원작자와 협의하여 MIT 라이선스로 지정하는 중입니다
 upstream에서 진행 중입니다: [halak/bibim#2](https://github.com/halak/bibim/pull/2)
 
 `extlibs/`의 서드파티 라이브러리는 각자의 라이선스를 따릅니다. `LICENSE-BUNDLE`을 참고하세요.
-특히 **irrKlang**(`extlibs/irrKlang-1.4.0`)은 오픈소스가 아니며, 바이너리는 비상업 제품에서만
-재배포할 수 있습니다. 자세한 내용은 `extlibs/irrKlang-1.4.0/readme.txt`를 참고하세요.
