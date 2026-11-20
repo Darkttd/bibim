@@ -12,11 +12,6 @@ namespace Bibim
         HANDLE internalHandle = NULL;
         if (SFileOpenArchive(path.CStr(), 0, STREAM_FLAG_READ_ONLY, &internalHandle))
             handle = internalHandle;
-        else
-        {
-            DWORD errorCode = ::GetLastError();
-            errorCode = errorCode;
-        }
     }
 
     MPQ::~MPQ()
@@ -36,9 +31,18 @@ namespace Bibim
     bool MPQ::Has(const String& path) const
     {
         if (handle)
-            return SFileHasFile(handle, path.CStr());
+            return SFileHasFile(handle, ToArchivedName(path).CStr());
         else
             return false;
+    }
+
+    String MPQ::ToArchivedName(const String& path)
+    {
+        // Archives store names with backslashes. StormLib 9 no longer reads
+        // a slash as a backslash, so asset names like "Asset/Shader" need it.
+        String name = path;
+        name.Replace('/', '\\');
+        return name;
     }
 }
 
