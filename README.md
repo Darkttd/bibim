@@ -59,6 +59,33 @@ Steps:
 `publish.py` regenerates those property sheets, the single-file source `src/Bibim.cpp` and
 `include/Bibim/All.h`. Run it after adding source files or changing dependencies.
 
+## Building with CMake (Linux, MinGW-w64)
+
+The root `CMakeLists.txt` builds the engine and its unit tests on Linux, and for 64-bit Windows with
+MinGW-w64 GCC. The Visual Studio build above is separate and unchanged. Use a build directory other
+than `build/`, which holds the IDE projects.
+
+On Linux (CMake 3.16+, GCC, SDL3 3.4+ and the OpenGL ES 2.0/EGL headers):
+
+```
+cmake -S . -B build-linux -G Ninja -DCMAKE_BUILD_TYPE=Debug
+cmake --build build-linux
+ctest --test-dir build-linux
+```
+
+For Windows, cross-compiled on Linux with MinGW-w64 (`mingw-w64-gcc` on Arch,
+`g++-mingw-w64-x86-64` on Debian/Ubuntu). When Wine is installed, `ctest` runs the tests with it:
+
+```
+cmake -S . -B build-mingw -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=cmake/mingw-w64-x86_64.cmake
+cmake --build build-mingw
+ctest --test-dir build-mingw
+```
+
+Only the platform-independent tests run on Windows so far. The executables link the MinGW runtime
+statically, so they need no MinGW DLLs. Building natively on Windows with MinGW-w64 (for example
+MSYS2 UCRT64) has not been tried yet.
+
 ## Tools
 
 Prebuilt tools are in `bin/`; their sources are in `tools/` (`tools/Bibim.Toolkit.sln`).
