@@ -33,14 +33,14 @@ for asset processing and debugging.
 |---|---|
 | `include/Bibim/` | Public headers |
 | `src/` | Engine sources, one directory per module |
-| `extlibs/` | Bundled third-party libraries (`extlibs/StormLib` is a git submodule) |
+| `extlibs/` | Bundled third-party libraries; some are git submodules |
 | `build/` | IDE projects per toolchain, and `Doxyfile` |
 | `lib/` | Build output and the property sheets that game projects import |
 | `tools/` | C# tools (`Bibim.Toolkit`, `Bibim.Baaaaaab`) |
 | `bin/` | Prebuilt tools |
 | `docs/` | Notes |
 
-`extlibs/StormLib` is a git submodule pinned to a StormLib release tag. Clone with
+Some libraries in `extlibs/` are git submodules pinned to upstream release tags. Clone with
 `git clone --recursive`, or run `git submodule update --init` in an existing clone.
 
 ## Building on Windows
