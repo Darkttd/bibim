@@ -20,6 +20,8 @@ jobs:
         build_type: [Debug, Release]
     steps:
       - uses: actions/checkout@v7
+        with:
+          submodules: true
 
       # g++-mingw-w64-x86-64: the cross compiler, with the d3d9/d3dx9 headers and
       # import libraries. wine: runs the Windows test executable.
