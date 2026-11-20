@@ -14,7 +14,7 @@ namespace Bibim
             return;
 
         HANDLE internalHandle = NULL;
-        if (SFileOpenFileEx(mpq->GetHandle(), path.CStr(), SFILE_OPEN_FROM_MPQ, &internalHandle))
+        if (SFileOpenFileEx(mpq->GetHandle(), MPQ::ToArchivedName(path).CStr(), SFILE_OPEN_FROM_MPQ, &internalHandle))
             handle = internalHandle;
     }
 
