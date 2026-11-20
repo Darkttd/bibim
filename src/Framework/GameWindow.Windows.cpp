@@ -47,7 +47,7 @@ namespace Bibim
             const SIZE windowSize = { windowRect.right - windowRect.left, windowRect.bottom - windowRect.top };
             const POINT windowPosition = { (screenSize.cx - windowSize.cx) / 2, (screenSize.cy - windowSize.cy) / 2 };
 
-            SetPosition(Point2(windowPosition.x, windowPosition.y));
+            SetPosition(Point2(static_cast<int>(windowPosition.x), static_cast<int>(windowPosition.y)));
         }
     }
 
@@ -344,8 +344,8 @@ namespace Bibim
                 {
                     RECT clientRect = { 0, 0, 0, 0 };
                     ::GetClientRect(windowHandle, &clientRect);
-                    const Point2 newSize = Point2(clientRect.right - clientRect.left,
-                                                  clientRect.bottom - clientRect.top);
+                    const Point2 newSize = Point2(static_cast<int>(clientRect.right - clientRect.left),
+                                                  static_cast<int>(clientRect.bottom - clientRect.top));
                     GameWindow* o = GetGameWindow(windowHandle);
                     o->isUserSizing = false;
                     if (o->size != newSize)
@@ -361,7 +361,7 @@ namespace Bibim
                     ::GetWindowRect(windowHandle, &windowRect);
 
                     GameWindow* o = GetGameWindow(windowHandle);
-                    o->position = Point2(windowRect.left, windowRect.top);
+                    o->position = Point2(static_cast<int>(windowRect.left), static_cast<int>(windowRect.top));
                 }
                 return 0;
             case WM_SIZE:

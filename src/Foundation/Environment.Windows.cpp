@@ -3,7 +3,7 @@
 
 #include <Bibim/Environment.Windows.h>
 #include <windows.h>
-#include <Shlobj.h>
+#include <shlobj.h>
 
 namespace Bibim
 {
