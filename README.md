@@ -119,6 +119,10 @@ Linux yet (for example texture cooking and Lua/HLSL compilation); see
 - **Language of new code**: new code and comments are written in English (the Latin alphabet) only.
   Existing Korean comments are kept as they are. The only exception is code that handles non-alphabet
   text (Korean, Japanese and so on) and its tests, for example test strings for fonts or text input.
+- **Includes**: engine headers are included with angle brackets, `#include <Bibim/...>`, in sources and
+  tests alike. Test-only headers under `tests/` use double quotes and a path relative to `tests/`, for
+  example `#include "Platform/OffscreenVideo.h"`, never `../`. Existing quote includes stay: the generated
+  `include/Bibim/All.h` and `src/Bibim.cpp`, the copied Lua headers, and `"AudioBridge-ObjectiveC.h"`.
 
 ## License
 
