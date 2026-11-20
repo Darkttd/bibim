@@ -44,6 +44,7 @@ target_sources(BibimTests PRIVATE
     Framework/PreferencesTest.cpp
     Framework/StandardGameTest.cpp
     Input/IMETest.cpp
+    Input/MouseTest.cpp
     Platform/GameWindowTest.cpp
     Platform/OffscreenVideo.cpp
     Platform/PinLoadedLibraries.cpp
