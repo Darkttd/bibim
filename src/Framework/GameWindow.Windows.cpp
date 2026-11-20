@@ -148,7 +148,7 @@ namespace Bibim
 
     bool GameWindow::GetFullscreenStyle() const
     {
-        return ::GetWindowLong(static_cast<HWND>(handle), GWL_STYLE) == WS_POPUP;
+        return static_cast<DWORD>(::GetWindowLong(static_cast<HWND>(handle), GWL_STYLE)) == WS_POPUP;
     }
 
     void GameWindow::SetFullscreenStyle(bool value)
@@ -317,8 +317,8 @@ namespace Bibim
                 GetGameWindow(windowHandle)->RaiseMouseWheelEvent(GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA);
                 return 0;
             case WM_HOTKEY:
-                if (wParam == IDHOT_SNAPDESKTOP ||
-                    wParam == IDHOT_SNAPWINDOW)
+                if (static_cast<int>(wParam) == IDHOT_SNAPDESKTOP ||
+                    static_cast<int>(wParam) == IDHOT_SNAPWINDOW)
                 {
                     GetGameWindow(windowHandle)->OnSnapShot();
                     return 0;

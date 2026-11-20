@@ -140,7 +140,7 @@ namespace Bibim
 
     bool Socket::ConnectActually()
     {
-        struct sockaddr_in addr = { 0, };
+        struct sockaddr_in addr = {};
         addr.sin_family = AF_INET;
         addr.sin_port = htons(static_cast<u_short>(endPoint.GetPort()));
         addr.sin_addr.s_addr = endPoint.GetAddress();

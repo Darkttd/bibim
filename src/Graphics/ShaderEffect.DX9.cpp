@@ -103,7 +103,7 @@ namespace Bibim
     {
         if (D3DXHANDLE parameterHandle = handle->GetParameterByName(nullptr, name))
         {
-            D3DXPARAMETER_DESC desc = { 0, };
+            D3DXPARAMETER_DESC desc = {};
             handle->GetParameterDesc(parameterHandle, &desc);
             return new Parameter(this, parameterHandle, desc);
         }

@@ -49,6 +49,8 @@ namespace Bibim
             case Texture2D::A8Pixels:
                 d3dFormat = D3DFMT_A8;
                 break;
+            case Texture2D::UnknownPixels:
+                break;
         }
 
         IDirect3DDevice9* d3dDevice = GetGraphicsDevice()->GetD3DDevice();
@@ -116,7 +118,7 @@ namespace Bibim
         if (IsLocked() || d3dLockableTexture == nullptr)
             return false;
 
-        D3DLOCKED_RECT lockInfo = { 0, };
+        D3DLOCKED_RECT lockInfo = {};
         RECT d3dLockingRect = { rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom() };
 
         HRESULT result = d3dLockableTexture->LockRect(0, &lockInfo, &d3dLockingRect, 0x00000000);

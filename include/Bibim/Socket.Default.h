@@ -5,6 +5,7 @@
 #include <Bibim/FWD.h>
 #include <Bibim/SharedObject.h>
 #include <Bibim/IPEndPoint.h>
+#include <cstdint>
 
 namespace Bibim
 {
@@ -40,7 +41,7 @@ namespace Bibim
 
         private:
 #           if (defined(BIBIM_PLATFORM_WINDOWS))
-                typedef uint HANDLE;
+                typedef std::uintptr_t HANDLE; // SOCKET is UINT_PTR
 #           else
                 typedef int HANDLE;
                 static const int INVALID_SOCKET = -1;
