@@ -25,7 +25,7 @@ add_executable(BibimTests
 )
 target_link_libraries(BibimTests PRIVATE Bibim stormlib)
 target_compile_options(BibimTests PRIVATE ${BIBIM_WARNING_OPTIONS})
-target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBIM_EXTLIBS}/doctest-2.5.3)
+target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBIM_EXTLIBS}/doctest-2.5.3/doctest)
 
 if(BIBIM_WINDOWS)
     add_test(NAME BibimTests COMMAND BibimTests)
