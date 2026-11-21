@@ -443,7 +443,7 @@ namespace Bibim
     bool String::StartsWithIgnoreCase(const String& s) const
     {
         if (s.IsEmpty())
-            return false;
+            return true;
 
         return StartsWithIgnoreCaseTemplate(s.buffer->s, s.buffer->length);
     }
@@ -475,7 +475,7 @@ namespace Bibim
     bool String::EndsWith(const String& s) const
     {
         if (s.IsEmpty())
-            return false;
+            return true;
 
         return EndsWithTemplate(s.buffer->s, s.buffer->length);
     }
@@ -515,7 +515,7 @@ namespace Bibim
     bool String::EndsWithIgnoreCase(const String& s) const
     {
         if (s.IsEmpty())
-            return false;
+            return true;
 
         return EndsWithIgnoreCaseTemplate(s.buffer->s, s.buffer->length);
     }
