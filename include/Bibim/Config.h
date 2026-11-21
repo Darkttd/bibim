@@ -21,7 +21,6 @@
 #    define BIBIM_PLATFORM_LINUX
 #    define BIBIM_USE_OPENGLES2
 #    define BIBIM_USE_SDL3
-#    define BIBIM_USE_MINIAUDIO
 #else
 #    error "UNKNOWN PLATFORM"
 #    define BIBIM_PLATFORM_UNKNOWN
@@ -29,6 +28,7 @@
 
 #if (defined(BIBIM_PLATFORM_WINDOWS) || defined(BIBIM_PLATFORM_LINUX) || defined(BIBIM_PLATFORM_OSX))
 #    define BIBIM_PLATFORM_PC
+#    define BIBIM_USE_MINIAUDIO
 #endif
 
 #if (defined(DEBUG) || defined(_DEBUG))
