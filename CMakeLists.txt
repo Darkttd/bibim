@@ -464,7 +464,7 @@ add_library(Bibim STATIC
 )
 target_link_libraries(Bibim
     PUBLIC lua
-    PRIVATE png jpeg freetype stormlib
+    PRIVATE png jpeg freetype stormlib miniaudio
 )
 if(BIBIM_LINUX)
     target_link_libraries(Bibim PRIVATE ${BIBIM_GLES2_LIBRARY} SDL3::SDL3)

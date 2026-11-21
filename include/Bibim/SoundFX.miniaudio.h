@@ -1,17 +1,18 @@
 #pragma once
-#ifndef __BIBIM_SOUNDFX_SILENT_H__
-#define __BIBIM_SOUNDFX_SILENT_H__
+#ifndef __BIBIM_SOUNDFX_MINIAUDIO_H__
+#define __BIBIM_SOUNDFX_MINIAUDIO_H__
 
 #include <Bibim/FWD.h>
-#if (defined(BIBIM_PLATFORM_PC))
+#if (defined(BIBIM_USE_MINIAUDIO))
 
 #include <Bibim/TimelineGameModule.h>
 #include <Bibim/String.h>
+#include <vector>
+
+struct ma_sound;
 
 namespace Bibim
 {
-    // Keeps the settings but plays nothing until the audio backend lands
-    // (phase 5 of #8).
     class SoundFX : public TimelineGameModule
     {
         BBModuleClass(SoundFX, TimelineGameModule, 'S', 'D', 'F', 'X');
@@ -43,7 +44,20 @@ namespace Bibim
             void SetMute(bool value);
 
         private:
+            struct Sound
+            {
+                int group;
+                ma_sound* sound;
+            };
+            typedef std::vector<Sound> SoundCollection;
+
+            void SetPaused(bool all, int group, bool paused);
+            void UpdateVolumes();
+            void DropSounds(bool all, int group);
+
+        private:
             AudioDevice* audioDevice;
+            SoundCollection sounds;
             float volume;
             bool mute;
     };

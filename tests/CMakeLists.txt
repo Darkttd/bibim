@@ -3,8 +3,9 @@ add_executable(BibimTests
     main.cpp
     Animation/EaseTest.cpp
     Asset/FileAssetProviderTest.cpp
+    Audio/AudioSamples.cpp
+    Audio/MiniaudioAudioTest.cpp
     Audio/MiniaudioTest.cpp
-    Audio/SilentAudioTest.cpp
     Collision2D/CollisionSpace2DTest.cpp
     Collision2D/Shape2DTest.cpp
     Common/TemporaryDirectory.cpp
@@ -55,6 +56,8 @@ target_sources(BibimTests PRIVATE
 target_link_libraries(BibimTests PRIVATE SDL3::SDL3)
 
 add_test(NAME BibimTests COMMAND BibimTests --test-case-exclude=Environment*,GameFramework*,Preferences*,StandardGame*)
+# Audio plays on miniaudio's null backend instead of a real device.
+set_tests_properties(BibimTests PROPERTIES ENVIRONMENT "BIBIM_AUDIO_DRIVER=null")
 
 # Environment reads the process environment once, so each setting runs in its
 # own process. The data directories are created under the build directory.
@@ -74,7 +77,7 @@ set_tests_properties(PreferencesTests PROPERTIES ENVIRONMENT
 add_test(NAME GameFrameworkTests COMMAND BibimTests --test-case=GameFramework*)
 add_test(NAME StandardGameTests COMMAND BibimTests --test-case=StandardGame*)
 set_tests_properties(StandardGameTests PROPERTIES ENVIRONMENT
-    "XDG_DATA_HOME=${BIBIM_TEST_DATA}/standardgame")
+    "XDG_DATA_HOME=${BIBIM_TEST_DATA}/standardgame;BIBIM_AUDIO_DRIVER=null")
 
 add_executable(BBMainSmoke BBMainSmoke.cpp Platform/PinLoadedLibraries.cpp)
 target_link_libraries(BBMainSmoke PRIVATE Bibim)

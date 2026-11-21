@@ -28,6 +28,7 @@
 
 #if (defined(BIBIM_PLATFORM_WINDOWS) || defined(BIBIM_PLATFORM_LINUX) || defined(BIBIM_PLATFORM_OSX))
 #    define BIBIM_PLATFORM_PC
+#    define BIBIM_USE_MINIAUDIO
 #endif
 
 #if (defined(DEBUG) || defined(_DEBUG))
