@@ -334,7 +334,7 @@ namespace Bibim.Asset.Pipeline.Recipes
                 readMask.Input = item.Mask;
 
                 JsonSerializer.Instance.Serialize(Path.Combine(context.BaseDirectory, context.Directory, Path.ChangeExtension(path, "asset")), maskRecipe);
-                context.Store(Path.Combine(context.Directory, Path.ChangeExtension(path, null)), item.Mask);
+                context.Store(PathUtility.Normalize(Path.Combine(context.Directory, Path.ChangeExtension(path, null))), item.Mask);
             }
         }
     }
