@@ -13,3 +13,6 @@
 [submodule "extlibs/freetype-2.5.2"]
 	path = extlibs/freetype-2.5.2
 	url = https://gitlab.freedesktop.org/freetype/freetype.git
+[submodule "extlibs/miniaudio"]
+	path = extlibs/miniaudio
+	url = https://github.com/mackron/miniaudio.git

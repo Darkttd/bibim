@@ -450,6 +450,14 @@ if(BIBIM_WINDOWS)
     target_link_libraries(stormlib PRIVATE wininet)
 endif()
 
+add_library(miniaudio STATIC ${BIBIM_EXTLIBS}/miniaudio-custom/miniaudio-all.c)
+target_include_directories(miniaudio PUBLIC ${BIBIM_EXTLIBS}/miniaudio)
+if(BIBIM_LINUX)
+    # The audio backends (PulseAudio, ALSA, JACK) are loaded with dlopen.
+    find_package(Threads REQUIRED)
+    target_link_libraries(miniaudio PUBLIC Threads::Threads m ${CMAKE_DL_LIBS})
+endif()
+
 add_library(Bibim STATIC
     ${BIBIM_SOURCES}
     ${BIBIM_EXTLIBS}/lua_tinker/lua_tinker.cpp
