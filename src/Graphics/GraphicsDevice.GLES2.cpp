@@ -251,6 +251,21 @@ namespace Bibim
         Base::Initialize();
     }
 
+#   if (defined(BIBIM_USE_SDL3))
+    void GraphicsDevice::OnWindowResized(Window* window)
+    {
+        BBAssert(GetWindow() == window);
+
+        // The desktop GL context survives a resize, unlike a lost D3D9 device or an
+        // Android EGL surface, so only the viewport has to follow the window.
+        if (sdlContext)
+        {
+            const Point2 size = window->GetSize();
+            glViewport(0, 0, size.X, size.Y);
+        }
+    }
+#   endif
+
     void GraphicsDevice::Finalize()
     {
         Base::Finalize();

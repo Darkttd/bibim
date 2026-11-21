@@ -402,6 +402,49 @@ TEST_CASE("GameFramework::Run ignores keys without a virtual-key code")
     CHECK(CountPressedKeys(states[0]) == 1);
 }
 
+namespace
+{
+    class ResizeRecorder : public Window::ResizeEventListener
+    {
+        public:
+            int count;
+
+            ResizeRecorder()
+                : count(0)
+            {
+            }
+
+            virtual void OnWindowResized(Window* /*window*/)
+            {
+                count++;
+            }
+    };
+}
+
+TEST_CASE("GameFramework::Run passes window resizes made outside the engine to the window")
+{
+    OffscreenVideo video;
+    TestGame game;
+    ResizeRecorder recorder;
+    game.GetWindow()->AddResizeEventListener(&recorder);
+    Point2 sizeSeen;
+    game.onDraw = [&](TestGame& g, int frame)
+    {
+        if (frame == 1)
+            SDL_SetWindowSize(static_cast<SDL_Window*>(g.GetWindow()->GetHandle()), 100, 70);
+        else if (frame == 2)
+        {
+            sizeSeen = g.GetWindow()->GetSize();
+            g.Exit();
+        }
+    };
+
+    game.Run();
+    game.GetWindow()->RemoveResizeEventListener(&recorder);
+    CHECK(sizeSeen == Point2(100, 70));
+    CHECK(recorder.count == 1);
+}
+
 TEST_CASE("GameFramework gives the command line to the game as startup args")
 {
     OffscreenVideo video;

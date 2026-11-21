@@ -56,6 +56,7 @@ namespace Bibim
 
         public:
             void RaiseDropFileEvent(const char* filename);
+            void UpdateSize();
 
         protected:
             virtual ~GameWindow();

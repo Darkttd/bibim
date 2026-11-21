@@ -173,6 +173,9 @@ namespace Bibim
                     case SDL_EVENT_DROP_FILE:
                         GetWindow()->RaiseDropFileEvent(event.drop.data);
                         break;
+                    case SDL_EVENT_WINDOW_RESIZED:
+                        GetWindow()->UpdateSize();
+                        break;
                     case SDL_EVENT_MOUSE_MOTION:
                         GetWindow()->RaiseMouseMoveEvent(static_cast<int>(event.motion.x),
                                                          static_cast<int>(event.motion.y));

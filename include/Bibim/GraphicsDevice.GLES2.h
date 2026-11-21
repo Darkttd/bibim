@@ -48,6 +48,9 @@ namespace Bibim
         private:
             virtual void Initialize();
             virtual void Finalize();
+#           if (defined(BIBIM_USE_SDL3))
+            virtual void OnWindowResized(Window* window);
+#           endif
 
         private:
 #           if (defined(BIBIM_USE_EGL))
