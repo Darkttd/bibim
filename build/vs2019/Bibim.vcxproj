@@ -48,7 +48,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>..\..\include;$(DXSDK_DIR)Include;..\..\extlibs\lua-5.2.4\src;..\..\extlibs\lua_tinker;..\..\extlibs\utf8_v2_3_4\source;..\..\extlibs\zlib-1.2.8;..\..\extlibs\libpng-1.6.9;..\..\extlibs\libpng-config;..\..\extlibs\jpeg-9a;..\..\extlibs\freetype-custom;..\..\extlibs\freetype-2.5.2\include;..\..\extlibs\curl-7.29.0\include;..\..\extlibs\rapidjson\include;..\..\extlibs\StormLib\src;..\..\extlibs\gles_sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;$(DXSDK_DIR)Include;..\..\extlibs\lua-5.2.4\src;..\..\extlibs\lua_tinker;..\..\extlibs\utf8_v2_3_4\source;..\..\extlibs\zlib-1.2.8;..\..\extlibs\libpng-1.6.9;..\..\extlibs\libpng-config;..\..\extlibs\jpeg-9a;..\..\extlibs\freetype-custom;..\..\extlibs\freetype-2.5.2\include;..\..\extlibs\curl-7.29.0\include;..\..\extlibs\rapidjson\include;..\..\extlibs\StormLib\src;..\..\extlibs\miniaudio;..\..\extlibs\gles_sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <Optimization>Disabled</Optimization>
@@ -68,7 +68,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalOptions>/MP /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>..\..\include;$(DXSDK_DIR)Include;..\..\extlibs\lua-5.2.4\src;..\..\extlibs\lua_tinker;..\..\extlibs\utf8_v2_3_4\source;..\..\extlibs\zlib-1.2.8;..\..\extlibs\libpng-1.6.9;..\..\extlibs\libpng-config;..\..\extlibs\jpeg-9a;..\..\extlibs\freetype-custom;..\..\extlibs\freetype-2.5.2\include;..\..\extlibs\curl-7.29.0\include;..\..\extlibs\rapidjson\include;..\..\extlibs\StormLib\src;..\..\extlibs\gles_sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;$(DXSDK_DIR)Include;..\..\extlibs\lua-5.2.4\src;..\..\extlibs\lua_tinker;..\..\extlibs\utf8_v2_3_4\source;..\..\extlibs\zlib-1.2.8;..\..\extlibs\libpng-1.6.9;..\..\extlibs\libpng-config;..\..\extlibs\jpeg-9a;..\..\extlibs\freetype-custom;..\..\extlibs\freetype-2.5.2\include;..\..\extlibs\curl-7.29.0\include;..\..\extlibs\rapidjson\include;..\..\extlibs\StormLib\src;..\..\extlibs\miniaudio;..\..\extlibs\gles_sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4458;%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -94,13 +94,13 @@
     <ClCompile Include="..\..\src\Asset\NetworkAssetProvider.cpp" />
     <ClCompile Include="..\..\src\Audio\AudioDevice.Android.cpp" />
     <ClCompile Include="..\..\src\Audio\AudioDevice.iOS.cpp" />
-    <ClCompile Include="..\..\src\Audio\AudioDevice.Silent.cpp" />
+    <ClCompile Include="..\..\src\Audio\AudioDevice.miniaudio.cpp" />
     <ClCompile Include="..\..\src\Audio\BGM.Android.cpp" />
     <ClCompile Include="..\..\src\Audio\BGM.iOS.cpp" />
-    <ClCompile Include="..\..\src\Audio\BGM.Silent.cpp" />
+    <ClCompile Include="..\..\src\Audio\BGM.miniaudio.cpp" />
     <ClCompile Include="..\..\src\Audio\SoundFX.Android.cpp" />
     <ClCompile Include="..\..\src\Audio\SoundFX.iOS.cpp" />
-    <ClCompile Include="..\..\src\Audio\SoundFX.Silent.cpp" />
+    <ClCompile Include="..\..\src\Audio\SoundFX.miniaudio.cpp" />
     <ClCompile Include="..\..\src\Component\GameComponentFactory.cpp" />
     <ClCompile Include="..\..\src\Diagnostics\Log.cpp" />
     <ClCompile Include="..\..\src\Diagnostics\Logger.cpp" />
@@ -331,16 +331,19 @@
     <ClCompile Include="..\..\src\Threading\ManualLocker.cpp" />
     <ClCompile Include="..\..\src\Threading\Thread.Windows.cpp" />
     <ClCompile Include="..\..\extlibs\lua_tinker\lua_tinker.cpp" />
+    <ClCompile Include="..\..\extlibs\miniaudio-custom\miniaudio-all.c">
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Bibim\AssetLoadingTask.h" />
     <ClInclude Include="..\..\include\Bibim\AssetStreamReader.h" />
     <ClInclude Include="..\..\include\Bibim\AudioDevice.Android.h" />
     <ClInclude Include="..\..\include\Bibim\AudioDevice.iOS.h" />
-    <ClInclude Include="..\..\include\Bibim\AudioDevice.Silent.h" />
+    <ClInclude Include="..\..\include\Bibim\AudioDevice.miniaudio.h" />
     <ClInclude Include="..\..\include\Bibim\BGM.Android.h" />
     <ClInclude Include="..\..\include\Bibim\BGM.iOS.h" />
-    <ClInclude Include="..\..\include\Bibim\BGM.Silent.h" />
+    <ClInclude Include="..\..\include\Bibim\BGM.miniaudio.h" />
     <ClInclude Include="..\..\include\Bibim\CCParticleEmitter.h" />
     <ClInclude Include="..\..\include\Bibim\CCParticleSystem.h" />
     <ClInclude Include="..\..\include\Bibim\CCParticleSystemSet.h" />
@@ -384,7 +387,7 @@
     <ClInclude Include="..\..\include\Bibim\Lua.h" />
     <ClInclude Include="..\..\include\Bibim\Preferences.h" />
     <ClInclude Include="..\..\include\Bibim\SoundFX.iOS.h" />
-    <ClInclude Include="..\..\include\Bibim\SoundFX.Silent.h" />
+    <ClInclude Include="..\..\include\Bibim\SoundFX.miniaudio.h" />
     <ClInclude Include="..\..\include\Bibim\StandardGame.EmbeddedFont.h" />
     <ClInclude Include="..\..\include\Bibim\StandardGame.h" />
     <ClInclude Include="..\..\include\Bibim\GraphicsDeviceBase.h" />
