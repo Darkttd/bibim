@@ -120,6 +120,9 @@ cd bin
 mono ../tools/Bibim.Baaaaaab.Cli/bin/x86/Release/Bibim.Baaaaaab.Cli.exe console /class:AssetServer
 ```
 
+CI builds the CLI this way on Ubuntu (`mono-devel`) and runs `.github/scripts/tools-smoke.sh`, which you can also
+run locally after building.
+
 Mono's `xbuild` warns that its toolset does not support `v4.8`, but it builds against Mono's 4.8 reference
 assemblies (`/usr/lib/mono/4.8-api`). Run it from `bin/` so that it loads `bin/Plugin/*.dll`, like the
 Windows tool. Texture cooking needs the native FreeImage library (`freeimage` from the AUR on Arch,
