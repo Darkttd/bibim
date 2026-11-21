@@ -40,6 +40,10 @@ namespace Bibim.Tests
             {
                 // A FileSystemWatcher or a pending write may still hold a file; leave it to the OS.
             }
+            catch (UnauthorizedAccessException)
+            {
+                // The same on Windows, for a file that is still open or pending deletion.
+            }
         }
     }
 }

@@ -50,6 +50,14 @@
     <Compile Include="Asset\Pipeline\GameAssetServerTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <!-- FreeImageNET loads the native FreeImage library. On Windows it is the 32-bit FreeImage.dll next to
+         the exe; on Linux it is libfreeimage.so.3 from the system (FreeImageNET.dll.config). -->
+    <None Include="..\References\FreeImage.dll" Condition=" '$(OS)' == 'Windows_NT' ">
+      <Link>FreeImage.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Bibim.Toolkit\Bibim.Toolkit.csproj">
       <Project>{2E731BA3-4E48-4245-BD3F-718E1B649545}</Project>
       <Name>Bibim.Toolkit</Name>

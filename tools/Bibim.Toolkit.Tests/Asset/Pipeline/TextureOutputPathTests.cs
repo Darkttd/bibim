@@ -64,8 +64,8 @@ namespace Bibim.Tests.Asset.Pipeline
         {
             string texture = directory.Combine("Asset", "gen", assetName + "_TEXTURE0.png");
             Assert.That(File.Exists(texture), Is.True, texture);
-            Assert.That(Directory.GetFiles(directory.Combine("Asset"), "*\\*"), Is.Empty,
-                        "a file name contains a backslash");
+            foreach (string item in Directory.GetFiles(directory.Combine("Asset")))
+                Assert.That(Path.GetFileName(item), Does.Not.Contain("\\"), "a file name contains a backslash");
 
             foreach (Image item in images)
                 Assert.That(item.TextureURI, Is.EqualTo("Asset/gen/" + assetName + "_TEXTURE0"));

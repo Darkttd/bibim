@@ -50,7 +50,15 @@ namespace Bibim.Tests.Asset.Pipeline
                     // changing the recipe until the entry goes away.
                     bool cleared = WaitUntil(() =>
                     {
-                        File.AppendAllText(recipe, " ");
+                        try
+                        {
+                            File.AppendAllText(recipe, " ");
+                        }
+                        catch (IOException)
+                        {
+                            return false; // On Windows a cook reading the recipe can block writers.
+                        }
+
                         Thread.Sleep(200);
                         return IsCached(server, directory.Path) == false;
                     });
