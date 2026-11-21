@@ -72,6 +72,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\References\FreeImageNET.dll.config">
+      <Link>FreeImageNET.dll.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="AliasAttribute.cs" />
     <Compile Include="Animation\Easing\Ease.cs" />
     <Compile Include="Animation\Easing\EasingCurve.cs" />
