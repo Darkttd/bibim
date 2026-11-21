@@ -14,6 +14,33 @@ namespace Bibim
         return value;
     }
 
+    static void RaiseMouseButtonEvent(Window* window, const SDL_MouseButtonEvent& event)
+    {
+        const int x = static_cast<int>(event.x);
+        const int y = static_cast<int>(event.y);
+        switch (event.button)
+        {
+            case SDL_BUTTON_LEFT:
+                if (event.down)
+                    window->RaiseMouseLeftButtonDownEvent(x, y);
+                else
+                    window->RaiseMouseLeftButtonUpEvent(x, y);
+                break;
+            case SDL_BUTTON_MIDDLE:
+                if (event.down)
+                    window->RaiseMouseMiddleButtonDownEvent(x, y);
+                else
+                    window->RaiseMouseMiddleButtonUpEvent(x, y);
+                break;
+            case SDL_BUTTON_RIGHT:
+                if (event.down)
+                    window->RaiseMouseRightButtonDownEvent(x, y);
+                else
+                    window->RaiseMouseRightButtonUpEvent(x, y);
+                break;
+        }
+    }
+
     GameFramework::GameFramework()
     {
         Construct(800, 600);
@@ -76,6 +103,19 @@ namespace Bibim
                         break;
                     case SDL_EVENT_DROP_FILE:
                         GetWindow()->RaiseDropFileEvent(event.drop.data);
+                        break;
+                    case SDL_EVENT_MOUSE_MOTION:
+                        GetWindow()->RaiseMouseMoveEvent(static_cast<int>(event.motion.x),
+                                                         static_cast<int>(event.motion.y));
+                        break;
+                    case SDL_EVENT_MOUSE_BUTTON_DOWN:
+                    case SDL_EVENT_MOUSE_BUTTON_UP:
+                        RaiseMouseButtonEvent(GetWindow(), event.button);
+                        break;
+                    case SDL_EVENT_MOUSE_WHEEL:
+                        // Whole notches, like WHEEL_DELTA units on Windows.
+                        if (event.wheel.integer_y != 0)
+                            GetWindow()->RaiseMouseWheelEvent(event.wheel.integer_y);
                         break;
                 }
             }
