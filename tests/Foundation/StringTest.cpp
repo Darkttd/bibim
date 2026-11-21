@@ -103,3 +103,19 @@ TEST_CASE("Equal strings compare equal however they were built, including past 6
         CHECK(whole == appended);
     }
 }
+
+TEST_CASE("String prefix and suffix checks treat an empty string as a match")
+{
+    const String strings[] = { String("bibim"), String() };
+    for (const String& s : strings)
+    {
+        CHECK(s.StartsWith(""));
+        CHECK(s.StartsWith(String()));
+        CHECK(s.StartsWithIgnoreCase(""));
+        CHECK(s.StartsWithIgnoreCase(String()));
+        CHECK(s.EndsWith(""));
+        CHECK(s.EndsWith(String()));
+        CHECK(s.EndsWithIgnoreCase(""));
+        CHECK(s.EndsWithIgnoreCase(String()));
+    }
+}
