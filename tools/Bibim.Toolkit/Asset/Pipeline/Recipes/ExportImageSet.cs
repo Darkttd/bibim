@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using Bibim.Graphics;
+using Bibim.IO;
 using Bibim.Json.Serialization;
 using Bibim.UI;
 using Bibim.UI.Visuals;
@@ -77,7 +78,7 @@ namespace Bibim.Asset.Pipeline.Recipes
 
             foreach (BitmapSheet.Element item in bitmapSheet.Elements)
             {
-                string textureURI = Path.Combine(context.Directory, Path.ChangeExtension((string)item.Sheet.Tag, null));
+                string textureURI = PathUtility.Normalize(Path.Combine(context.Directory, Path.ChangeExtension((string)item.Sheet.Tag, null)));
                 var clippingRectangle = new Rectangle(item.Bounds.X, item.Bounds.Y,
                                                       item.Bounds.Width, item.Bounds.Height);
                 var appliedTransform = item.AppliedTransform;
@@ -93,7 +94,8 @@ namespace Bibim.Asset.Pipeline.Recipes
                 Directory.CreateDirectory(absoluteDirectory);
 
             int textureNumber = 0;
-            string textureOutputFormat = context.ExpandVariables(textureOutput);
+            // Older recipes write "gen\..." paths, which Linux would take as a file name, not a directory.
+            string textureOutputFormat = PathUtility.Normalize(context.ExpandVariables(textureOutput));
             foreach (Bitmap item in textures)
             {
                 Trace.Assert(item.Tag == null); // 밑에서 Tag를 직접 사용할 것이기 때문에 확인합니다.

@@ -119,8 +119,8 @@ mono ../tools/Bibim.Baaaaaab.Cli/bin/x86/Release/Bibim.Baaaaaab.Cli.exe console 
 
 Windows 도구처럼 `bin/Plugin/*.dll`을 불러오도록 `bin/`에서 실행하세요. 텍스처 쿠킹에는 네이티브 FreeImage
 라이브러리가 필요합니다(Arch는 AUR의 `freeimage`, Debian/Ubuntu는 `libfreeimage3`).
-`tools/References/FreeImageNET.dll.config`가 이를 `libfreeimage.so.3`으로 연결합니다. 일부 레시피(Lua·HLSL 컴파일,
-`gen\` 아래에 만드는 UI 텍스처 등)는 아직 리눅스에서 동작하지 않습니다.
+`tools/References/FreeImageNET.dll.config`가 이를 `libfreeimage.so.3`으로 연결합니다. 일부 레시피(Lua·HLSL 컴파일
+등)는 아직 리눅스에서 동작하지 않습니다.
 [#27](https://github.com/Darkttd/bibim/issues/27)을 참고하세요.
 
 ## Bibim을 사용하는 프로젝트

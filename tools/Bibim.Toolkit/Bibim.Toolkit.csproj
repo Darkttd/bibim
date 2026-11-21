@@ -349,6 +349,7 @@
     <Compile Include="Input\IME.cs" />
     <Compile Include="IO\BinaryReaderExtension.cs" />
     <Compile Include="IO\BinaryWriterExtension.cs" />
+    <Compile Include="IO\PathUtility.cs" />
     <Compile Include="Json\Serialization\DictionaryExtension.cs" />
     <Compile Include="Json\Serialization\JsonSerializer.cs" />
     <Compile Include="MathExtension.cs" />

@@ -228,9 +228,9 @@ namespace Bibim.Asset.Pipeline
                 },
                 BitmapSheetSize = new System.Drawing.Size(1024, 1024),
                 BitmapSheetClusterSize = new System.Drawing.Size(16, 16),
-                TextureOutput = "gen\\$(AssetName)_TEXTURE{0}",
-                ImageOutput = "gen\\$(AssetName)_IMG{0}",
-                MaskOutput = "gen\\$(AssetName)_MASK{0}",
+                TextureOutput = "gen/$(AssetName)_TEXTURE{0}",
+                ImageOutput = "gen/$(AssetName)_IMG{0}",
+                MaskOutput = "gen/$(AssetName)_MASK{0}",
             });
         }
 
@@ -245,7 +245,7 @@ namespace Bibim.Asset.Pipeline
                 },
                 BitmapSheetSize = new System.Drawing.Size(1024, 1024),
                 BitmapSheetClusterSize = new System.Drawing.Size(16, 16),
-                TextureOutput = "gen\\$(AssetName)_TEXTURE{0}",
+                TextureOutput = "gen/$(AssetName)_TEXTURE{0}",
             });
         }
 
@@ -259,7 +259,7 @@ namespace Bibim.Asset.Pipeline
                 },
                 BitmapSheetSize = new System.Drawing.Size(1024, 1024),
                 BitmapSheetClusterSize = new System.Drawing.Size(16, 16),
-                TextureOutput = "gen\\$(AssetName)_TEXTURE{0}",
+                TextureOutput = "gen/$(AssetName)_TEXTURE{0}",
             });
         }
 
@@ -273,7 +273,7 @@ namespace Bibim.Asset.Pipeline
                 },
                 BitmapSheetSize = new System.Drawing.Size(1024, 1024),
                 BitmapSheetClusterSize = new System.Drawing.Size(16, 16),
-                TextureOutput = "gen\\$(AssetName)_TEXTURE{0}",
+                TextureOutput = "gen/$(AssetName)_TEXTURE{0}",
             });
         }
 
@@ -296,7 +296,7 @@ namespace Bibim.Asset.Pipeline
                 },
                 BitmapSheetSize = new System.Drawing.Size(1024, 1024),
                 BitmapSheetClusterSize = new System.Drawing.Size(16, 16),
-                TextureOutput = "gen\\$(AssetName)_TEXTURE{0}",
+                TextureOutput = "gen/$(AssetName)_TEXTURE{0}",
             });
         }
 
@@ -319,7 +319,7 @@ namespace Bibim.Asset.Pipeline
                 },
                 BitmapSheetSize = new System.Drawing.Size(1024, 1024),
                 BitmapSheetClusterSize = new System.Drawing.Size(16, 16),
-                TextureOutput = "gen\\$(AssetName)_TEXTURE{0}",
+                TextureOutput = "gen/$(AssetName)_TEXTURE{0}",
             });
         }
 
