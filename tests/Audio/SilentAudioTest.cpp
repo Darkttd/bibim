@@ -1,6 +1,8 @@
-// The PC audio classes play nothing yet but keep their settings, so games
+// The Windows audio classes play nothing yet but keep their settings, so games
 // that set volumes and mute flags behave the same until real audio lands.
 #include <Bibim/Config.h>
+#if (!defined(BIBIM_USE_MINIAUDIO))
+
 #include <Bibim/AudioDevice.h>
 #include <Bibim/BGM.h>
 #include <Bibim/GameModuleNode.h>
@@ -79,3 +81,5 @@ TEST_CASE("Silent SoundFX keeps its settings and is never playing")
     sfx->Stop();
     sfx->Update(1.0f / 60.0f, 1);
 }
+
+#endif

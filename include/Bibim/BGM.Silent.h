@@ -3,7 +3,7 @@
 #define __BIBIM_BGM_SILENT_H__
 
 #include <Bibim/FWD.h>
-#if (defined(BIBIM_PLATFORM_PC))
+#if (defined(BIBIM_PLATFORM_PC) && !defined(BIBIM_USE_MINIAUDIO))
 
 #include <Bibim/TimelineGameModule.h>
 #include <Bibim/String.h>
