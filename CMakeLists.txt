@@ -66,17 +66,17 @@ endif()
 # Test bed references headers that no longer exist in the repository.
 list(FILTER BIBIM_SOURCES EXCLUDE REGEX "/src/TestBed/")
 
-# Bundled Lua 5.2.3, built like build/vs20xx/lua.vcxproj: every source except the
+# Bundled Lua 5.2.4, built like build/vs20xx/lua.vcxproj: every source except the
 # standalone interpreter and compiler. lua_tinker needs the 5.2 API, so the
 # system Lua cannot be used. LUA_USE_POSIX picks the POSIX implementations
 # (e.g. mkstemp instead of tmpnam), the Linux counterpart of Lua's defaults.
-file(GLOB BIBIM_LUA_SOURCES ${BIBIM_EXTLIBS}/lua-5.2.3/src/*.c)
+file(GLOB BIBIM_LUA_SOURCES ${BIBIM_EXTLIBS}/lua-5.2.4/src/*.c)
 list(REMOVE_ITEM BIBIM_LUA_SOURCES
-    ${BIBIM_EXTLIBS}/lua-5.2.3/src/lua.c
-    ${BIBIM_EXTLIBS}/lua-5.2.3/src/luac.c
+    ${BIBIM_EXTLIBS}/lua-5.2.4/src/lua.c
+    ${BIBIM_EXTLIBS}/lua-5.2.4/src/luac.c
 )
 add_library(lua STATIC ${BIBIM_LUA_SOURCES})
-target_include_directories(lua PUBLIC ${BIBIM_EXTLIBS}/lua-5.2.3/src)
+target_include_directories(lua PUBLIC ${BIBIM_EXTLIBS}/lua-5.2.4/src)
 if(BIBIM_LINUX)
     target_compile_definitions(lua PRIVATE LUA_USE_POSIX)
     target_link_libraries(lua PUBLIC m)
@@ -476,7 +476,7 @@ endif()
 target_include_directories(Bibim
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
-        ${BIBIM_EXTLIBS}/lua-5.2.3/src
+        ${BIBIM_EXTLIBS}/lua-5.2.4/src
         ${BIBIM_EXTLIBS}/lua_tinker
         ${BIBIM_EXTLIBS}/utf8_v2_3_4/source
 )
