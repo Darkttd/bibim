@@ -160,8 +160,8 @@ namespace Bibim.Asset.Pipeline
                                           int dependenciesIndex = 0;
                                           foreach (var item in report.Dependencies)
                                           {
-                                              // 파일 시스템 감시자에서 넘긴 변경된 파일명과 비교해야하기 때문에 /에서 \\로 변환합니다.
-                                              dependencies[dependenciesIndex] = item.Replace('/', '\\');
+                                              // Compared with the paths FileSystemWatcher reports, which RemoveAssetCachesByDependency normalizes too.
+                                              dependencies[dependenciesIndex] = PathUtility.Normalize(item);
                                               dependenciesIndex++;
                                           }
 
@@ -238,6 +238,7 @@ namespace Bibim.Asset.Pipeline
 
         protected void RemoveAssetCachesByDependency(string path)
         {
+            path = PathUtility.Normalize(path);
             List<string> removingKeys = new List<string>();
 
             lock (assetCachesLock)
