@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using Bibim.Graphics;
+using Bibim.IO;
 using Bibim.Json.Serialization;
 using Bibim.UI;
 using Bibim.UI.Visuals;
@@ -229,8 +230,8 @@ namespace Bibim.Asset.Pipeline.Recipes
                     Directory.CreateDirectory(absoluteDirectory);
 
                 int textureNumber = 0;
-                // Recipes write "gen\..." paths; use the OS separator so Linux creates a directory, not a file named "gen\...".
-                string textureOutputFormat = context.ExpandVariables(TextureOutput).Replace('\\', Path.DirectorySeparatorChar);
+                // Older recipes write "gen\..." paths, which Linux would take as a file name, not a directory.
+                string textureOutputFormat = PathUtility.Normalize(context.ExpandVariables(TextureOutput));
                 foreach (Bitmap item in bitmapSheet.Sheets)
                 {
                     Trace.Assert(item.Tag == null); // 밑에서 Tag를 직접 사용할 것이기 때문에 확인합니다.
@@ -270,7 +271,7 @@ namespace Bibim.Asset.Pipeline.Recipes
 
                 foreach (BitmapSheet.Element item in bitmapSheet.Elements)
                 {
-                    string textureURI = Path.Combine(context.Directory, Path.ChangeExtension((string)item.Sheet.Tag, null));
+                    string textureURI = PathUtility.Normalize(Path.Combine(context.Directory, Path.ChangeExtension((string)item.Sheet.Tag, null)));
                     /*
                     string path = string.Format(imageOutputFormat, imageNumber++);
 
@@ -311,8 +312,8 @@ namespace Bibim.Asset.Pipeline.Recipes
         private void ExportAllMasks(CookingContext context, ICollection<UIImage> images)
         {
             int maskNumber = 0;
-            // Recipes write "gen\..." paths; use the OS separator so Linux creates a directory, not a file named "gen\...".
-            string maskOutputFormat = context.ExpandVariables(MaskOutput).Replace('\\', Path.DirectorySeparatorChar);
+            // Older recipes write "gen\..." paths, which Linux would take as a file name, not a directory.
+            string maskOutputFormat = PathUtility.Normalize(context.ExpandVariables(MaskOutput));
 
             var readMask = new ReadGameAsset();
             var maskRecipe = new GameAssetRecipe()
