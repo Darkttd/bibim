@@ -229,7 +229,8 @@ namespace Bibim.Asset.Pipeline.Recipes
                     Directory.CreateDirectory(absoluteDirectory);
 
                 int textureNumber = 0;
-                string textureOutputFormat = context.ExpandVariables(TextureOutput);
+                // Recipes write "gen\..." paths; use the OS separator so Linux creates a directory, not a file named "gen\...".
+                string textureOutputFormat = context.ExpandVariables(TextureOutput).Replace('\\', Path.DirectorySeparatorChar);
                 foreach (Bitmap item in bitmapSheet.Sheets)
                 {
                     Trace.Assert(item.Tag == null); // 밑에서 Tag를 직접 사용할 것이기 때문에 확인합니다.
@@ -310,7 +311,8 @@ namespace Bibim.Asset.Pipeline.Recipes
         private void ExportAllMasks(CookingContext context, ICollection<UIImage> images)
         {
             int maskNumber = 0;
-            string maskOutputFormat = context.ExpandVariables(MaskOutput);
+            // Recipes write "gen\..." paths; use the OS separator so Linux creates a directory, not a file named "gen\...".
+            string maskOutputFormat = context.ExpandVariables(MaskOutput).Replace('\\', Path.DirectorySeparatorChar);
 
             var readMask = new ReadGameAsset();
             var maskRecipe = new GameAssetRecipe()
