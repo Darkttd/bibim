@@ -103,8 +103,11 @@ namespace Bibim
 
         if (size != value)
         {
-            size = value;
-            SDL_SetWindowSize(ToSDLWindow(handle), size.X, size.Y);
+            // The window manager may give the window another size, so the size
+            // is read back rather than assumed.
+            SDL_SetWindowSize(ToSDLWindow(handle), value.X, value.Y);
+            SDL_SyncWindow(ToSDLWindow(handle));
+            UpdateSize();
         }
     }
 
@@ -139,6 +142,8 @@ namespace Bibim
             return;
 
         SDL_SetWindowFullscreen(ToSDLWindow(handle), value);
+        SDL_SyncWindow(ToSDLWindow(handle));
+        UpdateSize();
     }
 
     bool GameWindow::IsForeground() const
@@ -175,6 +180,24 @@ namespace Bibim
     {
         for (std::vector<DropFileEventListener*>::iterator it = dropFileEventListeners.begin(); it != dropFileEventListeners.end(); ++it)
             (*it)->OnWindowFileDropped(this, filename);
+    }
+
+    void GameWindow::UpdateSize()
+    {
+        if (handle == nullptr)
+            return;
+
+        int width = 0;
+        int height = 0;
+        if (SDL_GetWindowSize(ToSDLWindow(handle), &width, &height) == false)
+            return;
+
+        const Point2 value = Point2(width, height);
+        if (size != value)
+        {
+            size = value;
+            RaiseResizedEvent();
+        }
     }
 
     void GameWindow::OnCreated()

@@ -56,6 +56,9 @@ namespace Bibim
 
         public:
             void RaiseDropFileEvent(const char* filename);
+            // Reads the size of the SDL window and raises the resized event if
+            // it changed, as WM_SIZE does on Windows.
+            void UpdateSize();
 
         protected:
             virtual ~GameWindow();
