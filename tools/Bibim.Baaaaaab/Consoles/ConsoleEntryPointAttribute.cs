@@ -15,7 +15,7 @@ namespace Bibim.Bab.Consoles
             Assembly assembly = Assembly.GetEntryAssembly();
             foreach (Type item in assembly.GetExportedTypes())
             {
-                if (item.GetCustomAttribute<ConsoleEntryPointAttribute>() == null)
+                if (MemberInfoExtension.GetCustomAttribute<ConsoleEntryPointAttribute>(item) == null)
                     continue;
 
                 if (AliasAttribute.MatchName(item, name))

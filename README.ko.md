@@ -92,6 +92,9 @@ MinGW DLL이 필요 없습니다. Windows에서 MinGW-w64로 직접 빌드하는
 ## 도구
 
 미리 빌드된 도구는 `bin/`에, 소스는 `tools/`(`tools/Bibim.Toolkit.sln`)에 있습니다.
+소스는 .NET Framework 4.8을 대상으로 하며, Windows 11과 Windows 10 1903
+이후에는 기본으로 들어 있습니다. `bin/`의 미리 빌드된 도구는 .NET Framework 4.0용으로
+빌드된 것이고 아직 다시 빌드하지 않았습니다.
 
 - **Bibim.Toolkit** — 에셋 파이프라인 라이브러리 (원본 에셋을 Bibim의 `.ab` 형식으로 변환)
 - **Bibim.Baaaaaab** — 콘솔, UI 인스펙터, 에셋 서버를 갖춘 데스크톱 도구
@@ -117,10 +120,13 @@ cd bin
 mono ../tools/Bibim.Baaaaaab.Cli/bin/x86/Release/Bibim.Baaaaaab.Cli.exe console /class:AssetServer
 ```
 
-Windows 도구처럼 `bin/Plugin/*.dll`을 불러오도록 `bin/`에서 실행하세요. 텍스처 쿠킹에는 네이티브 FreeImage
-라이브러리가 필요합니다(Arch는 AUR의 `freeimage`, Debian/Ubuntu는 `libfreeimage3`).
-`tools/References/FreeImageNET.dll.config`가 이를 `libfreeimage.so.3`으로 연결합니다. 일부 레시피(Lua·HLSL 컴파일
-등)는 아직 리눅스에서 동작하지 않습니다.
+Mono의 `xbuild`는 toolset이 `v4.8`을 지원하지 않는다고 경고하지만, Mono의 4.8 참조
+어셈블리(`/usr/lib/mono/4.8-api`)로 빌드합니다. Windows 도구처럼
+`bin/Plugin/*.dll`을 불러오도록 `bin/`에서 실행하세요. 텍스처 쿠킹에는 네이티브
+FreeImage 라이브러리가 필요합니다(Arch는 AUR의 `freeimage`, Debian/Ubuntu는
+`libfreeimage3`). `tools/References/FreeImageNET.dll.config`가
+이를 `libfreeimage.so.3`으로 연결합니다. 일부 레시피(Lua·HLSL 컴파일 등)는 아직
+리눅스에서 동작하지 않습니다.
 [#27](https://github.com/Darkttd/bibim/issues/27)을 참고하세요.
 
 ## Bibim을 사용하는 프로젝트

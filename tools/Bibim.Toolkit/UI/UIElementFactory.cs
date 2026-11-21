@@ -22,7 +22,7 @@ namespace Bibim.UI
 
             foreach (Type item in moduleClasses)
             {
-                ClassIDAttribute attribute = item.GetCustomAttribute<ClassIDAttribute>();
+                ClassIDAttribute attribute = MemberInfoExtension.GetCustomAttribute<ClassIDAttribute>(item);
                 if (attribute != null)
                 {
                     Debug.Assert(entries.ContainsKey(attribute.ClassID) == false);

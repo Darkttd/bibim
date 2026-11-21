@@ -7,8 +7,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Bibim.Bab</RootNamespace>
     <AssemblyName>Bibim.Baaaaaab.Cli</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <CodePage>65001</CodePage>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
