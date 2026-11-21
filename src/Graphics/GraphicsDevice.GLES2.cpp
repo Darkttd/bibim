@@ -256,9 +256,8 @@ namespace Bibim
     {
         BBAssert(GetWindow() == window);
 
-        // Unlike a lost D3D9 device or an Android EGL surface, the desktop GL
-        // context survives a resize, so only the viewport follows the window.
-        // Recreating the context would make every asset reload its textures.
+        // The desktop GL context survives a resize, unlike a lost D3D9 device or an
+        // Android EGL surface, so only the viewport has to follow the window.
         if (sdlContext)
         {
             const Point2 size = window->GetSize();

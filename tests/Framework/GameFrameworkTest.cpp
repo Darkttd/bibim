@@ -430,7 +430,6 @@ TEST_CASE("GameFramework::Run passes window resizes made outside the engine to t
     Point2 sizeSeen;
     game.onDraw = [&](TestGame& g, int frame)
     {
-        // Resize through SDL, as the user or the window manager would.
         if (frame == 1)
             SDL_SetWindowSize(static_cast<SDL_Window*>(g.GetWindow()->GetHandle()), 100, 70);
         else if (frame == 2)
