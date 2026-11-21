@@ -121,7 +121,13 @@ mono ../tools/Bibim.Baaaaaab.Cli/bin/x86/Release/Bibim.Baaaaaab.Cli.exe console 
 ```
 
 CI builds the CLI this way on Ubuntu (`mono-devel`) and runs `.github/scripts/tools-smoke.sh`, which you can also
-run locally after building.
+run locally after building. It also runs the unit tests in `tools/Bibim.Toolkit.Tests` (NUnitLite, so the test
+executable runs itself; the texture tests need libgdiplus and FreeImage):
+
+```
+xbuild /p:Configuration=Release tools/Bibim.Toolkit.Tests/Bibim.Toolkit.Tests.csproj
+mono tools/Bibim.Toolkit.Tests/bin/x86/Release/Bibim.Toolkit.Tests.exe --noresult
+```
 
 Mono's `xbuild` warns that its toolset does not support `v4.8`, but it builds against Mono's 4.8 reference
 assemblies (`/usr/lib/mono/4.8-api`). Run it from `bin/` so that it loads `bin/Plugin/*.dll`, like the
