@@ -120,6 +120,9 @@ cd bin
 mono ../tools/Bibim.Baaaaaab.Cli/bin/x86/Release/Bibim.Baaaaaab.Cli.exe console /class:AssetServer
 ```
 
+CI는 Ubuntu(`mono-devel`)에서 이 방법으로 CLI를 빌드하고 `.github/scripts/tools-smoke.sh`를 실행합니다. 빌드한 뒤
+로컬에서도 실행할 수 있습니다.
+
 Mono의 `xbuild`는 toolset이 `v4.8`을 지원하지 않는다고 경고하지만, Mono의 4.8 참조
 어셈블리(`/usr/lib/mono/4.8-api`)로 빌드합니다. Windows 도구처럼
 `bin/Plugin/*.dll`을 불러오도록 `bin/`에서 실행하세요. 텍스처 쿠킹에는 네이티브
