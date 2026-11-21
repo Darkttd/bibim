@@ -1,5 +1,5 @@
 #include <Bibim/Config.h>
-#if (defined(BIBIM_PLATFORM_PC))
+#if (defined(BIBIM_PLATFORM_PC) && !defined(BIBIM_USE_MINIAUDIO))
 
 #include <Bibim/AudioDevice.Silent.h>
 

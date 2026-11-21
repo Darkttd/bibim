@@ -3,6 +3,7 @@
 #define __BIBIM_SOUNDFX_H__
 
 #include <Bibim/SoundFX.Silent.h>
+#include <Bibim/SoundFX.miniaudio.h>
 #include <Bibim/SoundFX.Android.h>
 #include <Bibim/SoundFX.iOS.h>
 
