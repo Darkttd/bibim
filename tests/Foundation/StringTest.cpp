@@ -44,6 +44,28 @@ TEST_CASE("String::StartsWith and String::Contains find substrings")
     CHECK_FALSE(s.Contains("bibim"));
 }
 
+TEST_CASE("String::EndsWith and String::EndsWithIgnoreCase find suffixes")
+{
+    const String s = "game engine";
+    CHECK(s.EndsWith("engine"));
+    CHECK(s.EndsWith(String("engine")));
+    CHECK_FALSE(s.EndsWith("game"));
+    CHECK(s.EndsWithIgnoreCase("ENGINE"));
+    CHECK(s.EndsWithIgnoreCase(String("Engine")));
+    CHECK_FALSE(s.EndsWithIgnoreCase("GAME"));
+}
+
+// Without the length check these read before the start of the string, which
+// usually still returns false; only ASan catches it.
+TEST_CASE("String::EndsWith is false for a suffix longer than the string")
+{
+    CHECK_FALSE(String("Reimu").EndsWith("Shadow"));
+    CHECK_FALSE(String("bim").EndsWith(String("bibim")));
+    CHECK_FALSE(String("bim").EndsWithIgnoreCase("BIBIM"));
+    CHECK_FALSE(String("bim").EndsWithIgnoreCase(String("Bibim")));
+    CHECK_FALSE(String().EndsWith("a"));
+}
+
 TEST_CASE("String::CFormat formats its arguments")
 {
     CHECK(String::CFormat("%d-%s", 42, "bibim") == "42-bibim");

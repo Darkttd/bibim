@@ -450,6 +450,9 @@ namespace Bibim
 
     bool String::EndsWithTemplate(const char* s, int length) const
     {
+        if (GetLength() < length)
+            return false;
+
         for (int i = buffer->length - length; i < buffer->length; i++, s++)
         {
             if (buffer->s[i] != *s)
@@ -479,6 +482,9 @@ namespace Bibim
 
     bool String::EndsWithIgnoreCaseTemplate(const char* s, int length) const
     {
+        if (GetLength() < length)
+            return false;
+
         UTF8CharEnumerator en1(&buffer->s[buffer->length - length], length);
         UTF8CharEnumerator en2(s, length);
         en2.MoveNext(); // BBLogicalAssert(true)
