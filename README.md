@@ -92,6 +92,8 @@ MSYS2 UCRT64) has not been tried yet.
 ## Tools
 
 Prebuilt tools are in `bin/`; their sources are in `tools/` (`tools/Bibim.Toolkit.sln`).
+The sources target .NET Framework 4.8, which Windows 11 and Windows 10 version 1903 or later include. The
+prebuilt tools in `bin/` were built for .NET Framework 4.0 and have not been rebuilt yet.
 
 - **Bibim.Toolkit** — asset pipeline library (converts source assets into Bibim's `.ab` format).
 - **Bibim.Baaaaaab** — desktop tool with a console, a UI inspector and an asset server.
@@ -118,10 +120,11 @@ cd bin
 mono ../tools/Bibim.Baaaaaab.Cli/bin/x86/Release/Bibim.Baaaaaab.Cli.exe console /class:AssetServer
 ```
 
-Run it from `bin/` so that it loads `bin/Plugin/*.dll`, like the Windows tool. Texture cooking needs the
-native FreeImage library (`freeimage` from the AUR on Arch, `libfreeimage3` on Debian/Ubuntu);
-`tools/References/FreeImageNET.dll.config` maps it to `libfreeimage.so.3`. Some recipes do not work on Linux
-yet (for example Lua/HLSL compilation); see
+Mono's `xbuild` warns that its toolset does not support `v4.8`, but it builds against Mono's 4.8 reference
+assemblies (`/usr/lib/mono/4.8-api`). Run it from `bin/` so that it loads `bin/Plugin/*.dll`, like the
+Windows tool. Texture cooking needs the native FreeImage library (`freeimage` from the AUR on Arch,
+`libfreeimage3` on Debian/Ubuntu); `tools/References/FreeImageNET.dll.config` maps it to
+`libfreeimage.so.3`. Some recipes do not work on Linux yet (for example Lua/HLSL compilation); see
 [#27](https://github.com/Darkttd/bibim/issues/27).
 
 ## Projects using Bibim

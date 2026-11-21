@@ -428,7 +428,7 @@ namespace Bibim.Asset
                         item.IsSubclassOf(typeof(ImageResource)) &&
                         item.GetConstructor(constructorParameterTypes) != null)
                     {
-                        ImageResourceAttribute attribute = item.GetCustomAttribute<ImageResourceAttribute>();
+                        ImageResourceAttribute attribute = MemberInfoExtension.GetCustomAttribute<ImageResourceAttribute>(item);
                         if (attribute != null)
                             imageResourceDictionary.Add(attribute.ID, item);
                     }
