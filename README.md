@@ -118,8 +118,10 @@ cd bin
 mono ../tools/Bibim.Baaaaaab.Cli/bin/x86/Release/Bibim.Baaaaaab.Cli.exe console /class:AssetServer
 ```
 
-Run it from `bin/` so that it loads `bin/Plugin/*.dll`, like the Windows tool. Some recipes do not work on
-Linux yet (for example texture cooking and Lua/HLSL compilation); see
+Run it from `bin/` so that it loads `bin/Plugin/*.dll`, like the Windows tool. Texture cooking needs the
+native FreeImage library (`freeimage` from the AUR on Arch, `libfreeimage3` on Debian/Ubuntu);
+`tools/References/FreeImageNET.dll.config` maps it to `libfreeimage.so.3`. Some recipes do not work on Linux
+yet (for example Lua/HLSL compilation and the UI textures written under `gen\`); see
 [#27](https://github.com/Darkttd/bibim/issues/27).
 
 ## Projects using Bibim
