@@ -1,0 +1,38 @@
+# Build the C# asset tools (tools/) with Mono on Linux and run the smoke tests
+# in .github/scripts/tools-smoke.sh. The WPF app (tools/Bibim.Baaaaaab) cannot
+# be built on Linux, so this builds the CLI host, which also builds the Toolkit.
+name: Tools
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  mono:
+    name: Tools (Mono)
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Show available Mono packages
+        run: |
+          which mono xbuild msbuild || true
+          mono --version || true
+          apt-cache policy mono-devel mono-complete mono-xbuild mono-runtime libgdiplus || true
+
+      - name: Install Mono
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends mono-devel
+          mono --version
+          which xbuild
+
+      - name: Build
+        run: xbuild /p:Configuration=Release tools/Bibim.Baaaaaab.Cli/Bibim.Baaaaaab.Cli.csproj
+
+      - name: Smoke tests
+        run: .github/scripts/tools-smoke.sh Release
