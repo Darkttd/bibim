@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bibim.Toolkit", "Bibim.Tool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bibim.Baaaaaab.Cli", "Bibim.Baaaaaab.Cli\Bibim.Baaaaaab.Cli.csproj", "{0AF5FFA3-775C-42E7-BED8-C701034010A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bibim.Toolkit.Tests", "Bibim.Toolkit.Tests\Bibim.Toolkit.Tests.csproj", "{0681BB75-FC06-41FD-8DAB-C48A9440A171}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -25,6 +27,10 @@ Global
 		{0AF5FFA3-775C-42E7-BED8-C701034010A1}.Debug|x86.Build.0 = Debug|x86
 		{0AF5FFA3-775C-42E7-BED8-C701034010A1}.Release|x86.ActiveCfg = Release|x86
 		{0AF5FFA3-775C-42E7-BED8-C701034010A1}.Release|x86.Build.0 = Release|x86
+		{0681BB75-FC06-41FD-8DAB-C48A9440A171}.Debug|x86.ActiveCfg = Debug|x86
+		{0681BB75-FC06-41FD-8DAB-C48A9440A171}.Debug|x86.Build.0 = Debug|x86
+		{0681BB75-FC06-41FD-8DAB-C48A9440A171}.Release|x86.ActiveCfg = Release|x86
+		{0681BB75-FC06-41FD-8DAB-C48A9440A171}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

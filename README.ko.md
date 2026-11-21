@@ -121,7 +121,13 @@ mono ../tools/Bibim.Baaaaaab.Cli/bin/x86/Release/Bibim.Baaaaaab.Cli.exe console 
 ```
 
 CI는 Ubuntu(`mono-devel`)에서 이 방법으로 CLI를 빌드하고 `.github/scripts/tools-smoke.sh`를 실행합니다. 빌드한 뒤
-로컬에서도 실행할 수 있습니다.
+로컬에서도 실행할 수 있습니다. `tools/Bibim.Toolkit.Tests`의 단위 테스트도 실행합니다(NUnitLite라서 테스트 실행
+파일이 스스로 테스트를 돌립니다. 텍스처 테스트에는 libgdiplus와 FreeImage가 필요합니다):
+
+```
+xbuild /p:Configuration=Release tools/Bibim.Toolkit.Tests/Bibim.Toolkit.Tests.csproj
+mono tools/Bibim.Toolkit.Tests/bin/x86/Release/Bibim.Toolkit.Tests.exe --noresult
+```
 
 Mono의 `xbuild`는 toolset이 `v4.8`을 지원하지 않는다고 경고하지만, Mono의 4.8 참조
 어셈블리(`/usr/lib/mono/4.8-api`)로 빌드합니다. Windows 도구처럼

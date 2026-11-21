@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{0681BB75-FC06-41FD-8DAB-C48A9440A171}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Bibim.Tests</RootNamespace>
+    <AssemblyName>Bibim.Toolkit.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <CodePage>65001</CodePage>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\References\NUnit-3.14.0\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunitlite">
+      <HintPath>..\References\NUnit-3.14.0\nunitlite.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="TemporaryDirectory.cs" />
+    <Compile Include="IO\PathUtilityTests.cs" />
+    <Compile Include="Asset\Pipeline\BitmapToTexture2DTests.cs" />
+    <Compile Include="Asset\Pipeline\TextureOutputPathTests.cs" />
+    <Compile Include="Asset\Pipeline\GameAssetServerTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- FreeImageNET loads the native FreeImage library. On Windows it is the 32-bit FreeImage.dll next to
+         the exe; on Linux it is libfreeimage.so.3 from the system (FreeImageNET.dll.config). -->
+    <None Include="..\References\FreeImage.dll" Condition=" '$(OS)' == 'Windows_NT' ">
+      <Link>FreeImage.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bibim.Toolkit\Bibim.Toolkit.csproj">
+      <Project>{2E731BA3-4E48-4245-BD3F-718E1B649545}</Project>
+      <Name>Bibim.Toolkit</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

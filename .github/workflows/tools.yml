@@ -1,6 +1,7 @@
-# Build the C# asset tools (tools/) with Mono on Linux and run the smoke tests
-# in .github/scripts/tools-smoke.sh. The WPF app (tools/Bibim.Baaaaaab) cannot
-# be built on Linux, so this builds the CLI host, which also builds the Toolkit.
+# Build the C# asset tools (tools/) with Mono on Linux, run the unit tests in
+# tools/Bibim.Toolkit.Tests and the smoke tests in .github/scripts/tools-smoke.sh.
+# The WPF app (tools/Bibim.Baaaaaab) cannot be built on Linux, so this builds
+# the CLI host and the tests, which also build the Toolkit.
 name: Tools
 
 on:
@@ -22,14 +23,23 @@ jobs:
       # includes xbuild; there is no mono-complete or msbuild package. xbuild
       # warns that its toolset does not support v4.8 but builds against
       # /usr/lib/mono/4.8-api (see README.md).
-      - name: Install Mono
+      # libgdiplus: System.Drawing. libfreeimage3: texture encoding through
+      # FreeImageNET (tools/References/FreeImageNET.dll.config).
+      - name: Install Mono and native libraries
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends mono-devel
+          sudo apt-get install -y --no-install-recommends mono-devel libgdiplus libfreeimage3
           mono --version
 
       - name: Build
-        run: xbuild /p:Configuration=Release tools/Bibim.Baaaaaab.Cli/Bibim.Baaaaaab.Cli.csproj
+        run: |
+          xbuild /p:Configuration=Release tools/Bibim.Baaaaaab.Cli/Bibim.Baaaaaab.Cli.csproj
+          xbuild /p:Configuration=Release tools/Bibim.Toolkit.Tests/Bibim.Toolkit.Tests.csproj
+
+      # NUnitLite runs the tests; the exit code is the number of failed tests.
+      - name: Unit tests
+        working-directory: ${{ runner.temp }}
+        run: mono "$GITHUB_WORKSPACE/tools/Bibim.Toolkit.Tests/bin/x86/Release/Bibim.Toolkit.Tests.exe" --noresult
 
       - name: Smoke tests
         run: .github/scripts/tools-smoke.sh Release
