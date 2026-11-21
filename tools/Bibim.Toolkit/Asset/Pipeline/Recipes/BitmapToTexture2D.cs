@@ -154,6 +154,10 @@ namespace Bibim.Asset.Pipeline.Recipes
             using (var stream = new MemoryStream(original.Width * 4 * original.Height / 8))
             using (var freeImage = new FreeImageBitmap(original))
             {
+                // FreeImage 3.18 (Linux packages) saves 32-bit bitmaps as JPEG only when they are CMYK, and
+                // FreeImageNET does not convert RGBA for it because FreeImage reports 32-bit JPEG as supported.
+                // JPEG cannot store alpha anyway, and Cook uses it only for images treated as opaque.
+                freeImage.ConvertColorDepth(FREE_IMAGE_COLOR_DEPTH.FICD_24_BPP);
                 freeImage.Save(stream, FREE_IMAGE_FORMAT.FIF_JPEG, FREE_IMAGE_SAVE_FLAGS.JPEG_QUALITYSUPERB);
                 return stream.ToArray();
             }
