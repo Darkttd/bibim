@@ -93,7 +93,8 @@ namespace Bibim.Asset.Pipeline.Recipes
                 Directory.CreateDirectory(absoluteDirectory);
 
             int textureNumber = 0;
-            string textureOutputFormat = context.ExpandVariables(textureOutput);
+            // Recipes write "gen\..." paths; use the OS separator so Linux creates a directory, not a file named "gen\...".
+            string textureOutputFormat = context.ExpandVariables(textureOutput).Replace('\\', Path.DirectorySeparatorChar);
             foreach (Bitmap item in textures)
             {
                 Trace.Assert(item.Tag == null); // 밑에서 Tag를 직접 사용할 것이기 때문에 확인합니다.
