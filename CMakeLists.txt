@@ -464,10 +464,10 @@ add_library(Bibim STATIC
 )
 target_link_libraries(Bibim
     PUBLIC lua
-    PRIVATE png jpeg freetype stormlib
+    PRIVATE png jpeg freetype stormlib miniaudio
 )
 if(BIBIM_LINUX)
-    target_link_libraries(Bibim PRIVATE ${BIBIM_GLES2_LIBRARY} SDL3::SDL3 miniaudio)
+    target_link_libraries(Bibim PRIVATE ${BIBIM_GLES2_LIBRARY} SDL3::SDL3)
 else()
     target_link_libraries(Bibim PUBLIC d3d9 d3dx9 winmm ws2_32 imm32)
     # windows.h would otherwise define min and max macros (Config.h defines

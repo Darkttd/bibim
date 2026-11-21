@@ -6,7 +6,6 @@ add_executable(BibimTests
     Audio/AudioSamples.cpp
     Audio/MiniaudioAudioTest.cpp
     Audio/MiniaudioTest.cpp
-    Audio/SilentAudioTest.cpp
     Collision2D/CollisionSpace2DTest.cpp
     Collision2D/Shape2DTest.cpp
     Common/TemporaryDirectory.cpp
