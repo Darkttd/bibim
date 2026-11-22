@@ -261,12 +261,22 @@ TEST_CASE("String::Find finds a substring that ends at the last character" * doc
     CHECK(String("abcabc").Find("bc", 2) == 4);
 }
 
-TEST_CASE("String::FindIgnoreCase returns the index of a substring" * doctest::should_fail())
+TEST_CASE("String::FindIgnoreCase returns the index of a substring")
 {
     CHECK(String("xAb").FindIgnoreCase("aB") == 1);
     CHECK(String("abab").FindIgnoreCase(String("AB"), 1) == 2);
     CHECK(String("aab").FindIgnoreCase("AB") == 1);
     CHECK(String("\xC3\xA9" "ab").FindIgnoreCase("AB") == 2);
+}
+
+TEST_CASE("String::FindIgnoreCase of an empty substring returns the start index, like std::string")
+{
+    const String s("bibim");
+    CHECK(s.FindIgnoreCase("") == 0);
+    CHECK(s.FindIgnoreCase("", 2) == 2);
+    CHECK(s.FindIgnoreCase(String(), 5) == 5);
+    CHECK(s.FindIgnoreCase("", 6) == -1);
+    CHECK(s.FindIgnoreCase("B", 0x7FFFFFFF) == -1);
 }
 
 TEST_CASE("String::FindIgnoreCase returns -1 for a null or absent substring")
