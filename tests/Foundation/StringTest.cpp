@@ -226,7 +226,7 @@ TEST_CASE("String::Contains and ContainsIgnoreCase find characters and substring
     CHECK_FALSE(s.ContainsIgnoreCase(static_cast<const char*>(nullptr)));
 }
 
-TEST_CASE("String::ContainsIgnoreCase finds a match that starts inside a partial match" * doctest::should_fail())
+TEST_CASE("String::ContainsIgnoreCase finds a match that starts inside a partial match")
 {
     CHECK(String("aab").ContainsIgnoreCase("AB"));
     CHECK(String("aab").ContainsIgnoreCase(String("AB")));
