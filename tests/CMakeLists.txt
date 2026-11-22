@@ -26,16 +26,22 @@ add_executable(BibimTests
     Foundation/Vector4Test.cpp
     Graphics/ImageReadTest.cpp
     IO/BinaryReaderWriterTest.cpp
+    Lua/LuaTableTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
+    Typography/FreeTypeTest.cpp
     UI/UITransform3DTest.cpp
 )
-target_link_libraries(BibimTests PRIVATE Bibim stormlib miniaudio)
+target_link_libraries(BibimTests PRIVATE Bibim stormlib miniaudio freetype)
 target_compile_options(BibimTests PRIVATE ${BIBIM_WARNING_OPTIONS})
 target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBIM_EXTLIBS}/doctest-2.5.3/doctest)
 
 if(BIBIM_WINDOWS)
     add_test(NAME BibimTests COMMAND BibimTests)
+    # Built, not run: running a game needs Direct3D 9.
+    add_executable(BBMainLink WIN32 BBMainLink.cpp)
+    target_link_libraries(BBMainLink PRIVATE Bibim)
+    target_compile_options(BBMainLink PRIVATE ${BIBIM_WARNING_OPTIONS})
     return()
 endif()
 

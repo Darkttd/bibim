@@ -34,7 +34,7 @@ namespace Bibim
 
     void GameFramework::Construct(int width, int height)
     {
-        #if (defined(BIBIM_DEBUG))
+        #if (defined(BIBIM_DEBUG) && defined(_MSC_VER))
         // _CrtSetAllocHook(BibimAllocHook);
         _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
         // _CrtSetBreakAlloc(7050);
