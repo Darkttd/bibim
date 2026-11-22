@@ -490,8 +490,8 @@ namespace Bibim
                 BinaryWriter::From(buffer, value.value.FLOAT);
                 return sizeof(value.value.FLOAT);
             case ColorType:
-                BinaryWriter::From(buffer, value.value.INT);
-                return sizeof(value.value.INT);
+                BinaryWriter::From(buffer, value.CastColor());
+                return sizeof(Color);
             case Int2Type:
                 BBStaticAssert(sizeof(int) == 4);
                 BinaryWriter::From(buffer + 0, value.value.INT2[0]);
