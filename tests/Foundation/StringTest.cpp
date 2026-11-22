@@ -160,7 +160,6 @@ TEST_CASE("String::Append adds characters at the end")
     CHECK(s == "bibimbap");
 }
 
-// Insert(int, const char*) is not tested: it calls itself until the stack overflows.
 TEST_CASE("String::Insert with a String clamps the index to the string")
 {
     String s("bim");
@@ -172,6 +171,22 @@ TEST_CASE("String::Insert with a String clamps the index to the string")
     CHECK(s == ">bibimbap");
     s.Insert(3, String());
     CHECK(s == ">bibimbap");
+}
+
+TEST_CASE("String::Insert with a C string clamps the index to the string")
+{
+    String s("bim");
+    s.Insert(0, "bi");
+    CHECK(s == "bibim");
+    s.Insert(2, "-");
+    CHECK(s == "bi-bim");
+    s.Insert(99, "bap");
+    CHECK(s == "bi-bimbap");
+    s.Insert(-5, ">");
+    CHECK(s == ">bi-bimbap");
+    s.Insert(3, "");
+    s.Insert(3, static_cast<const char*>(nullptr));
+    CHECK(s == ">bi-bimbap");
 }
 
 TEST_CASE("Changing a copied String leaves the original unchanged")
