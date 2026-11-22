@@ -226,7 +226,7 @@ TEST_CASE("Any::SizeOf gives the byte size of fixed-size types")
     CHECK(Any::SizeOf(Any::LightObjectType) == 0);
 }
 
-TEST_CASE("Fixed-size Any values except Color survive WriteToBytes and ReadFromBytes")
+TEST_CASE("Fixed-size Any values survive WriteToBytes and ReadFromBytes")
 {
     const Any values[] =
     {
@@ -234,6 +234,7 @@ TEST_CASE("Fixed-size Any values except Color survive WriteToBytes and ReadFromB
         Any(-123456),
         Any(-(static_cast<longint>(1) << 40)),
         Any(-2.5f),
+        Any(Color(10, 20, 30, 255)),
         Any(Point2(1, -2)),
         Any(Point3(1, -2, 3)),
         Any(Point4(1, -2, 3, -4)),
@@ -257,13 +258,16 @@ TEST_CASE("Fixed-size Any values except Color survive WriteToBytes and ReadFromB
     CHECK(Any::ReadFromBytes(buffer, Any::StringType) == Any::Void);
 }
 
-// WriteToBytes writes a Color as its ARGB int, but ReadFromBytes reads the bytes
-// as a Color struct (A, R, G, B), so they come back in reverse order.
-TEST_CASE("A Color survives WriteToBytes and ReadFromBytes" * doctest::should_fail())
+// The order ScriptCompiler.cs Push(Color) writes.
+TEST_CASE("A Color is written as the bytes A, R, G, B and read back")
 {
     alignas(8) byte buffer[4] = { 0 };
     const Any color(Color(10, 20, 30, 40));
     REQUIRE(Any::WriteToBytes(buffer, color) == 4);
+    CHECK(buffer[0] == 40);
+    CHECK(buffer[1] == 10);
+    CHECK(buffer[2] == 20);
+    CHECK(buffer[3] == 30);
     CHECK(Any::ReadFromBytes(buffer, Any::ColorType) == color);
 }
 
