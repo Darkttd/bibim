@@ -297,7 +297,21 @@ TEST_CASE("String::ReverseFind finds a substring searching backward")
     CHECK(s.ReverseFind("x") == -1);
 }
 
-TEST_CASE("String::ReverseFind finds a substring that ends at the search index" * doctest::should_fail())
+// The search index is the last position a match may end at.
+TEST_CASE("String::ReverseFind of an empty substring returns the position after the search index")
+{
+    const String s("abc");
+    CHECK(s.ReverseFind("") == 3);
+    CHECK(s.ReverseFind("", 0) == 1);
+    CHECK(s.ReverseFind(String(), 1) == 2);
+    CHECK(s.ReverseFind("", 99) == 3);
+    CHECK(s.ReverseFind("c", 0x7FFFFFFF) == 2);
+    CHECK(String().ReverseFind("") == 0);
+    CHECK(String().ReverseFind(String("a")) == -1);
+    CHECK(s.ReverseFind(static_cast<const char*>(nullptr)) == -1);
+}
+
+TEST_CASE("String::ReverseFind finds a substring that ends at the search index")
 {
     CHECK(String("abc").ReverseFind("c") == 2);
     CHECK(String("abcab").ReverseFind(String("ab")) == 3);
