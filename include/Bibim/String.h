@@ -301,12 +301,12 @@ namespace Bibim
 
     int String::ReverseFind(const char* s) const
     {
-        return buffer->length > 0 ? ReverseFind(s, buffer->length - 1) : -1;
+        return ReverseFind(s, buffer->length);
     }
 
     int String::ReverseFind(const String& s) const
     {
-        return buffer->length > 0 ? ReverseFind(s, buffer->length - 1) : -1;
+        return ReverseFind(s, buffer->length);
     }
 
     int String::ReverseFindIgnoreCase(char c) const
