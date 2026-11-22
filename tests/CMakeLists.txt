@@ -11,6 +11,7 @@ add_executable(BibimTests
     Common/TemporaryDirectory.cpp
     FileSystem/FileStreamTest.cpp
     FileSystem/MPQTest.cpp
+    Foundation/AnyTest.cpp
     Foundation/ColorTest.cpp
     Foundation/ConfigTest.cpp
     Foundation/Geom2DTest.cpp
