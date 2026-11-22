@@ -201,6 +201,10 @@ target_include_directories(freetype PUBLIC
     ${BIBIM_FREETYPE_DIR}/include
 )
 target_compile_definitions(freetype PRIVATE FT2_BUILD_LIBRARY)
+# FT_Outline_Copy passes the null arrays of an empty outline (a space) to
+# memcpy with a size of 0. The submodule stays at the upstream tag, so the
+# check is turned off instead of patching the source.
+target_compile_options(freetype PRIVATE $<$<C_COMPILER_ID:GNU,Clang>:-fno-sanitize=nonnull-attribute>)
 
 # Bundled StormLib 9.40 (MPQ archives), built from the source lists in its own
 # CMakeLists.txt (SRC_FILES, TOMCRYPT_FILES, TOMMATH_FILES, BZIP2_FILES) with

@@ -27,9 +27,10 @@ add_executable(BibimTests
     IO/BinaryReaderWriterTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
+    Typography/FreeTypeTest.cpp
     UI/UITransform3DTest.cpp
 )
-target_link_libraries(BibimTests PRIVATE Bibim stormlib miniaudio)
+target_link_libraries(BibimTests PRIVATE Bibim stormlib miniaudio freetype)
 target_compile_options(BibimTests PRIVATE ${BIBIM_WARNING_OPTIONS})
 target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBIM_EXTLIBS}/doctest-2.5.3/doctest)
 
