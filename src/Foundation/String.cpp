@@ -341,21 +341,18 @@ namespace Bibim
 
     bool String::ContainsIgnoreCaseTemplate(const char* s, int length) const
     {
-        UTF8CharEnumerator en1(*this);
-        UTF8CharEnumerator en2(s, length);
-        en2.MoveNext(); // BBLogicalAssert(true)
-        while (en1.MoveNext())
+        const int lastStartIndex = buffer->length - length;
+        for (int i = 0; i <= lastStartIndex; i++)
         {
-            if (tolower(en1.GetCurrent()) == tolower(en2.GetCurrent()))
+            int k = 0;
+            for (; k < length; k++)
             {
-                if (en2.MoveNext() == false)
-                    return true;
+                if (tolower(static_cast<unsigned char>(buffer->s[i + k])) != tolower(static_cast<unsigned char>(s[k])))
+                    break;
             }
-            else
-            {
-                en2.Reset();
-                en2.MoveNext();
-            }
+
+            if (k == length)
+                return true;
         }
 
         return false;
