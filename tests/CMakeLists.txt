@@ -35,6 +35,10 @@ target_include_directories(BibimTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${BIBI
 
 if(BIBIM_WINDOWS)
     add_test(NAME BibimTests COMMAND BibimTests)
+    # Built, not run: running a game needs Direct3D 9.
+    add_executable(BBMainLink WIN32 BBMainLink.cpp)
+    target_link_libraries(BBMainLink PRIVATE Bibim)
+    target_compile_options(BBMainLink PRIVATE ${BIBIM_WARNING_OPTIONS})
     return()
 endif()
 
