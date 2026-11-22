@@ -316,12 +316,12 @@ namespace Bibim
 
     int String::ReverseFindIgnoreCase(const char* s) const
     {
-        return buffer->length > 0 ? ReverseFindIgnoreCase(s, buffer->length - 1) : -1;
+        return ReverseFindIgnoreCase(s, buffer->length);
     }
 
     int String::ReverseFindIgnoreCase(const String& s) const
     {
-        return buffer->length > 0 ? ReverseFindIgnoreCase(s, buffer->length - 1) : -1;
+        return ReverseFindIgnoreCase(s, buffer->length);
     }
 
     const char* String::CStr() const
