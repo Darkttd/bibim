@@ -167,10 +167,7 @@ namespace Bibim
         switch (type)
         {
             case Int2Type:
-                {
-                    const SixteenBytes* data = static_cast<const SixteenBytes*>(value.POINTER);
-                    return Point2(data->INT4[0], data->INT4[1]);
-                }
+                return Point2(value.INT2[0], value.INT2[1]);
             default:
                 return Point2::Zero;
         }
@@ -209,10 +206,7 @@ namespace Bibim
         switch (type)
         {
             case Float2Type:
-                {
-                    const SixteenBytes* data = static_cast<const SixteenBytes*>(value.POINTER);
-                    return Vector2(data->FLOAT4[0], data->FLOAT4[1]);
-                }
+                return Vector2(value.FLOAT2[0], value.FLOAT2[1]);
             default:
                 return Vector2::Zero;
         }
