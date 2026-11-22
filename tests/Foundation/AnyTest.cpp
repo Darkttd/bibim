@@ -3,9 +3,6 @@
 // Test cases state the intended behavior. A case marked doctest::should_fail
 // documents a known bug: it is expected to fail until the bug is fixed, and then
 // the marker must be removed (doctest reports a should_fail case that passes).
-//
-// Known bug, not tested because it crashes: CastPoint2 and CastVector2 on a
-// Point2/Vector2 Any read through a pointer although the value is stored inline.
 #include <Bibim/Config.h>
 #include <Bibim/Any.h>
 #include <Bibim/SharedObject.h>
@@ -108,8 +105,10 @@ TEST_CASE("Any returns the stored Color, point, vector and string values")
 {
     CHECK(Any(Color(10, 20, 30, 40)).CastColor() == Color(10, 20, 30, 40));
     CHECK(Any(Color(10, 20, 30, 255)).CastColor() == Color(10, 20, 30, 255));
+    CHECK(Any(Point2(1, -2)).CastPoint2() == Point2(1, -2));
     CHECK(Any(Point3(1, -2, 3)).CastPoint3() == Point3(1, -2, 3));
     CHECK(Any(Point4(1, -2, 3, -4)).CastPoint4() == Point4(1, -2, 3, -4));
+    CHECK(Any(Vector2(1.5f, -2.5f)).CastVector2() == Vector2(1.5f, -2.5f));
     CHECK(Any(Vector3(1.5f, -2.5f, 3.5f)).CastVector3() == Vector3(1.5f, -2.5f, 3.5f));
     CHECK(Any(Vector4(1.5f, -2.5f, 3.5f, -4.5f)).CastVector4() == Vector4(1.5f, -2.5f, 3.5f, -4.5f));
     CHECK(Any("text").CastString() == "text");
