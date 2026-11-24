@@ -535,11 +535,11 @@ namespace Bibim
 
     int String::FindTemplate(const char* s, int length, int index) const
     {
-        if (buffer->length < index + length)
+        if (index < 0 || index > buffer->length - length)
             return -1;
 
-        const int lengthDifference = buffer->length - length;
-        for (int i = index; i < lengthDifference; i++)
+        const int lastStartIndex = buffer->length - length;
+        for (int i = index; i <= lastStartIndex; i++)
         {
             int k = 0;
             for (; k < length; k++)
@@ -557,6 +557,9 @@ namespace Bibim
 
     int String::Find(const char* s, int index) const
     {
+        if (s == nullptr)
+            return -1;
+
         return FindTemplate(s, static_cast<int>(strlen(s)), index);
     }
 

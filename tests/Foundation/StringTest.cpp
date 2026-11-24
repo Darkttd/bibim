@@ -254,7 +254,18 @@ TEST_CASE("String::Find finds a substring from an index")
     CHECK(s.Find("abcabcd") == -1);
 }
 
-TEST_CASE("String::Find finds a substring that ends at the last character" * doctest::should_fail())
+TEST_CASE("String::Find of an empty substring returns the start index, like std::string")
+{
+    const String s("abc");
+    CHECK(s.Find("") == 0);
+    CHECK(s.Find("", 2) == 2);
+    CHECK(s.Find(String(), 3) == 3);
+    CHECK(s.Find("", 4) == -1);
+    CHECK(s.Find("a", 0x7FFFFFFF) == -1);
+    CHECK(s.Find(static_cast<const char*>(nullptr)) == -1);
+}
+
+TEST_CASE("String::Find finds a substring that ends at the last character")
 {
     CHECK(String("abc").Find("bc") == 1);
     CHECK(String("abc").Find(String("abc")) == 0);
