@@ -632,7 +632,12 @@ namespace Bibim
 
     int String::ReverseFindTemplate(const char* s, int length, int index) const
     {
-        for (int i = index - length; i >= 0; i--)
+        if (index < 0)
+            return -1;
+
+        const int endIndex = index < buffer->length ? index + 1 : buffer->length;
+        const int lastStartIndex = endIndex - length;
+        for (int i = lastStartIndex; i >= 0; i--)
         {
             int k = 0;
             for (; k < length; k++)
@@ -646,15 +651,14 @@ namespace Bibim
         }
 
         return -1;
-
     }
 
     int String::ReverseFind(const char* s, int index) const
     {
-        if (s && s[0] != '\0')
-            return ReverseFindTemplate(s, static_cast<int>(strlen(s)), index);
-        else
+        if (s == nullptr)
             return -1;
+
+        return ReverseFindTemplate(s, static_cast<int>(strlen(s)), index);
     }
 
     int String::ReverseFind(const String& s, int index) const
