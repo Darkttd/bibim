@@ -584,26 +584,21 @@ namespace Bibim
 
     int String::FindIgnoreCaseTemplate(const char* s, int length, int index) const
     {
-        int i = 0;
-        int result = i;
-        UTF8CharEnumerator en1(&buffer->s[index], buffer->length - index);
-        UTF8CharEnumerator en2(s, length);
-        en2.MoveNext(); // BBLogicalAssert(true)
-        while (en1.MoveNext())
+        if (index < 0 || index > buffer->length - length)
+            return -1;
+
+        const int lastStartIndex = buffer->length - length;
+        for (int i = index; i <= lastStartIndex; i++)
         {
-            if (tolower(en1.GetCurrent()) == tolower(en2.GetCurrent()))
+            int k = 0;
+            for (; k < length; k++)
             {
-                if (en2.MoveNext() == false)
-                    return result;
-            }
-            else
-            {
-                en2.Reset();
-                en2.MoveNext();
-                result = i;
+                if (tolower(static_cast<unsigned char>(buffer->s[i + k])) != tolower(static_cast<unsigned char>(s[k])))
+                    break;
             }
 
-            i++;
+            if (k == length)
+                return i;
         }
 
         return -1;
@@ -611,18 +606,15 @@ namespace Bibim
 
     int String::FindIgnoreCase(const char* s, int index) const
     {
-        if (s && s[0] != '\0')
-            return FindIgnoreCaseTemplate(s, static_cast<int>(strlen(s)), index);
-        else
+        if (s == nullptr)
             return -1;
+
+        return FindIgnoreCaseTemplate(s, static_cast<int>(strlen(s)), index);
     }
 
     int String::FindIgnoreCase(const String& s, int index) const
     {
-        if (s.IsEmpty() == false)
-            return FindIgnoreCaseTemplate(s.buffer->s, s.buffer->length, index);
-        else
-            return -1;
+        return FindIgnoreCaseTemplate(s.buffer->s, s.buffer->length, index);
     }
 
     int String::ReverseFind(char c, int index) const
