@@ -339,10 +339,23 @@ TEST_CASE("String::ReverseFind finds a substring that ends at the search index")
     CHECK(String("abcab").ReverseFind("ab", 1) == 0);
 }
 
-TEST_CASE("String::ReverseFindIgnoreCase finds a substring searching backward" * doctest::should_fail())
+TEST_CASE("String::ReverseFindIgnoreCase finds a substring searching backward")
 {
     CHECK(String("abcABC").ReverseFindIgnoreCase("bc") == 4);
     CHECK(String("abcABC").ReverseFindIgnoreCase(String("AB"), 3) == 0);
+    CHECK(String("abcABC").ReverseFindIgnoreCase("Ca", 3) == 2);
+    CHECK(String("abcABC").ReverseFindIgnoreCase("x") == -1);
+    CHECK(String("abcABC").ReverseFindIgnoreCase(static_cast<const char*>(nullptr)) == -1);
+}
+
+TEST_CASE("String::ReverseFindIgnoreCase of an empty substring returns the position after the search index")
+{
+    const String s("abc");
+    CHECK(s.ReverseFindIgnoreCase("") == 3);
+    CHECK(s.ReverseFindIgnoreCase("", 0) == 1);
+    CHECK(s.ReverseFindIgnoreCase(String(), 99) == 3);
+    CHECK(s.ReverseFindIgnoreCase("C", 0x7FFFFFFF) == 2);
+    CHECK(String().ReverseFindIgnoreCase("") == 0);
 }
 
 TEST_CASE("String::Substring from an index keeps the rest of the string")

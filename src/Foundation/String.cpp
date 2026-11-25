@@ -680,13 +680,34 @@ namespace Bibim
         return -1;
     }
 
-    int String::ReverseFindIgnoreCaseTemplate(const char* /*s*/, int /*length*/, int /*index*/) const
+    int String::ReverseFindIgnoreCaseTemplate(const char* s, int length, int index) const
     {
+        if (index < 0)
+            return -1;
+
+        const int endIndex = index < buffer->length ? index + 1 : buffer->length;
+        const int lastStartIndex = endIndex - length;
+        for (int i = lastStartIndex; i >= 0; i--)
+        {
+            int k = 0;
+            for (; k < length; k++)
+            {
+                if (tolower(static_cast<unsigned char>(buffer->s[i + k])) != tolower(static_cast<unsigned char>(s[k])))
+                    break;
+            }
+
+            if (k == length)
+                return i;
+        }
+
         return -1;
     }
 
     int String::ReverseFindIgnoreCase(const char* s, int index) const
     {
+        if (s == nullptr)
+            return -1;
+
         return ReverseFindIgnoreCaseTemplate(s, static_cast<int>(strlen(s)), index);
     }
 
