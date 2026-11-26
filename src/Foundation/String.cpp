@@ -115,13 +115,13 @@ namespace Bibim
     void String::Insert(int index, const char* s)
     {
         if (s && s[0] != '\0')
-            Insert(Math::Min(Math::Max(index, 0), buffer->length), s);
+            Insert(Math::Clamp(index, 0, buffer->length), s, static_cast<int>(strlen(s)));
     }
 
     void String::Insert(int index, const String& s)
     {
         if (s.buffer->length > 0)
-            Insert(Math::Min(Math::Max(index, 0), buffer->length), s.buffer->s, s.buffer->length);
+            Insert(Math::Clamp(index, 0, buffer->length), s.buffer->s, s.buffer->length);
     }
 
     void String::Replace(char oldValue, char newValue)
