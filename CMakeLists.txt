@@ -82,9 +82,8 @@ if(BIBIM_LINUX)
     target_link_libraries(lua PUBLIC m)
 endif()
 
-# Bundled zlib 1.4 and libpng 1.6.9, built from the same sources as
-# build/vs20xx/zlib.vcxproj and libpng.vcxproj. PNG.cpp reads libpng internals
-# (pngstruct.h), so the system libpng cannot be used.
+# Bundled zlib and libpng, built from the same sources as
+# build/vs20xx/zlib.vcxproj and libpng.vcxproj.
 set(BIBIM_ZLIB_DIR ${BIBIM_EXTLIBS}/zlib-1.4)
 add_library(zlib STATIC
     ${BIBIM_ZLIB_DIR}/adler32.c
@@ -109,7 +108,7 @@ if(BIBIM_LINUX)
     target_compile_definitions(zlib PRIVATE Z_HAVE_UNISTD_H)
 endif()
 
-set(BIBIM_LIBPNG_DIR ${BIBIM_EXTLIBS}/libpng-1.6.9)
+set(BIBIM_LIBPNG_DIR ${BIBIM_EXTLIBS}/libpng-1.6.59)
 add_library(png STATIC
     ${BIBIM_LIBPNG_DIR}/png.c
     ${BIBIM_LIBPNG_DIR}/pngerror.c
@@ -483,8 +482,7 @@ else()
 endif()
 
 # Same third-party header locations as build/vs20xx/Bibim.vcxproj, so every
-# platform compiles against the same library versions. PNG.cpp reads libpng
-# internals (pngstruct.h), so the bundled libpng is required.
+# platform compiles against the same library versions.
 target_include_directories(Bibim
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include

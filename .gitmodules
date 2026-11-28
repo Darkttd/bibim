@@ -4,8 +4,8 @@
 [submodule "extlibs/zlib-1.4"]
 	path = extlibs/zlib-1.4
 	url = https://github.com/madler/zlib.git
-[submodule "extlibs/libpng-1.6.9"]
-	path = extlibs/libpng-1.6.9
+[submodule "extlibs/libpng-1.6.59"]
+	path = extlibs/libpng-1.6.59
 	url = https://github.com/pnggroup/libpng.git
 [submodule "extlibs/doctest-2.5.3"]
 	path = extlibs/doctest-2.5.3

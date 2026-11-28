@@ -3,14 +3,13 @@
 #include <Bibim/AssetStreamReader.h>
 #include <Bibim/GameAsset.h>
 #include <png.h>
-#include <pngstruct.h>
 #include <zlib.h>
 
 namespace Bibim
 {
     static void ReadPNGData(png_structp pngReader, png_bytep data, png_size_t length)
     {
-        AssetStreamReader* reader = ((AssetStreamReader*)pngReader->io_ptr);
+        AssetStreamReader* reader = static_cast<AssetStreamReader*>(png_get_io_ptr(pngReader));
         if (reader->Read(data, static_cast<int>(length)) == nullptr)
             png_error(pngReader, "Read Error");
     }

@@ -74,24 +74,24 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\png.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngerror.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngget.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngmem.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngpread.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngread.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngrio.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngrtran.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngrutil.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngset.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngtrans.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngwio.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngwrite.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngwtran.c" />
-    <ClCompile Include="..\..\extlibs\libpng-1.6.9\pngwutil.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\png.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngerror.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngget.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngmem.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngpread.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngread.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngrio.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngrtran.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngrutil.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngset.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngtrans.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngwio.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngwrite.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngwtran.c" />
+    <ClCompile Include="..\..\extlibs\libpng-1.6.59\pngwutil.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\extlibs\libpng-1.6.9\pnglibconf.h" />
+    <ClInclude Include="..\..\extlibs\libpng-config\pnglibconf.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
