@@ -20,6 +20,7 @@ add_executable(BibimTests
     Foundation/NumericsTest.cpp
     Foundation/PointTest.cpp
     Foundation/RectTest.cpp
+    Foundation/SequenceDictionaryTest.cpp
     Foundation/StringTest.cpp
     Foundation/Vector2Test.cpp
     Foundation/Vector3Test.cpp
