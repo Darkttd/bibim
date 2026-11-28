@@ -54,6 +54,9 @@ namespace Bibim
 
     int MemoryStream::Write(const void* buffer, int size)
     {
+        if (canWrite == false)
+            return 0;
+
         if (this->position + size < this->length)
         {
             Memory::Copy(&this->buffer[this->position], this->capacity - this->position, buffer, size);

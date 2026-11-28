@@ -172,9 +172,7 @@ TEST_CASE("MemoryStream::Seek before the beginning stops at the beginning"
     CHECK(stream->GetPosition() == 0);
 }
 
-TEST_CASE("MemoryStream::Write into a read-only stream writes nothing"
-          * doctest::should_fail(true)
-          * doctest::description("Write ignores CanWrite and changes the caller's buffer"))
+TEST_CASE("MemoryStream::Write into a read-only stream writes nothing")
 {
     byte data[] = { 1, 2, 3, 4 };
     MemoryStreamPtr stream = MemoryStream::NewReadableStream(data, 4);
@@ -183,4 +181,17 @@ TEST_CASE("MemoryStream::Write into a read-only stream writes nothing"
     CHECK(stream->Write(&value, 1) == 0);
     CHECK(data[0] == 1);
     CHECK(stream->GetPosition() == 0);
+}
+
+TEST_CASE("MemoryStream::Write past the end of a read-only stream writes nothing")
+{
+    byte data[] = { 1, 2 };
+    MemoryStreamPtr stream = MemoryStream::NewReadableStream(data, 2);
+
+    const byte values[] = { 7, 8, 9 };
+    stream->Seek(0, Stream::FromEnd);
+    CHECK(stream->Write(values, 3) == 0);
+    CHECK(stream->GetBuffer() == data);
+    CHECK(stream->GetLength() == 2);
+    CHECK(stream->GetPosition() == 2);
 }
