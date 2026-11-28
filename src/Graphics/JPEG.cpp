@@ -93,6 +93,10 @@ namespace Bibim
 
         jpeg_read_header(&jpegReader, TRUE);
 
+        // libjpeg cannot convert CMYK/YCCK to RGB and would exit(), so only grayscale is converted.
+        if (jpegReader.jpeg_color_space == JCS_GRAYSCALE)
+            jpegReader.out_color_space = JCS_RGB;
+
         jpeg_start_decompress(&jpegReader);
 
         const int rowStride = jpegReader.output_width * jpegReader.output_components;
