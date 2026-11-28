@@ -2,9 +2,9 @@
 #include <Bibim/Preferences.h>
 #include <Bibim/Environment.h>
 #include <Bibim/FileStream.h>
-#include <rapidjson/document.h>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/writer.h>
+#include <yyjson.h>
+#include <climits>
+#include <cstdlib>
 #include <vector>
 
 namespace Bibim
@@ -94,44 +94,40 @@ namespace Bibim
     {
         isLoaded = true;
 
-        rapidjson::Document document;
         const String documentString = Load();
-        document.Parse<0>(documentString.CStr());
-        
-        if (document.HasParseError())
+        // Files written with RapidJSON may hold invalid UTF-8.
+        yyjson_doc* document = yyjson_read(documentString.CStr(), documentString.GetLength(), YYJSON_READ_ALLOW_INVALID_UNICODE);
+        yyjson_val* root = yyjson_doc_get_root(document);
+        if (yyjson_is_obj(root) == false)
+        {
+            yyjson_doc_free(document);
             return;
-
-        BBAssert(document.IsObject());
+        }
 
         items.clear();
 
-        typedef rapidjson::Document::ConstMemberIterator ConstMemberIterator;
-        for (ConstMemberIterator it = document.MemberBegin(); it != document.MemberEnd(); ++it)
+        size_t index = 0;
+        size_t count = 0;
+        yyjson_val* name = nullptr;
+        yyjson_val* item = nullptr;
+        yyjson_obj_foreach(root, index, count, name, item)
         {
-            const String key = String((*it).name.GetString(), 0, (*it).name.GetStringLength());
+            const String key = String(yyjson_get_str(name), 0, static_cast<int>(yyjson_get_len(name)));
             Any value = Any::Void;
-            switch ((*it).value.GetType())
-            {
-                case rapidjson::kFalseType:
-                    value = Any::False;
-                    break;
-                case rapidjson::kTrueType:
-                    value = Any::True;
-                    break;
-                case rapidjson::kStringType:
-                    value = Any(String((*it).value.GetString(), 0, (*it).value.GetStringLength()));
-                    break;
-                case rapidjson::kNumberType:
-                    value = Any((*it).value.GetInt());
-                    break;
-                default:
-                    value = Any::Void;
-                    break;
-            }
+            if (yyjson_is_bool(item))
+                value = yyjson_get_bool(item) ? Any::True : Any::False;
+            else if (yyjson_is_str(item))
+                value = Any(String(yyjson_get_str(item), 0, static_cast<int>(yyjson_get_len(item))));
+            else if (yyjson_is_sint(item) && yyjson_get_sint(item) >= INT_MIN)
+                value = Any(static_cast<int>(yyjson_get_sint(item)));
+            else if (yyjson_is_uint(item) && yyjson_get_uint(item) <= INT_MAX)
+                value = Any(static_cast<int>(yyjson_get_uint(item)));
 
             if (value != Any::Void)
                 items[key] = value;
         }
+
+        yyjson_doc_free(document);
     }
 
     void Preferences::Commit()
@@ -139,34 +135,47 @@ namespace Bibim
         if (IsModified() == false || IsLoaded() == false)
             return;
 
-        rapidjson::Document document;
-        document.SetObject();
-        for (Dictionary::const_iterator it = items.begin(); it != items.end(); ++it)
+        yyjson_mut_doc* document = yyjson_mut_doc_new(nullptr);
+        if (document == nullptr)
+            return;
+
+        yyjson_mut_val* root = yyjson_mut_obj(document);
+        yyjson_mut_doc_set_root(document, root);
+        bool complete = root != nullptr;
+        for (Dictionary::const_iterator it = items.begin(); complete && it != items.end(); ++it)
         {
-            const char* key = (*it).first.CStr();
+            const String& key = (*it).first;
             const Any& value = (*it).second;
+            yyjson_mut_val* item = nullptr;
             switch (value.GetType())
             {
                 case Any::BoolType:
-                    document.AddMember(key, value.CastBool(), document.GetAllocator());
+                    item = yyjson_mut_bool(document, value.CastBool());
                     break;
                 case Any::IntType:
-                    document.AddMember(key, value.CastInt(), document.GetAllocator());
+                    item = yyjson_mut_sint(document, value.CastInt());
                     break;
                 case Any::StringType:
-                    document.AddMember(key, value.CastString().CStr(), document.GetAllocator());
+                {
+                    const String& s = value.CastString();
+                    item = yyjson_mut_strn(document, s.CStr(), s.GetLength());
                     break;
+                }
                 default:
                     break;
             }
+
+            complete = yyjson_mut_obj_add(root, yyjson_mut_strn(document, key.CStr(), key.GetLength()), item);
         }
 
-        rapidjson::StringBuffer output;
-        rapidjson::Writer<rapidjson::StringBuffer> writer(output);
-        document.Accept(writer);
+        size_t length = 0;
+        char* output = complete ? yyjson_mut_write(document, YYJSON_WRITE_ALLOW_INVALID_UNICODE, &length) : nullptr;
+        yyjson_mut_doc_free(document);
+        if (output == nullptr)
+            return;
 
-        if (const char* s = output.GetString())
-            Save(s);
+        Save(String(output, 0, static_cast<int>(length)));
+        std::free(output);
 
         isModified = false;
     }

@@ -459,13 +459,16 @@ if(BIBIM_LINUX)
     target_link_libraries(miniaudio PUBLIC Threads::Threads m ${CMAKE_DL_LIBS})
 endif()
 
+add_library(yyjson STATIC ${BIBIM_EXTLIBS}/yyjson/src/yyjson.c)
+target_include_directories(yyjson PUBLIC ${BIBIM_EXTLIBS}/yyjson/src)
+
 add_library(Bibim STATIC
     ${BIBIM_SOURCES}
     ${BIBIM_EXTLIBS}/lua_tinker/lua_tinker.cpp
 )
 target_link_libraries(Bibim
     PUBLIC lua
-    PRIVATE png jpeg freetype stormlib miniaudio
+    PRIVATE png jpeg freetype stormlib miniaudio yyjson
 )
 if(BIBIM_LINUX)
     target_link_libraries(Bibim PRIVATE ${BIBIM_GLES2_LIBRARY} SDL3::SDL3)
@@ -489,7 +492,6 @@ target_include_directories(Bibim
         ${BIBIM_EXTLIBS}/lua_tinker
         ${BIBIM_EXTLIBS}/utf8_v2_3_4/source
 )
-target_include_directories(Bibim SYSTEM PUBLIC ${BIBIM_EXTLIBS}/rapidjson/include)
 
 # Warnings for the engine's own code and its tests; the bundled libraries
 # keep their defaults. The sources carry MSVC's #pragma warning on purpose.

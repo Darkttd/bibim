@@ -123,3 +123,43 @@ TEST_CASE("Preferences treats a malformed file as no values")
     Preferences preferences("BibimTestsMalformed");
     CHECK(preferences.GetValue("volume") == Any::Void);
 }
+
+TEST_CASE("Preferences treats a file whose root is not an object as no values")
+{
+    const char* const roots[] = { "3", "\"text\"", "[1, 2]", "null" };
+    for (const char* root : roots)
+    {
+        CAPTURE(root);
+        WriteFile(Environment::GetAppDataPath("BibimTestsNotObject", "preferences"), root);
+
+        Preferences preferences("BibimTestsNotObject");
+        CHECK(preferences.GetValue("volume") == Any::Void);
+    }
+}
+
+TEST_CASE("Preferences skips numbers that are not ints")
+{
+    WriteFile(Environment::GetAppDataPath("BibimTestsNumbers", "preferences"),
+              "{\"real\": 1.5, \"big\": 2147483648, \"small\": -2147483649, \"huge\": 18446744073709551615, \"ok\": 7}");
+
+    Preferences preferences("BibimTestsNumbers");
+    CHECK(preferences.GetValue("real") == Any::Void);
+    CHECK(preferences.GetValue("big") == Any::Void);
+    CHECK(preferences.GetValue("small") == Any::Void);
+    CHECK(preferences.GetValue("huge") == Any::Void);
+    CHECK(preferences.GetValue("ok") == Any(7));
+}
+
+TEST_CASE("Preferences reads back ints at the limits")
+{
+    {
+        Preferences preferences("BibimTestsIntLimits");
+        preferences.SetValue("max", Any(2147483647));
+        preferences.SetValue("min", Any(-2147483647 - 1));
+        preferences.Commit();
+    }
+
+    Preferences preferences("BibimTestsIntLimits");
+    CHECK(preferences.GetValue("max") == Any(2147483647));
+    CHECK(preferences.GetValue("min") == Any(-2147483647 - 1));
+}
