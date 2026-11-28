@@ -99,9 +99,7 @@ TEST_CASE("DumpStream passes position, length, seeking and capabilities through 
     CHECK(dump.CanSeek());
 }
 
-TEST_CASE("DumpStream::Flush flushes the base and the output stream"
-          * doctest::should_fail(true)
-          * doctest::description("Flush flushes only the base stream"))
+TEST_CASE("DumpStream::Flush flushes the base and the output stream")
 {
     SharedPointer<FlushCountingStream> base = new FlushCountingStream();
     SharedPointer<FlushCountingStream> output = new FlushCountingStream();

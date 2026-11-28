@@ -33,6 +33,7 @@ namespace Bibim
     void DumpStream::Flush()
     {
         baseStream->Flush();
+        outputStream->Flush();
     }
 
     int DumpStream::Seek(int offset, SeekOrigin origin)
