@@ -10,8 +10,7 @@ namespace
     bool IsLocalTimeOf(const DateTime& d, time_t time)
     {
         const struct tm* t = localtime(&time);
-        DateTime local(t->tm_year + 1900, t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
-        return local == d;
+        return d == DateTime(t->tm_year + 1900, t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
     }
 
     bool HasDateOf(const DateTime& d, time_t time)
@@ -50,17 +49,17 @@ TEST_CASE("DateTime constructors set the given fields and zero the rest")
 
 TEST_CASE("DateTime copies and compares every field")
 {
-    DateTime original(2026, 11, 28, 13, 45, 59);
+    const DateTime original(2026, 11, 28, 13, 45, 59);
 
-    DateTime copy(original);
-    CHECK((copy == original));
-    CHECK_FALSE((copy != original));
+    const DateTime copy(original);
+    CHECK(copy == original);
+    CHECK_FALSE(copy != original);
 
     DateTime assigned;
     assigned = original;
-    CHECK((assigned == original));
+    CHECK(assigned == original);
 
-    DateTime different[] =
+    const DateTime different[] =
     {
         DateTime(2025, 11, 28, 13, 45, 59),
         DateTime(2026, 10, 28, 13, 45, 59),
@@ -72,13 +71,13 @@ TEST_CASE("DateTime copies and compares every field")
     for (int i = 0; i < 6; i++)
     {
         CAPTURE(i);
-        CHECK((different[i] != original));
-        CHECK_FALSE((different[i] == original));
+        CHECK(different[i] != original);
+        CHECK_FALSE(different[i] == original);
     }
 
-    DateTime date(2026, 11, 28);
-    DateTime midnight(2026, 11, 28, 0, 0, 0);
-    CHECK((date == midnight));
+    const DateTime date(2026, 11, 28);
+    const DateTime midnight(2026, 11, 28, 0, 0, 0);
+    CHECK(date == midnight);
 }
 
 TEST_CASE("DateTime::Now returns the current local time")

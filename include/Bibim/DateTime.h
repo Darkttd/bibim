@@ -22,8 +22,8 @@ namespace Bibim
         inline ~DateTime();
 
         inline DateTime& operator = (const DateTime& right);
-        inline bool operator == (const DateTime& right);
-        inline bool operator != (const DateTime& right);
+        inline bool operator == (const DateTime& right) const;
+        inline bool operator != (const DateTime& right) const;
 
         static DateTime Now();
         static DateTime Today();
@@ -86,7 +86,7 @@ namespace Bibim
         return *this;
     }
 
-    bool DateTime::operator == (const DateTime& right)
+    bool DateTime::operator == (const DateTime& right) const
     {
         return
             Year == right.Year &&
@@ -97,7 +97,7 @@ namespace Bibim
             Second == right.Second;
     }
 
-    bool DateTime::operator != (const DateTime& right)
+    bool DateTime::operator != (const DateTime& right) const
     {
         return !operator == (right);
     }
