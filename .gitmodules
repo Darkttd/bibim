@@ -16,3 +16,6 @@
 [submodule "extlibs/miniaudio"]
 	path = extlibs/miniaudio
 	url = https://github.com/mackron/miniaudio.git
+[submodule "extlibs/yyjson"]
+	path = extlibs/yyjson
+	url = https://github.com/ibireme/yyjson.git

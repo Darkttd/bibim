@@ -669,6 +669,9 @@
     <ClCompile Include="..\..\extlibs\miniaudio-custom\miniaudio-all.c">
       <Filter>04. References</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\extlibs\yyjson\src\yyjson.c">
+      <Filter>04. References</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Threading\Lock.Unix.cpp">
       <Filter>02. System\Threading</Filter>
     </ClCompile>
