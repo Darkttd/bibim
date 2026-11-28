@@ -28,7 +28,7 @@ namespace Bibim
 
     int ForkStream::Write(const void* buffer, int size)
     {
-        int writtenSize = 0;
+        int writtenSize = size;
         for (StreamCollection::const_iterator it = streams.begin(); it != streams.end(); ++it)
         {
             writtenSize = Math::Min((*it)->Write(buffer, size), writtenSize);

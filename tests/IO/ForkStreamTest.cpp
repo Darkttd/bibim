@@ -70,9 +70,7 @@ TEST_CASE("ForkStream::Write writes the same bytes to every stream")
     }
 }
 
-TEST_CASE("ForkStream::Write returns the smallest size written to a stream"
-          * doctest::should_fail(true)
-          * doctest::description("Write starts the minimum at 0, so it always returns 0"))
+TEST_CASE("ForkStream::Write returns the smallest size written to a stream")
 {
     MemoryStreamPtr a = MemoryStream::NewWritableStream(4, true);
     MemoryStreamPtr b = MemoryStream::NewWritableStream(4, true);
@@ -118,9 +116,7 @@ TEST_CASE("ForkStream can write only when every stream can, and cannot read or s
     CHECK(allWritable.GetLength() == 0);
 }
 
-TEST_CASE("ForkStream without streams can write and reports every byte written"
-          * doctest::should_fail(true)
-          * doctest::description("Write starts the minimum at 0, so it always returns 0"))
+TEST_CASE("ForkStream without streams can write and reports every byte written")
 {
     ForkStream none;
     CHECK(none.CanWrite());
