@@ -12,7 +12,7 @@ rapidjson Copyright (C) 2011 Milo Yip
 stb_vorbis 1.22 Copyright (c) 2017 Sean Barrett
 StormLib 9.40 Copyright (c) 1999-2013 Ladislav Zezula
 UTF8-CPP 2.3.4 Copyright 2006 Nemanja Trifunovic
-zlib-1.2.8 Copyright (C) 1995-2011 Mark Adler
+zlib-1.4 Copyright (C) 1995-2026 Jean-loup Gailly and Mark Adler
 
 
 
@@ -423,12 +423,12 @@ THE SOFTWARE.
 
 
 
-zlib 1.2.8
+zlib 1.4
 ----------------------------------------------------------------------------------------------------
 /* zlib.h -- interface of the 'zlib' general purpose compression library
-  version 1.2.8, April 28th, 2013
+  version 1.4, November 4th, 2026
 
-  Copyright (C) 1995-2013 Jean-loup Gailly and Mark Adler
+  Copyright (C) 1995-2026 Jean-loup Gailly and Mark Adler
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -449,6 +449,10 @@ zlib 1.2.8
   Jean-loup Gailly        Mark Adler
   jloup@gzip.org          madler@alumni.caltech.edu
 
+
+  The data format used by the zlib library is described by RFCs (Request for
+  Comments) 1950 to 1952 at https://datatracker.ietf.org/doc/html/rfc1950
+  (zlib format), rfc1951 (deflate format) and rfc1952 (gzip format).
 */
 
 

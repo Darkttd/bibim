@@ -72,21 +72,21 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\adler32.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\compress.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\crc32.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\deflate.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\gzclose.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\gzlib.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\gzread.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\gzwrite.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\infback.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\inffast.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\inflate.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\inftrees.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\trees.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\uncompr.c" />
-    <ClCompile Include="..\..\extlibs\zlib-1.2.8\zutil.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\adler32.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\compress.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\crc32.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\deflate.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\gzclose.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\gzlib.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\gzread.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\gzwrite.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\infback.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\inffast.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\inflate.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\inftrees.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\trees.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\uncompr.c" />
+    <ClCompile Include="..\..\extlibs\zlib-1.4\zutil.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

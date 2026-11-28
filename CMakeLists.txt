@@ -82,10 +82,10 @@ if(BIBIM_LINUX)
     target_link_libraries(lua PUBLIC m)
 endif()
 
-# Bundled zlib 1.2.8 and libpng 1.6.9, built from the same sources as
+# Bundled zlib 1.4 and libpng 1.6.9, built from the same sources as
 # build/vs20xx/zlib.vcxproj and libpng.vcxproj. PNG.cpp reads libpng internals
 # (pngstruct.h), so the system libpng cannot be used.
-set(BIBIM_ZLIB_DIR ${BIBIM_EXTLIBS}/zlib-1.2.8)
+set(BIBIM_ZLIB_DIR ${BIBIM_EXTLIBS}/zlib-1.4)
 add_library(zlib STATIC
     ${BIBIM_ZLIB_DIR}/adler32.c
     ${BIBIM_ZLIB_DIR}/compress.c
@@ -108,9 +108,6 @@ target_include_directories(zlib PUBLIC ${BIBIM_ZLIB_DIR})
 if(BIBIM_LINUX)
     target_compile_definitions(zlib PRIVATE Z_HAVE_UNISTD_H)
 endif()
-# zlib 1.2.8 uses K&R function definitions, which C23 (GCC 15's default)
-# removed; build it as the C89 it was written in.
-set_target_properties(zlib PROPERTIES C_STANDARD 90 C_EXTENSIONS ON)
 
 set(BIBIM_LIBPNG_DIR ${BIBIM_EXTLIBS}/libpng-1.6.9)
 add_library(png STATIC
