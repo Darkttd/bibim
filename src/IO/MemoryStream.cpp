@@ -26,7 +26,7 @@ namespace Bibim
           canWrite(true)
     {
         if (fillZero)
-            Memory::Fill(buffer, capacity);
+            Memory::Fill(buffer, this->capacity);
     }
 
     MemoryStream::~MemoryStream()
