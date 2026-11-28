@@ -1,11 +1,6 @@
 // Test cases state the intended behavior. A case marked doctest::should_fail
 // documents a known bug: it is expected to fail until the bug is fixed, and then
 // the marker must be removed (doctest reports a should_fail case that passes).
-//
-// Known bugs, not tested because they end the process:
-// - Write into a capacity-0 stream calls memcpy with a null source (UB even for size 0).
-// - NewWritableStream with fillZero and capacity <= 0 calls memset on a null buffer
-//   (capacity < 0 also passes a huge size).
 #include <Bibim/Config.h>
 #include <Bibim/MemoryStream.h>
 #include <doctest.h>
@@ -80,6 +75,30 @@ TEST_CASE("MemoryStream::NewWritableStream starts empty with the given capacity"
     MemoryStreamPtr negative = MemoryStream::NewWritableStream(-1, true);
     CHECK(negative->GetCapacity() == 0);
     CHECK(negative->GetBuffer() == nullptr);
+}
+
+TEST_CASE("MemoryStream::NewWritableStream fills nothing when it has no buffer")
+{
+    MemoryStreamPtr empty = MemoryStream::NewWritableStream(0, true, true);
+    CHECK(empty->GetCapacity() == 0);
+    CHECK(empty->GetBuffer() == nullptr);
+
+    MemoryStreamPtr negative = MemoryStream::NewWritableStream(-1, true, true);
+    CHECK(negative->GetCapacity() == 0);
+    CHECK(negative->GetBuffer() == nullptr);
+}
+
+TEST_CASE("MemoryStream::Write into a stream without a buffer allocates one")
+{
+    MemoryStreamPtr stream = MemoryStream::NewWritableStream(0, true);
+    REQUIRE(stream->GetBuffer() == nullptr);
+
+    const byte data[] = { 9, 8 };
+    CHECK(stream->Write(data, 2) == 2);
+    CHECK(stream->GetLength() == 2);
+    REQUIRE(stream->GetBuffer() != nullptr);
+    CHECK(stream->GetBuffer()[0] == 9);
+    CHECK(stream->GetBuffer()[1] == 8);
 }
 
 TEST_CASE("MemoryStream::Write appends and grows the buffer")
