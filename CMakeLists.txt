@@ -82,7 +82,7 @@ if(BIBIM_LINUX)
     target_link_libraries(lua PUBLIC m)
 endif()
 
-# Bundled zlib 1.4 and libpng 1.6.9, built from the same sources as
+# Bundled zlib and libpng, built from the same sources as
 # build/vs20xx/zlib.vcxproj and libpng.vcxproj.
 set(BIBIM_ZLIB_DIR ${BIBIM_EXTLIBS}/zlib-1.4)
 add_library(zlib STATIC
@@ -108,7 +108,7 @@ if(BIBIM_LINUX)
     target_compile_definitions(zlib PRIVATE Z_HAVE_UNISTD_H)
 endif()
 
-set(BIBIM_LIBPNG_DIR ${BIBIM_EXTLIBS}/libpng-1.6.9)
+set(BIBIM_LIBPNG_DIR ${BIBIM_EXTLIBS}/libpng-1.6.59)
 add_library(png STATIC
     ${BIBIM_LIBPNG_DIR}/png.c
     ${BIBIM_LIBPNG_DIR}/pngerror.c
