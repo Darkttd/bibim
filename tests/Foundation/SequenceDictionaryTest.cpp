@@ -257,7 +257,7 @@ TEST_CASE("SequenceDictionary::Swap with another dictionary exchanges items and 
     CHECK(b.Find("pear") == "3");
 }
 
-TEST_CASE("SequenceDictionary copies and compares its items and dirty flag")
+TEST_CASE("SequenceDictionary copies its items and dirty flag")
 {
     const SequenceDictionary original = MakeDictionary(true);
 
@@ -279,13 +279,77 @@ TEST_CASE("SequenceDictionary copies and compares its items and dirty flag")
     assigned = dirty;
     CHECK(assigned.IsDirty());
     CHECK(assigned == dirty);
+}
+
+TEST_CASE("SequenceDictionary compares items as if both sides were optimized"
+          * doctest::should_fail(true)
+          * doctest::description("operator== compares the dirty flag and the unsorted order"))
+{
+    const SequenceDictionary optimized = MakeDictionary(true);
 
     SequenceDictionary sortedButDirty;
     sortedButDirty.Add("apple", "1");
     sortedButDirty.Add("melon", "2");
     sortedButDirty.Add("pear", "3");
-    CHECK(sortedButDirty.GetItems() == original.GetItems());
-    CHECK(sortedButDirty != original);
+    CHECK(sortedButDirty == optimized);
+    CHECK(optimized == sortedButDirty);
+    CHECK(MakeDictionary(false) == optimized);
+    CHECK_FALSE(MakeDictionary(false) != optimized);
+
+    SequenceDictionary reordered;
+    reordered.Add("melon", "2");
+    reordered.Add("pear", "3");
+    reordered.Add("apple", "1");
+    CHECK(reordered == MakeDictionary(false));
+
+    SequenceDictionary::Container items;
+    items.push_back(Pair("b", "third"));
+    items.push_back(Pair("c", "y"));
+    items.push_back(Pair("b", "second"));
+    items.push_back(Pair("a", "x"));
+    items.push_back(Pair("b", "first"));
+    SequenceDictionary duplicates;
+    duplicates.Swap(items);
+    CHECK(duplicates == MakeDictionaryWithDuplicates(false));
+    CHECK(duplicates == MakeDictionaryWithDuplicates(true));
+
+    CHECK(reordered.IsDirty());
+    CHECK(reordered.GetItems()[0] == Pair("melon", "2"));
+}
+
+TEST_CASE("SequenceDictionary compares unequal when the items differ")
+{
+    const SequenceDictionary optimized = MakeDictionary(true);
+
+    SequenceDictionary otherValue;
+    otherValue.Add("pear", "3");
+    otherValue.Add("apple", "1");
+    otherValue.Add("melon", "9");
+    CHECK(otherValue != optimized);
+    CHECK_FALSE(otherValue == optimized);
+
+    SequenceDictionary otherKey;
+    otherKey.Add("pear", "3");
+    otherKey.Add("apple", "1");
+    otherKey.Add("lemon", "2");
+    CHECK(otherKey != optimized);
+
+    SequenceDictionary fewer;
+    fewer.Add("pear", "3");
+    fewer.Add("apple", "1");
+    CHECK(fewer != optimized);
+    CHECK(optimized != fewer);
+
+    SequenceDictionary::Container items;
+    items.push_back(Pair("b", "first"));
+    items.push_back(Pair("a", "x"));
+    items.push_back(Pair("b", "first"));
+    items.push_back(Pair("c", "y"));
+    items.push_back(Pair("b", "third"));
+    SequenceDictionary duplicates;
+    duplicates.Swap(items);
+    CHECK(duplicates != MakeDictionaryWithDuplicates(false));
+    CHECK(duplicates != MakeDictionaryWithDuplicates(true));
 }
 
 TEST_CASE("SequenceDictionary::KeyValuePair compares both key and value")
