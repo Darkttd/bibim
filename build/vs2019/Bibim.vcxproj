@@ -48,7 +48,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>..\..\include;$(DXSDK_DIR)Include;..\..\extlibs\lua-5.2.4\src;..\..\extlibs\lua_tinker;..\..\extlibs\utf8_v2_3_4\source;..\..\extlibs\zlib-1.4;..\..\extlibs\libpng-1.6.9;..\..\extlibs\libpng-config;..\..\extlibs\jpeg-9a;..\..\extlibs\freetype-custom;..\..\extlibs\freetype-2.5.2\include;..\..\extlibs\curl-7.29.0\include;..\..\extlibs\rapidjson\include;..\..\extlibs\StormLib\src;..\..\extlibs\miniaudio;..\..\extlibs\gles_sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;$(DXSDK_DIR)Include;..\..\extlibs\lua-5.2.4\src;..\..\extlibs\lua_tinker;..\..\extlibs\utf8_v2_3_4\source;..\..\extlibs\zlib-1.4;..\..\extlibs\libpng-1.6.59;..\..\extlibs\libpng-config;..\..\extlibs\jpeg-9a;..\..\extlibs\freetype-custom;..\..\extlibs\freetype-2.5.2\include;..\..\extlibs\curl-7.29.0\include;..\..\extlibs\rapidjson\include;..\..\extlibs\StormLib\src;..\..\extlibs\miniaudio;..\..\extlibs\gles_sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <Optimization>Disabled</Optimization>
@@ -68,7 +68,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalOptions>/MP /utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>..\..\include;$(DXSDK_DIR)Include;..\..\extlibs\lua-5.2.4\src;..\..\extlibs\lua_tinker;..\..\extlibs\utf8_v2_3_4\source;..\..\extlibs\zlib-1.4;..\..\extlibs\libpng-1.6.9;..\..\extlibs\libpng-config;..\..\extlibs\jpeg-9a;..\..\extlibs\freetype-custom;..\..\extlibs\freetype-2.5.2\include;..\..\extlibs\curl-7.29.0\include;..\..\extlibs\rapidjson\include;..\..\extlibs\StormLib\src;..\..\extlibs\miniaudio;..\..\extlibs\gles_sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;$(DXSDK_DIR)Include;..\..\extlibs\lua-5.2.4\src;..\..\extlibs\lua_tinker;..\..\extlibs\utf8_v2_3_4\source;..\..\extlibs\zlib-1.4;..\..\extlibs\libpng-1.6.59;..\..\extlibs\libpng-config;..\..\extlibs\jpeg-9a;..\..\extlibs\freetype-custom;..\..\extlibs\freetype-2.5.2\include;..\..\extlibs\curl-7.29.0\include;..\..\extlibs\rapidjson\include;..\..\extlibs\StormLib\src;..\..\extlibs\miniaudio;..\..\extlibs\gles_sdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4458;%(DisableSpecificWarnings)</DisableSpecificWarnings>
