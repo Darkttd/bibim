@@ -281,9 +281,7 @@ TEST_CASE("SequenceDictionary copies its items and dirty flag")
     CHECK(assigned == dirty);
 }
 
-TEST_CASE("SequenceDictionary compares items as if both sides were optimized"
-          * doctest::should_fail(true)
-          * doctest::description("operator== compares the dirty flag and the unsorted order"))
+TEST_CASE("SequenceDictionary compares items as if both sides were optimized")
 {
     const SequenceDictionary optimized = MakeDictionary(true);
 
@@ -312,6 +310,10 @@ TEST_CASE("SequenceDictionary compares items as if both sides were optimized"
     duplicates.Swap(items);
     CHECK(duplicates == MakeDictionaryWithDuplicates(false));
     CHECK(duplicates == MakeDictionaryWithDuplicates(true));
+    duplicates.Optimize();
+    CHECK(duplicates == MakeDictionaryWithDuplicates(true));
+
+    CHECK(SequenceDictionary() == SequenceDictionary());
 
     CHECK(reordered.IsDirty());
     CHECK(reordered.GetItems()[0] == Pair("melon", "2"));
