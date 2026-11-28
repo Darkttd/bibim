@@ -26,6 +26,9 @@ add_executable(BibimTests
     Foundation/Vector4Test.cpp
     Graphics/ImageReadTest.cpp
     IO/BinaryReaderWriterTest.cpp
+    IO/DumpStreamTest.cpp
+    IO/ForkStreamTest.cpp
+    IO/MemoryStreamTest.cpp
     Lua/LuaTableTest.cpp
     Module/GameModuleFactoryTest.cpp
     Module/GameModuleTreeTest.cpp
