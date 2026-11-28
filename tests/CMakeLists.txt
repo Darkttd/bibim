@@ -14,6 +14,7 @@ add_executable(BibimTests
     Foundation/AnyTest.cpp
     Foundation/ColorTest.cpp
     Foundation/ConfigTest.cpp
+    Foundation/DateTimeTest.cpp
     Foundation/Geom2DTest.cpp
     Foundation/MathTest.cpp
     Foundation/Matrix4Test.cpp
