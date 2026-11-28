@@ -158,9 +158,7 @@ TEST_CASE("MemoryStream::Seek past the end stops at the end")
     CHECK(stream->Seek(1, Stream::FromCurrent) == 3);
 }
 
-TEST_CASE("MemoryStream::Seek before the beginning stops at the beginning"
-          * doctest::should_fail(true)
-          * doctest::description("Seek clamps only at the end, so the position becomes negative"))
+TEST_CASE("MemoryStream::Seek before the beginning stops at the beginning")
 {
     const byte data[] = { 1, 2, 3 };
     MemoryStreamPtr stream = MemoryStream::NewReadableStream(data, 3);

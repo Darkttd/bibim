@@ -103,7 +103,7 @@ namespace Bibim
                 break;
         }
 
-        position = Math::Min(newPosition, length);
+        position = Math::Clamp(newPosition, 0, length);
 
         return position;
     }
