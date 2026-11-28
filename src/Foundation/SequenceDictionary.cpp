@@ -13,6 +13,18 @@ namespace Bibim
         }
     };
 
+    struct CompareKeyValuePredicate
+    {
+        bool operator () (const SequenceDictionary::KeyValuePair& a, const SequenceDictionary::KeyValuePair& b) const
+        {
+            const int keyOrder = a.Key.Compare(b.Key);
+            if (keyOrder != 0)
+                return keyOrder < 0;
+            else
+                return a.Value.Compare(b.Value) < 0;
+        }
+    };
+
     SequenceDictionary::SequenceDictionary()
         : isDirty(false)
     {
@@ -188,7 +200,16 @@ namespace Bibim
 
     bool SequenceDictionary::operator == (const SequenceDictionary& right) const
     {
-        return items == right.items && isDirty == right.isDirty;
+        if (items.size() != right.items.size())
+            return false;
+        if (items == right.items)
+            return true;
+
+        Container sortedItems(items);
+        Container sortedRightItems(right.items);
+        std::sort(sortedItems.begin(), sortedItems.end(), CompareKeyValuePredicate());
+        std::sort(sortedRightItems.begin(), sortedRightItems.end(), CompareKeyValuePredicate());
+        return sortedItems == sortedRightItems;
     }
 
     bool SequenceDictionary::operator != (const SequenceDictionary& right) const
